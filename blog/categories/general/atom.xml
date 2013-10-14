@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: General | Sample & Hold]]></title>
+  <link href="http://Sample-Hold.github.io/blog/categories/general/atom.xml" rel="self"/>
+  <link href="http://Sample-Hold.github.io/"/>
+  <updated>2013-10-14T15:07:48+02:00</updated>
+  <id>http://Sample-Hold.github.io/</id>
+  <author>
+    <name><![CDATA[Frederic Ghilini]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Greetings!]]></title>
+    <link href="http://Sample-Hold.github.io/2011/11/21/greetings/"/>
+    <updated>2011-11-21T15:46:12+01:00</updated>
+    <id>http://Sample-Hold.github.io/2011/11/21/greetings</id>
+    <content type="html"><![CDATA[<p>Whether you have been thrown out here by Google or came deliberately&hellip; welcome! I&rsquo;ll write a couple of audio tutorials in the next articles. The sole things you need are a OS X Lion and Xcode 4.2. Later, we may study other SDK/platforms like Steinberg VST and Windows. Have a nice reading !</p>
+]]></content>
+  </entry>
+  
+</feed>

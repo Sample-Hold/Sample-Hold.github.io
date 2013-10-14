@@ -1,0 +1,465 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Getting started with Audio Units on OS X Lion and XCode 4.2.1 - Sample & Hold</title>
+  <meta name="author" content="Frederic Ghilini">
+
+  
+  <meta name="description" content="Apple usually takes care of their developers community.  Whereas they lately delivered an impressive update of their Xcode IDE with tons of new &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Sample-Hold.github.io/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Sample & Hold" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Sample & Hold</a></h1>
+  
+    <h2>Ideas, thoughts and tutorials on audio programming</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Sample-Hold.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Getting Started With Audio Units on OS X Lion and XCode 4.2.1</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-23T15:59:23+01:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="http://guileboard.files.wordpress.com/2011/11/home-ios-sdk.png"><img src="http://guileboard.files.wordpress.com/2011/11/home-ios-sdk.png" alt="" /></a>Apple usually takes care of their developers community.  Whereas they lately delivered an impressive update of their Xcode IDE with tons of new features (read a <a href="http://pilky.me/view/28">cool  review here</a>), they surprisingly removed the project template for creating Audio Units. Nevertheless, let&rsquo;s see how to create a new unit from scratch&hellip;</p>
+
+<!-- more -->
+
+
+<p>Of course, the Core Audio SDK is still located in /Developer/Extras/CoreAudio and it&rsquo;s still possible to develop Audio Units with XCode 4.2. So you have two solutions :</p>
+
+<ul>
+<li><p>either you grab a sample code from Apple documentation (like &ldquo;FilterDemo&rdquo; for instance) and migrate it to suit the latest changes done in OS X Lion for the Core Audio SDK (there is an <a href="http://developer.apple.com/library/mac/#technotes/tn2276/_index.html#//apple_ref/doc/uid/DTS40011031">official technical note to read here</a>),</p></li>
+<li><p>or you can learn, by following this tutorial, how to build you audio unit template from scratch in only a few steps !</p></li>
+</ul>
+
+
+<p><strong>EDIT for XCode 4.3.2 users: You may have noticed that starting from version 4.3.2, XCode is now a bundled app installed in /Applications. There is no more /Developer folder and since you are likely to use the CoreAudio API, you absolutely need to dowload the optional package named &ldquo;Audio Tools for XCode&rdquo; from the Apple website. Please click on XCode > Open Developer Tool > More Developer Tools&hellip; to reach the dowload page. And of course, you&rsquo;ll have to rewrite by yourself some links provided in this tutorial.</strong></p>
+
+<h3>Create the project</h3>
+
+<p>You need to create a new project using the template &ldquo;Mac OS X > Framework &amp; Library >Bundle&rdquo;.</p>
+
+<p>Indeed, an Audio Unit is basically a bundle with a different file name extension &ldquo;.component&rdquo;. When asked, select &ldquo;Cocoa&rdquo; as framework, even if none of the proposed choices suit our needs for now. We&rsquo;ll clean those unwanted libraries later.</p>
+
+<h3>Organize your files</h3>
+
+<p>Your project must contain at least :</p>
+
+<ul>
+<li><p>one group for storing all C++ sources files, including your created classes and some sources coming from the CoreAudio SDK you will necessarily use,</p></li>
+<li><p>one group for storing your resources, including a &ldquo;property list&rdquo; manifest  that describes your audio unit,</p></li>
+<li><p>possibly one additional folder for C++ &ndash; or Objective-C sources &ndash; to create a GUI for your unit. However, for sake of simplicity, we&rsquo;ll discuss this in another tutorial. Leave it for now.</p></li>
+</ul>
+
+
+<p>By the way, don&rsquo;t neglect the &ldquo;Identity&rdquo; pane displayed when you open the rightmost view. You&rsquo;ll find two fields, &ldquo;Location&rdquo; and &ldquo;Full Path&rdquo; that can help you cleaning the mess if you want to add / delete a lot of files, or create new groups that &ldquo;map&rdquo; to existing folders in your project directory.</p>
+
+<h3><a href="http://guileboard.files.wordpress.com/2011/11/identity.png"><img src="http://guileboard.files.wordpress.com/2011/11/identity.png" alt="" /></a></h3>
+
+<h3>Tune your deployment target</h3>
+
+<p>Click on the project&rsquo;s name to display the available deployment targets.</p>
+
+<p>You can reuse the default target created by Xcode. The first tab &ldquo;Info&rdquo; shows the content of the property list file located in your resources folder (if not, check the path entered in the tab &ldquo;build settings&rdquo;, under the key &ldquo;Info.plist File&rdquo;). There is only one piece of information missing here : you must add a new Dictionary called &ldquo;AudioComponent&rdquo; containing at least  7 strings :</p>
+
+<ul>
+<li><p><strong>manufacturer</strong>: your name</p></li>
+<li><p><strong>factoryFunction</strong>: the classname of your factory, for this tutorial type &ldquo;MyTestedPluginFactory&rdquo;</p></li>
+<li><p><strong>subtype</strong>: a 4-alphanumeric code categorizing your unit, for instance &ldquo;TEST&rdquo;</p></li>
+<li><p><strong>description</strong>: a brief description</p></li>
+<li><p><strong>type</strong>: a 4-alphanumeric code defining your unit type. Please consult SDK documentation to get all the available types : for this tutorial, we are creating an audio effect, so type &ldquo;aufx&rdquo;</p></li>
+<li><p><strong>name</strong>: your plugin&rsquo;s name</p></li>
+<li><p><strong>version</strong>: an hexadecimal number defining the version number of the unit. The magic here wants you to enter OxMMMMmmHH, where MMMM is major version, mm is minor version and HH is hotfix number. But if, like me, you want to test your updated plugin every time you compile a new version, just enter &ldquo;0xFFFFFFFF&rdquo;.</p></li>
+</ul>
+
+
+<p><a href="http://guileboard.files.wordpress.com/2011/11/info.png"><img src="http://guileboard.files.wordpress.com/2011/11/info.png" alt="" /></a></p>
+
+<p>Next, move ahead to the tab &ldquo;Build settings&rdquo;. Toggle the filter from &ldquo;Basic&rdquo; to &ldquo;All&rdquo; and proceed to a few changes on values :</p>
+
+<ul>
+<li><p>Architectures: I suggest creating a standard 32/64-bit Intel binary</p></li>
+<li><p>Build active architecture only: choose &ldquo;no&rdquo;</p></li>
+<li><p>Compiler for C/C++/Objective-C: this is not mandatory, but if you wish to use the new compiler LLVM 3.0, help yourself</p></li>
+<li><p>Linking > Other linker flags: ensure &ldquo;-bundle&rdquo; is specified</p></li>
+<li><p>Wrapper extension: change this extension and write &ldquo;component&rdquo;</p></li>
+<li><p>Rez Search path: You need two values here</p>
+
+<ul>
+<li><p>/Developer/Extras/CoreAudio/AudioUnits/AUPublic/AUBase</p></li>
+<li><p>/System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers</p></li>
+</ul>
+</li>
+<li><p>Precompile prefix header: choose &ldquo;yes&rdquo;. I suggest using the one provided by the Xcode template.</p></li>
+</ul>
+
+
+<p>There will be one more key to adjust, but we can&rsquo;t see it until we have modified the &ldquo;Build phases&rdquo; first. So let&rsquo;s move to this third tab.</p>
+
+<h3>Refactor the build phases</h3>
+
+<p>Honestly, I find the XCode build system absolutely wonderful. Everything you need is to add a few build phases then XCode will compile and link your binary without asking too much questions.</p>
+
+<p>Here are the build phases to add for our Audio Unit:</p>
+
+<ol>
+<li><p> Copy Bundle Resources: this may already exist. You will necessarily include in this phase the Info.PList we tweaked earlier.</p></li>
+<li><p> Copy Headers: necessary to compile you C++ header files. We&rsquo;ll add files to this phase later.</p></li>
+<li><p> Compile Sources: necessary to compile you C++ source code. Again, we&rsquo;ll add files to this phase later.</p></li>
+<li><p> Link Binary with libraries: do your shopping but add at least three libraries : &ldquo;CoreServices.framework&rdquo;, &ldquo;AudioToolbox.framework&rdquo; and &ldquo;AudioUnit.framework&rdquo;. Remove everything else (even &ldquo;Cocoa&rdquo;).</p></li>
+<li><p> Build Carbon Resources: it looks like you won&rsquo;t see this build phase until you create a file named &ldquo;MyTestedPlugin.r&rdquo; in your project (preferably in your &ldquo;Sources&rdquo;  group). Create it, then go back to your build phases, then you will be able to add this phase and include the file above.</p></li>
+</ol>
+
+
+<p>There are a few additional build phases we could discuss, but I reserve them for an upcoming tutorial.</p>
+
+<p>Wait&hellip; you still need to go back to the &ldquo;Build settings&rdquo; tab and change the remaining key &ldquo;Other Rez Flag&rdquo;, by entering this:</p>
+
+<pre><code>-d i386_$i386 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I /Developer/Extras/CoreAudio/AudioUnits/AUPublic/AUBase
+</code></pre>
+
+<p>Here we are.</p>
+
+<h3>Fine-tune your precompiled header</h3>
+
+<p>Here is the minimal precompiled header you would write for your Audio Unit :</p>
+
+<pre><code>#if !defined(__COREAUDIO_USE_FLAT_INCLUDES__)
+#include &lt;CoreAudio/CoreAudioTypes.h&gt;
+#include &lt;CoreFoundation/CoreFoundation.h&gt;
+#else
+#include &lt;CoreAudioTypes.h&gt;
+#include &lt;CoreFoundation.h&gt;
+#endif
+
+#include "AUEffectBase.h"
+#include &lt;AudioToolbox/AudioUnitUtilities.h&gt;
+</code></pre>
+
+<h3>Add CoreAudio files to your project</h3>
+
+<p>Right-click on your &ldquo;Sources&rdquo; group and choose &ldquo;Add files to MyTestedPlugin&hellip;&rdquo;.</p>
+
+<p>Move to /Developer/Extras/CoreAudio.</p>
+
+<p>I&rsquo;ll give you a precious advice here: before you click on &ldquo;Add&rdquo;, ensure that &ldquo;Add to Targets: MyTestedPlugin&rdquo; and &ldquo;Create groups for any added folders&rdquo; are <strong>selected</strong>.</p>
+
+<p>You will find below the list of the folders/files you absolutely need to add to your project :</p>
+
+<ul>
+<li><p>AudioUnits/AUPublic/AUBase</p></li>
+<li><p>AudioUnits/AUPublic/OtherBases/AUEffectBase.*</p></li>
+<li><p>AudioUnits/AUPublic/Utility</p></li>
+<li><p>PublicUtility/CAVectorUnit.*</p></li>
+<li><p>PublicUtility/CAAudioChannelLayout.*</p></li>
+<li><p>PublicUtility/CAHostTimeBase.*</p></li>
+<li><p>PublicUtility/CAStreamBasicDescription.*</p></li>
+<li><p>PublicUtility/CADebugMacros.*</p></li>
+<li><p>PublicUtility/CAException.*</p></li>
+<li><p>PublicUtility/CAXException.*</p></li>
+<li><p>PublicUtility/CAAutoDisposer.h</p></li>
+<li><p>PublicUtility/CAMath.h</p></li>
+<li><p>PublicUtility/CAThreadSafeList.*</p></li>
+</ul>
+
+
+<p>Normally, all the .h and .cpp files have been added automatically to the &ldquo;Copy headers&rdquo; and &ldquo;Compile sources&rdquo; build phases. If not, you&rsquo;ll have to add them manually by editing your build phases.</p>
+
+<h3>It&rsquo;s time to code !</h3>
+
+<p>You may create at least one header file and one cpp file for your custom classes. For the purpose of our tutorial, here are the minimalistic classes you need to copy&#8217;n&#8217;paste:</p>
+
+<pre><code>class MyTestedPluginKernel : public AUKernelBase {
+public:
+    MyTestedPluginKernel(AUEffectBase * inAudioUnit);
+    virtual void Process(Float32 const* inSourceP,
+                         Float32 * inDestP,
+                         UInt32 inFramesToProcess,
+                         UInt32 inNumChannels,
+                         bool &amp; ioSilence);
+};
+
+class MyTestedPlugin : public AUEffectBase {
+public:
+    MyTestedPlugin(AudioUnit component);
+    virtual OSStatus Version() { return 0xFFFFFF; }
+    virtual OSStatus Initialize();
+    virtual AUKernelBase * NewKernel() { return new MyTestedPluginKernel(this); }
+};
+
+AUDIOCOMPONENT_ENTRY(AUBaseFactory, MyTestedPlugin)
+
+MyTestedPluginKernel::MyTestedPluginKernel(AUEffectBase * inAudioUnit ) : AUKernelBase(inAudioUnit) {}
+
+void MyTestedPluginKernel::Process(Float32 const* inSourceP, Float32 * inDestP, UInt32 inFramesToProcess, UInt32 inNumChannels, bool &amp; ioSilence) {
+//This code will pass-thru the audio data.
+//This is usually where you want to process data to produce an effect.
+}
+
+MyTestedPlugin::MyTestedPlugin(AudioUnit component) : AUEffectBase(component) {}
+
+OSStatus MyTestedPlugin::Initialize() {
+OSStatus result = AUEffectBase::Initialize();
+if(result == noErr ) {
+   // do something
+}
+return result;
+}
+</code></pre>
+
+<p>You ought to not omit the macro AUDIOCOMPONENT_ENTRY, since it&rsquo;s responsible for creating the stub classes MyTestedPluginEntry and MytestedPluginFactory as entry points for your Audio Unit.</p>
+
+<h3>Populate Carbon resource file</h3>
+
+<p>Remember the file &ldquo;MyTestedPlugin.r&rdquo; you created earlier ? It&rsquo;s time to fill it with standard content :</p>
+
+<pre><code>#include &lt;AudioUnit/AudioUnit.r&gt;
+
+#define RES_ID    1000
+#define COMP_TYPE 'aufx'
+#define COMP_SUBTYPE 'TEST'
+#define COMP_MANUF 'FRED'
+#define VERSION 0xFFFFFFFF
+#define NAME "Test Plugin"
+#define DESCRIPTION "description"
+#define ENTRY_POINT "MyTestedPluginEntry"
+
+#include "AUResources.r"
+</code></pre>
+
+<p>This step remains to keep backward compatibility with previous versions of CoreAudio SDK. You may  copy and past the information you wrote in the Info.PList.</p>
+
+<p>I suggest to try compiling your project after you have finished this step. If you get any &ldquo;Rez error&rdquo;, you should check that in your build phase &ldquo;Build Carbon Resources&rdquo;, the file above is the <strong>only</strong> file added to the task.</p>
+
+<h3>Export Symbols</h3>
+
+<p>There is one last important step you need to do : you must configure the linker to indicate that two symbols, &ldquo;MyTestedPluginFactory&rdquo; and &ldquo;MyTestedPluginEntry&rdquo; , are available for use in your component.</p>
+
+<p>Create a file MyTestedPluginEntry.exp that contains :</p>
+
+<pre><code>_MyTestedPluginFactory
+_MyTestedPluginEntry
+</code></pre>
+
+<p>Then go to your project build settings and give the path to this file into the key &ldquo;Exported Symbols File&rdquo;.</p>
+
+<h3>Compile, test and go!</h3>
+
+<p>You should be able to compile you Audio Unit  now, but before we go we have to test using <em>auval </em>:</p>
+
+<ol>
+<li><p> First, copy your compiled component into ~/Library/Audio/Plug-Ins/Components</p></li>
+<li><p> Secondly, open Terminal and type :</p>
+
+<p>auval -v aufx TEST FRED</p></li>
+</ol>
+
+
+<p>In case you&rsquo;ve made a 64 bits plugin, you should rather type :</p>
+
+<pre><code>auval -64 -v aufx TEST FRED
+</code></pre>
+
+<p>Auval is processing a bunch of tests to validate your Audio Unit. Since it currently does nothing, you should get the PASS mention and see it in you favourite sequencer as an audio effect.</p>
+
+<h3>Conclusion</h3>
+
+<p>I agree that this tutorial isn&rsquo;t the funniest you&rsquo;ve ever read, but it was necessary to setup our template to move on more interesting things in our next tutorials. We&rsquo;ll soon see how we can make some fun out of this Xcode template.</p>
+
+<p><a href="https://github.com/Sample-Hold/SimpleEmptyAudioEffect">Click here to download the sources for Xcode 4.2.1</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">fredguile</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-23T15:59:23+01:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/vst-plugins-slash-audio-units/'>VST Plugins / Audio Units</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://Sample-Hold.github.io/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1/" data-via="" data-counturl="http://Sample-Hold.github.io/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/11/21/greetings/" title="Previous Post: Greetings!">&laquo; Greetings!</a>
+      
+      
+        <a class="basic-alignment right" href="/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/" title="Next Post: Create a FFT Analyzer part I: prerequisites, concerns and setup">Create a FFT Analyzer part I: prerequisites, concerns and setup &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/">Make Fun of Your Launchpad With LaunchPlay VST Plugin</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/">Create a FFT Analyzer Part v: Final Thoughts, Sources for XCode 4.2 & Feedback</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/">Create a FFT Analyzer Part IV: Debugging Our Audio Unit With AU Lab</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/">Create a FFT Analyzer Part III: Building UI With Cocoa and Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/">Create a FFT Analyzer Part II: Designing Our Spectral Processor</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Frederic Ghilini -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

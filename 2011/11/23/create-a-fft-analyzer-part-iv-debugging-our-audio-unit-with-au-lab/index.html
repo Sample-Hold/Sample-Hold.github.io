@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Create a FFT Analyzer part IV: debugging our Audio Unit with AU Lab - Sample & Hold</title>
+  <meta name="author" content="Frederic Ghilini">
+
+  
+  <meta name="description" content="Debugging an Audio Unit is not as straightforward as debugging a Cocoa application, because your freshly coded component doesn&rsquo;t show up until &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Sample & Hold" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Sample & Hold</a></h1>
+  
+    <h2>Ideas, thoughts and tutorials on audio programming</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Sample-Hold.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Create a FFT Analyzer Part IV: Debugging Our Audio Unit With AU Lab</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-23T16:33:15+01:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="http://guileboard.files.wordpress.com/2011/11/aulab2.png"><img src="http://guileboard.files.wordpress.com/2011/11/aulab2.png" alt="" /></a>Debugging an Audio Unit is not as straightforward as debugging a Cocoa application, because your freshly coded component doesn&rsquo;t show up until you insert it in a bus of your favorite DAW.</p>
+
+<p>In this article, we review some methods for automating your debugging sessions using XCode 4. Concerning the DAW, our preference goes for a free host available in the CoreAudio SDK: AU Lab. In only a few steps, you will be able to setup some breakpoints and look into all potential devilish bugs as if you were debugging a simple Cocoa application.</p>
+
+<!-- more -->
+
+
+<h3>Prerequisites</h3>
+
+<p>We assume that you&rsquo;ve downloaded <a href="http://github.com/fredguile/SimpleSpectrumAnalyzer">the sources of this tutorial on GitHub</a>, and that you have successfully built your component with the default debug configuration.</p>
+
+<h3>Manage schemes</h3>
+
+<p>Xcode 4 provides a classic workflow for testing and packaging your component:</p>
+
+<ol>
+<li><p> Build your component</p></li>
+<li><p> Run it using debug configuration</p></li>
+<li><p> Test it using debug configuration</p></li>
+<li><p> Profile it using release configuration</p></li>
+<li><p> Analyze your code for possible tweaks</p></li>
+<li><p> Archive a delivery for distributing</p></li>
+</ol>
+
+
+<p>This basically suits our needs. The only thing we have to do is launching &ldquo;AU Lab&rdquo; on step 2:</p>
+
+<ul>
+<li><p>Click on your target &ldquo;SpectrumAU&rdquo; in the top left area of XCode</p></li>
+<li><p>Choose &ldquo;Edit scheme&hellip;&rdquo;</p></li>
+<li><p>Select step &ldquo;Run &ndash; Debug&rdquo;</p></li>
+<li><p>In the &ldquo;Executable&rdquo; field, choose &ldquo;Other&hellip;&rdquo; and browse you Mac in order to find &ldquo;/Developer/Applications/Audio/AU Lab&rdquo;</p></li>
+<li><p>Save scheme</p></li>
+</ul>
+
+
+<p><a href="http://guileboard.files.wordpress.com/2011/11/xcode-edit-scheme.png"><img src="http://guileboard.files.wordpress.com/2011/11/xcode-edit-scheme.png?w=300" alt="" /></a></p>
+
+<p>Now, AU Lab will automatically launch each time you hit &ldquo;Run&rdquo;.</p>
+
+<p>Still, your Audio Unit doesn&rsquo;t show up, because we haven&rsquo;t copied the file <em>SimpleSpectrumAU.component</em> into your audio plugins folder. Since we don&rsquo;t want to do it each time we compile a new version, we ought to tweak a bit our build settings to automate this.</p>
+
+<h3>Tweaking build settings</h3>
+
+<p>There are a couple of build settings that may help us automating each deployment.</p>
+
+<p>To understand how they work, let&rsquo;s make a few changes as a first try:</p>
+
+<ul>
+<li><p>deployment > Deployment Location: choose &ldquo;Yes&rdquo;</p></li>
+<li><p>deployment > Deployment Postprocessing: choose &ldquo;Yes&rdquo;</p></li>
+<li><p>deployment > Installation Build Products Location: type &ldquo;/&rdquo;</p></li>
+<li><p>deployment > Installation Directory: write &ldquo;$(USER_LIBRARY_DIR)/Audio/Plug-Ins/Components/&rdquo;</p></li>
+</ul>
+
+
+<p>As a result, your audio unit is copied into your audio plugins folder each time you build! So, in one-pass, we successively build our audio unit, deploy it to the proper folder then run AU Lab to start a debugging session.</p>
+
+<p>But I still get an annoying issue on my side (perhaps you won&rsquo;t get it) : <strong>breakpoints don&rsquo;t break.</strong> I suspect Xcode not doing the things we want. When I look into the &ldquo;Debug&rdquo; folder, the compiled component has turned into an alias, pointing to a binary now located in $(USER_LIBRARY_DIR)/Audio/Plug-Ins/Components/.</p>
+
+<p><a href="http://guileboard.files.wordpress.com/2011/11/xcode-created-an-alias.png"><img src="http://guileboard.files.wordpress.com/2011/11/xcode-created-an-alias.png" alt="" /></a></p>
+
+<p>Actually, I don&rsquo;t think the build settings we mentioned above are a viable solution for the &ldquo;debug&rdquo; configuration. However, we could keep them for the next stages of our workflow, so I suggest changing the build setting in that way:</p>
+
+<ul>
+<li><p>deployment > Deployment Location:</p>
+
+<ul>
+<li><p>choose &ldquo;No&rdquo; for debug</p></li>
+<li><p>choose &ldquo;Yes&rdquo; for release</p></li>
+</ul>
+</li>
+<li><p>deployment > Deployment Postprocessing:</p>
+
+<ul>
+<li><p>choose &ldquo;No&rdquo; for debug</p></li>
+<li><p>choose &ldquo;Yes&rdquo; for release</p></li>
+</ul>
+</li>
+<li><p>deployment > Installation Build Products Location:</p>
+
+<ul>
+<li><p>write &ldquo;/tmp/$(PROJECT_NAME).dst&rdquo; for debug</p></li>
+<li><p>write &ldquo;/&rdquo; for release</p></li>
+</ul>
+</li>
+<li><p>deployment > Installation Directory: write &ldquo;$(USER_LIBRARY_DIR)/Audio/Plug-Ins/Components/&rdquo;</p></li>
+</ul>
+
+
+<p>There is another trick we could try in order to automate our deployment in debug mode:</p>
+
+<ul>
+<li><p>Open the &ldquo;Build phases&rdquo;</p></li>
+<li><p>Add a &ldquo;Copy files&rdquo; phase as the last build phase</p></li>
+<li><p>Specify an &ldquo;absolute path&rdquo; as destination: $(USER_LIBRARY_DIR)/Audio/Plug-Ins/Components/</p></li>
+<li><p>Add the file &ldquo;SimpleSpectrumAnalyzer.component&rdquo; to the list</p></li>
+</ul>
+
+
+<p>Now everything should be okay and our breakpoints will correctly <strong>break</strong>. The only drawback of this method is that you&rsquo;ll have to cancel this build phase before you move into the next stages of you workflow. You must delete when I build your &ldquo;release&rdquo; configuration, else XCode will alert you of a possible loop when executing your deployment workflow.</p>
+
+<h3>Still&hellip; no sound ?</h3>
+
+<p>First off, don&rsquo;t forget to start the AU Lab engine if you want your Audio Unit to process any sample. You can do this by clicking on the label &ldquo;Audio engine stopped&rdquo; on the lowest part of AU Lab&rsquo;s mixer.</p>
+
+<p><a href="http://guileboard.files.wordpress.com/2011/11/smartelectronix.png"><img src="http://guileboard.files.wordpress.com/2011/11/smartelectronix.png" alt="" /></a>Next, I recommend downloading the MDA AU plug-ins from <a href="http://mda.smartelectronix.com/effects.htm">Smartelectronix&rsquo;s website</a> in order to test our Spectrum Analyzer with a simple sinusoid as input signal. After you have installed it, you should be able to use the &ldquo;TestTone&rdquo; plug-in and generate a pure sine signal to test our spectrum analyzer:</p>
+
+<p>[caption id=&ldquo;attachment_225&rdquo; align=&ldquo;aligncenter&rdquo; width=&ldquo;400&rdquo; caption=&ldquo;Blocksize is 1024 samples&rdquo;]<a href="http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-1024-samples.png"><img src="http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-1024-samples.png" alt="" /></a>[/caption]</p>
+
+<p>By the way, we shall notice how inaccurate is our analyzer when testing a low-frequency sine-wave with 1024 samples as FFT Size. We can correct that by raising our FFT size : right-click on the graph and choose &ldquo;2048&rdquo; as block size.</p>
+
+<p>[caption id=&ldquo;attachment_226&rdquo; align=&ldquo;aligncenter&rdquo; width=&ldquo;400&rdquo; caption=&ldquo;With 2048 samples&rdquo;]<a href="http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-2048-samples.png"><img src="http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-2048-samples.png" alt="" /></a>[/caption]</p>
+
+<p>And I&rsquo;m still looking for a way to modulate the phase of this sine wave, in order to test &ldquo;frequency leakage&rdquo; and measure efficiency of our different window functions. You you have a trick for this with MDA AU or any other plug-in, please don&rsquo;t hesitate to leave me a comment !</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">fredguile</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-23T16:33:15+01:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/vst-plugins-slash-audio-units/'>VST Plugins / Audio Units</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/" data-via="" data-counturl="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/" title="Previous Post: Create a FFT Analyzer part III: building UI with Cocoa and Objective-C">&laquo; Create a FFT Analyzer part III: building UI with Cocoa and Objective-C</a>
+      
+      
+        <a class="basic-alignment right" href="/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/" title="Next Post: Create a FFT Analyzer part V: final thoughts, sources for XCode 4.2 & feedback">Create a FFT Analyzer part V: final thoughts, sources for XCode 4.2 & feedback &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/">Make Fun of Your Launchpad With LaunchPlay VST Plugin</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/">Create a FFT Analyzer Part v: Final Thoughts, Sources for XCode 4.2 & Feedback</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/">Create a FFT Analyzer Part IV: Debugging Our Audio Unit With AU Lab</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/">Create a FFT Analyzer Part III: Building UI With Cocoa and Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/">Create a FFT Analyzer Part II: Designing Our Spectral Processor</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Frederic Ghilini -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

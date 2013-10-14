@@ -1,6 +1,56 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
+        <loc>http://Sample-Hold.github.io/2011/11/21/greetings/</loc>
+        <lastmod>2013-10-10T10:56:45+02:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://Sample-Hold.github.io/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1/
+        </loc>
+        <lastmod>2013-10-10T10:56:45+02:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/
+        </loc>
+        <lastmod>2013-10-10T10:56:45+02:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/
+        </loc>
+        <lastmod>2013-10-10T10:56:45+02:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/
+        </loc>
+        <lastmod>2013-10-10T10:56:45+02:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/
+        </loc>
+        <lastmod>2013-10-10T10:56:45+02:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/
+        </loc>
+        <lastmod>2013-10-10T10:56:45+02:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://Sample-Hold.github.io/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/
+        </loc>
+        <lastmod>2013-10-10T10:56:45+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://Sample-Hold.github.io/about/</loc>
+        <lastmod>2013-10-10T10:56:45+02:00</lastmod>
+    </url>
+    <url>
         <loc>http://Sample-Hold.github.io/blog/archives/</loc>
         <lastmod>2013-10-10T10:56:45+02:00</lastmod>
     </url>
@@ -9,7 +59,19 @@
         <lastmod>2013-10-10T10:56:45+02:00</lastmod>
     </url>
     <url>
+        <loc>http://Sample-Hold.github.io/projects/</loc>
+        <lastmod>2013-10-14T15:07:48+02:00</lastmod>
+    </url>
+    <url>
         <loc>http://Sample-Hold.github.io/robots.txt</loc>
+        <lastmod>2013-10-10T10:56:45+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://Sample-Hold.github.io/tutorials-index/</loc>
+        <lastmod>2013-10-14T15:05:26+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://Sample-Hold.github.io/useful-resources/</loc>
         <lastmod>2013-10-10T10:56:45+02:00</lastmod>
     </url>
 </urlset>

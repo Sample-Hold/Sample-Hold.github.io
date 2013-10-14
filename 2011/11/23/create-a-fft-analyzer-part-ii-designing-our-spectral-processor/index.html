@@ -1,0 +1,384 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Create a FFT Analyzer part II: designing our spectral processor - Sample & Hold</title>
+  <meta name="author" content="Frederic Ghilini">
+
+  
+  <meta name="description" content="We briefly introduced the FFT part of the Accelerated Framework in Part I of this tutorial. We are now going to focus on the vDSP library and create &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Sample & Hold" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Sample & Hold</a></h1>
+  
+    <h2>Ideas, thoughts and tutorials on audio programming</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Sample-Hold.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Create a FFT Analyzer Part II: Designing Our Spectral Processor</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-23T16:26:47+01:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="http://guileboard.files.wordpress.com/2011/11/images.jpeg"><img src="http://guileboard.files.wordpress.com/2011/11/images.jpeg" alt="" /></a>We briefly introduced the FFT part of the Accelerated Framework in Part I of this tutorial.</p>
+
+<p>We are now going to focus on the vDSP library and create the C++ class responsible for doing the spectral analysis work of our input samples. We want to keep it simple, with a few public methods, however we would like to perform FFT analysis on different frame sizes. So, one of our challenges is to design a circular buffer as member variable, which is a common pattern in audio programming.</p>
+
+<!-- more -->
+
+
+<h3>Xcode Setup</h3>
+
+<p>In case you don&rsquo;t have your development environment initialized with a clean template for building audio units, I suggest you <a href="http://github.com/fredguile/SimpleSpectrumAnalyzer">download the source code of this tutorial</a>, then open the C++ class called <em>SimpleSpectrumProcessor.h</em> located in the &ldquo;Sources/SpectrumAU&rdquo; folder.</p>
+
+<p>First of all, if you look at the &ldquo;PublicUtility&rdquo; folder of the CoreAudio SDK, you may notice a quite similar class called &ldquo;CASpectralProcessor&rdquo;. Actually, you can consider our class as a reduced version of &ldquo;CASpectralProcessor&rdquo;, more readable to my opinion, with a different buffers organization that allows the use of various FFT sizes upon time (between 1024 and 16384 frames). As common design, we will reuse the classes <em>CAAutoFree</em> and <em>CAAutoArrayDelete</em> so as to implement each data buffer. The former is basically an alternative to the std::auto smart pointer with the same restrictions on pointer ownership, but since it&rsquo;s using <em>malloc</em> to allocate memory, it will guarantee that the allocated memory is aligned on a 16-bits boundary (what vecLib needs). The latter is a similar version using &ldquo;new&rdquo; for memory allocation.</p>
+
+<p>So you need to include the header &ldquo;PublicUtility/CAAutoDisposer.h&rdquo;, either in our class header, either in the project&rsquo;s precompiled headers section. You also need &lt;Accelerate/Accelerate.h> for the vDSP library and the &ldquo;vecLib.framework&rdquo; binary added to your build settings.</p>
+
+<h3>SimpleSpectrumProcessor.h</h3>
+
+<pre><code>class SimpleSpectrumProcessor {
+public:
+enum Window { Rectangular = 1, Hann = 2, Hamming = 3, Blackman = 4 };
+private:
+UInt32 mNumChannels;
+UInt32 mRingBufferCapacity;
+UInt32 mRingBufferPosRead;
+UInt32 mRingBufferPosWrite;
+UInt32 mRingBufferCount;
+UInt32 mFFTSize;
+FFTSetup mFFTSetup;
+bool mFFTSetupCreated;
+struct ChannelBuffers {
+CAAutoFree&lt;Float32&gt; mRingBufferData;
+CAAutoFree&lt;Float32&gt; mInputData;
+CAAutoFree&lt;Float32&gt; mSplitData;
+CAAutoFree&lt;Float32&gt; mOutputData;
+CAAutoFree&lt;DSPSplitComplex&gt; mDSPSplitComplex;
+};
+
+CAAutoArrayDelete&lt;ChannelBuffers&gt; mChannels;
+CAAutoFree&lt;Float32&gt; mWindowData;
+
+protected:
+void InitFFT(UInt32 FFTSize, UInt32 log2FFTSize, UInt32 bins);
+void ExtractRingBufferToFFTInput(UInt32 inNumFrames);
+void ApplyWindow(Window w);
+
+public:
+SimpleSpectrumProcessor();
+virtual ~SimpleSpectrumProcessor();
+void Allocate(UInt32 inNumChannels, UInt32 ringBufferCapacity);
+bool CopyInputToRingBuffer(UInt32 inNumFrames, AudioBufferList* inInput);
+bool TryFFT(UInt32 inFFTSize, Window w = Rectangular);
+CAAutoFree&lt;Float32&gt; GetMagnitudes(Window w, UInt32 channelSelect = 3);
+};
+</code></pre>
+
+<p>The first member variables are storing our circular buffer&rsquo;s capacity, fill count and two locations for reading/writing. Next, FFTSetup is holding the FFT weights array required by vDSP to perform the FFT transform. Concerning the buffers:</p>
+
+<ul>
+<li><p><em>mChannels</em> is an array containing various auto-pointers for each buffer we need : input/output data, split buffer to hold complex numbers that we&rsquo;ll access using our specific pointer <em>mDSPSplitComplex </em>(we&rsquo;ll explain that in a few seconds),</p></li>
+<li><p><em>mWindowData </em>holds floating-pont numbers of the window function we&rsquo;ll choose to limit frequency leakage on our frequency spectrum (see <a href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/">part I</a>),</p></li>
+<li><p><em>mFFTSize </em>holds the FFT size, and we propose 5 values : 1024, 2048, 4096, 8192 or 16384 samples.</p></li>
+</ul>
+
+
+<p>By using auto-pointers as member variables (instead of simple pointers),  we use the RAII (&ldquo;resource acquisition is initialization&rdquo;) technique of C++ to free our buffers when our Audio Unit is released (or, of course, if an exception occur). That is to say, destructors for <em>CAAutoFree </em>and <em>CAAutoArrayDelete</em> will be called automatically when our main class is released.</p>
+
+<p>Here is the basic workflow of this class:</p>
+
+<ul>
+<li><p>We first call <em>Allocate()</em> to initialize the circular buffer with a capacity of 16384 samples,</p></li>
+<li><p> Each time our plugin render, we copy N frames to our circular buffer using <em>CopyInputToRingBuffer()</em>, then we call <em>TryFFT()</em> to compute those data,</p></li>
+<li><p>In case the method <em>TryFFT()</em> returns successfully, we call <em>GetMagnitudes() </em>to obtain a floating-point array of magnitudes to display on a graph. We can get magnitudes for left/right channel separately (<em>channelSelect </em>is 1 or 2), or we can look at the average magnitudes of a stereo channel (<em>channelSelect </em>is 3).</p></li>
+</ul>
+
+
+<h3>Using a Ring Buffer</h3>
+
+<p><a href="http://guileboard.files.wordpress.com/2011/11/200px-circular_buffer-svg.png"><img src="http://guileboard.files.wordpress.com/2011/11/200px-circular_buffer-svg.png?w=150" alt="" /></a>Audio Units generally capture N input samples each time they are rendered, N being set by the host in which they operate. N has a value usually lower than the minimum number of  frames required for computing FFT, so before we can provide at least 1024 samples to FFT, we have those N samples stored into a ring buffer over a few cycles.</p>
+
+<p> This kind of buffer is circular: thus, it never overflows. We always keep K samples in the ring buffer, K being the buffer&rsquo;s capacity. That&rsquo;s why we maintain two<em> int pointers</em> :</p>
+
+<ul>
+<li><p><em>mRingBufferPosRead</em> indicates where we must read when we extract samples to compute FFT,</p></li>
+<li><p><em>mRingBufferPosWrite </em> is the same for writing into the ring buffer.</p></li>
+</ul>
+
+
+<p>We use an &ldquo;overlap-add&rdquo; algorithm to fill our ring buffer, that is, we possibly split the N samples being added, on part being stored at the end of the buffer and the other being stored from the beginning index. You can look at the method <em>CopyInputToRingBuffer</em> to get an example of such algorithm.</p>
+
+<p>We also use this technique to extract N samples from the ring buffer (look at the protected method <em>ExtractRingBufferToFFTInput() </em> method). However, we ensure that enough samples have been stored into the buffer before we call this method.</p>
+
+<p>You may note that our implement isn&rsquo;t thread-safe, hence all calls to the <em>SimpleSpectrunProcessor</em>&rsquo;s methods must be called from the same thread.</p>
+
+<h3>Data packing for vDSP FFT</h3>
+
+<p>The library vDSP.h provides two structures for packing the N samples you pass to the FFT: <em>DSPComplex </em>and <em>DSPSplitComplex</em>. You should first read the <a href="http://developer.apple.com/library/ios/#documentation/Performance/Conceptual/vDSP_Programming_Guide/UsingFourierTransforms/UsingFourierTransforms.html">neat article made by Apple on data packing</a>. Here is a summary:</p>
+
+<ol>
+<li><p> Your N samples are first stored into a 16-bits aligned float-point array, called our <em>input buffer</em>,</p></li>
+<li><p> Whereas a real FFT would produce 2N complex numbers, the vDSP FFT truncates the result to store N/2 complex numbers in our <em>output buffer:</em> hence the input/output buffers have the same N size,</p></li>
+<li><p> Prior to the FFT function, you need to reorganize your <em>input buffer</em> by copying your N samples into a <em>split buffer</em>.</p></li>
+</ol>
+
+
+<p>This <em>split buffer</em> is first initialized as a 16-bits aligned floating-point array, as you may read in the protected method <em>InitFFT()</em>. It is next accessed using a <em>DSPSplitComplex </em>structure that &ldquo;groups&rdquo; floating-point together, for this buffer to behave as an array of N/2 complex numbers (with both real and imaginary parts).</p>
+
+<p><em><em>This is important to remember that the last mandatory step before we can compute FFT is to reorganize you </em>split buffer</em> by calling <strong>vDSP_ctoz</strong>: this will &ldquo;pack&rdquo; floating-point numbers for the vDSP FFT by a stride of 2.</p>
+
+<p>For instance,  if your input buffer is [x1, x2, x3, x4, x5, x6, x7, x8], then your split buffer will be [x1, x5, x2, x6, x3, x7, x4, x8]. After FFT, you&rsquo;ll get [c1.real, c1.imag, c2.real, c2.imag, c3.real, c3.imag, c4.real, c4.imag]. But, if the <em>DSPSplitComplex</em> structure can see interleaved complex numbers like previously, our split buffer remains an aligned buffer with [c1.real, c2.real, c3.real, c1.imag, c2.imag, c3.imag, c4.imag].</p>
+
+<h3>The power of SIMD</h3>
+
+<p><a href="http://guileboard.files.wordpress.com/2011/11/images-1.jpeg"><img src="http://guileboard.files.wordpress.com/2011/11/images-1.jpeg?w=150" alt="" /></a>What is the plot of having all those buffers ? We could have reworked things to diminish memory footprint.</p>
+
+<p>Instead, we&rsquo;ll use the great SIMD features of the vDSP library with no proprietary code at all!  The benefit here is to drastically reduce the computing time of a large number of samples. Furthermore, vDSP provide numerous mathematical functions that will help us achieve our sound analysis.</p>
+
+<p>At first sight, there are a lot of functions. You&rsquo;ll soon get use to the naming conventions used by Apple to find the good one: for instance, if you are looking to a vector-scalar operation, you may search for a function named vDSP_vs[something] or vDSP_sv[something]. It you are working with 64-bits IEEE floating point numbers, you will look at the functions named vDSP_[something]D (D for double).</p>
+
+<p>Here is what our SimpleSpectrumAnalyzer will do:</p>
+
+<ol>
+<li><p> First, we determine our current windowing function by simply calling one of the ready-to-use functions: <strong>vDSP_hann_window </strong>(Hann), <strong>vDSP_hamm_window</strong> (Hamming) or <strong>vDSP_blkman_window</strong> (Blackman)</p></li>
+<li><p> We multiply our N samples with the window function using <strong>vDSP_vmul</strong></p></li>
+<li><p> As seen above, our DSPComplexSplit structure is organized by <strong>vDSP_ctoz</strong></p></li>
+<li><p> We compute FFT with <strong>vDSP_fft_zip </strong>(as a naming convention, &ldquo;z&rdquo; stands for complex numbers),</p></li>
+<li><p> Magnitude of a complex number can be obtained with <strong>vDSP_zvabs </strong>(we could have possibly used <strong>vDSP_zvmags</strong>, see below)</p></li>
+<li><p> We next normalize our magnitudes, by dividing then by two, using <strong>vDSP_vsdiv </strong>(since we got N/2 complex numbers which is half of the N input samples)</p></li>
+<li><p> We convert magnitudes to a decibel value using <strong>vDSP_vdbconv</strong></p></li>
+<li><p> We correct each decibel values by applying a Db correction with <strong>vDSP_vadd</strong></p></li>
+<li><p> We could possible obtain an average value for left and right channels using <strong>vDSP_vadd</strong> and <strong>vDSP_vsdiv</strong>.</p></li>
+</ol>
+
+
+<p>We&rsquo;ll leave these steps unchanged to keep this tutorial simple, though we could have tweaked things a bit. As you know, the decibel formula is given by:</p>
+
+<p><a href="http://guileboard.files.wordpress.com/2011/11/062fdd96385ff2ddfdb4426194c49b29.png"><img src="http://guileboard.files.wordpress.com/2011/11/062fdd96385ff2ddfdb4426194c49b29.png" alt="" /></a></p>
+
+<p>As an optimization, rather than multiplying/dividing U1 or U2, we could have left U1 unchanged, called <strong>vDSP_vdbconv</strong>, then take this into account when applying our dB correction. Indeed, every multiplication or division on U1 can translate into an addition or deletion on log10(U1). In the same manner, we could have used <strong>vDSP_zvmags</strong> instead of <strong>vDSP_zvabs</strong> and saved one <em>sqrt </em>operation.</p>
+
+<h3>Using SimpleSpectrumProcessor in our Audio Unit</h3>
+
+<p>We&rsquo;ll wrap up this part by showing you how our SimpleSpectrumProcessor is used in the main code. Basically:</p>
+
+<ul>
+<li><p>It&rsquo;s a member variable of the main class <em>SimpleSpectrum.h</em> (hence all of our resources are released using the RAII technique),</p></li>
+<li><p>We override the <em>AUEffectBase::Render()</em> method, responsible for grabbing N samples from the audio inputs and computing FFT,</p></li>
+<li><p>You may notice that we aren&rsquo;t using the class <em>SimpleSpectrumKernel</em> at all, even if we have overridden the method <em>AUKernelBase::Process()</em>, which is a required step for our Audio Unit to be validated by the <strong>auval</strong> tool.</p></li>
+</ul>
+
+
+<p>Here the snippet of the main work:</p>
+
+<pre><code>...
+AudioBufferList&amp; inputBufList = GetInput(0)-&gt;GetBufferList();
+mProcessor.CopyInputToRingBuffer(inFramesToProcess, &amp;inputBufList);
+...
+if(mProcessor.TryFFT(currentBlockSize, currentWindow)) {
+...
+CAAutoFree&lt;Float32&gt; magnitudes = mProcessor.GetMagnitudes(currentWindow, channelSelect);
+...
+}
+</code></pre>
+
+<h3>Conclusion</h3>
+
+<p>I let you examine the Apple documentation to get acquainted of the different methods you can override from the base classes <em>AUEffectBase </em>and <em>AUBase</em>. In an upcoming tutorial, we will make a better use of the <em>AUKernelBase</em> class, but in the meantime, we shall look how we&rsquo;ll build a GUI to draw our spectrum data.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">fredguile</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-23T16:26:47+01:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/vst-plugins-slash-audio-units/'>VST Plugins / Audio Units</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/" data-via="" data-counturl="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/" title="Previous Post: Create a FFT Analyzer part I: prerequisites, concerns and setup">&laquo; Create a FFT Analyzer part I: prerequisites, concerns and setup</a>
+      
+      
+        <a class="basic-alignment right" href="/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/" title="Next Post: Create a FFT Analyzer part III: building UI with Cocoa and Objective-C">Create a FFT Analyzer part III: building UI with Cocoa and Objective-C &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/">Make Fun of Your Launchpad With LaunchPlay VST Plugin</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/">Create a FFT Analyzer Part v: Final Thoughts, Sources for XCode 4.2 & Feedback</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/">Create a FFT Analyzer Part IV: Debugging Our Audio Unit With AU Lab</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/">Create a FFT Analyzer Part III: Building UI With Cocoa and Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/">Create a FFT Analyzer Part II: Designing Our Spectral Processor</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Frederic Ghilini -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

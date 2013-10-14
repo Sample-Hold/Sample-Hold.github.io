@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Make fun of your Launchpad with LaunchPlay VST plugin - Sample & Hold</title>
+  <meta name="author" content="Frederic Ghilini">
+
+  
+  <meta name="description" content="I bought a Launchpad controller from Novation a few years ago, and although it&rsquo;s a great midi interface offering a perfect native remote for &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Sample-Hold.github.io/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Sample & Hold" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Sample & Hold</a></h1>
+  
+    <h2>Ideas, thoughts and tutorials on audio programming</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Sample-Hold.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Make Fun of Your Launchpad With LaunchPlay VST Plugin</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-19T05:00:26+01:00" pubdate data-updated="true">Dec 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="http://guileboard.files.wordpress.com/2011/12/launchplay-image.png"><img src="http://guileboard.files.wordpress.com/2011/12/launchplay-image.png" alt="" /></a>I bought a Launchpad controller from Novation a few years ago, and although it&rsquo;s a great midi interface offering a perfect native remote for Ableton Live sequencer, I couldn&rsquo;t help thinking that this amazing tool could certainly be used in other unexpected ways, thus controlling alternate gears or software. So on the same time, I was both enjoying my Launchpad and drooling to what would have offered at more experimental controller such as <a href="http://monome.org/devices">monome device</a>&hellip;</p>
+
+<p>Luckily, Novation made a programming guide available for the Lauchpad, as well as Ableton proposed an extended version of Live integrating Max/MSP (that is called &ldquo;Max for Live&rdquo;) that would help me satisfy my nerd-est desires. So I started to draft a layout for simple jamming. But I wanted more : my tool would work on any sequencer, with both Mac and Windows platforms, all of this requiring no additional license.</p>
+
+<p>Evidently, I got a bunch of new ideas when I started writing for sample-hold.com: I was now dreaming about a VST plugin that would act as a MIDI effect, allowing pure jams with a touch of randomness. I think I&rsquo;ve come up with a preliminary version called &ldquo;LaunchPlay VST&rdquo;. Let&rsquo;s look at it and explain how to use this strange plugin&hellip; <!-- more --></p>
+
+<h3>Disclaimer</h3>
+
+<p>First of all, the jamming idea of LaunchPlay VST is not really new and I would like to thanks Batuhan Bozkurt for his genius work on Otomata (<a href="http://www.earslap.com/">his website</a>), an online generative music instrument, because this is from where my work starts. While Batuhan made a mobile application of his work, on my side I have always considered that this would not suit the needs of some musicians and producers that were buying a lot a gears or synthetizers, and just wanted&hellip; to use them, leaving their cellphone in their pocket. That could be the benefit of a MIDI plugin.</p>
+
+<p>So, LaunchPlay is a<strong> VST plugin for Mac and Windows</strong>, containing three sub plugins :</p>
+
+<ul>
+<li><p>LaunchPlay VSTi: the main sequencer that you will insert into a new &ldquo;instrument&rdquo; track,</p></li>
+<li><p>LaunchPlayVirtualCable VST: a great companion that will help you overcome the MIDI routing issue we describe below,</p></li>
+<li><p>LaunchPlay MidiFilter VST: another companion that can help you achieve the MIDI routing.</p></li>
+</ul>
+
+
+<h3>LaunchPlay layout</h3>
+
+<p>Here is the very simple layout available for use in LaunchPlay:</p>
+
+<p><a href="http://guileboard.files.wordpress.com/2011/12/launchplay-layout.png"><img src="http://guileboard.files.wordpress.com/2011/12/launchplay-layout.png" alt="" /></a></p>
+
+<p>You may notice that the rightmost buttons of the Launchpad have been turned into a MIDI channel selector : this will allow us to send generative music to up to eight gears (virtual instruments or real synthetizers), bringing a nice multi-timbral feature to our generative music experience!</p>
+
+<p>The grid is where you play notes in a quite similar way than Otomata (well, not exactly). And we can reuse the top buttons for some new features not included in the genuine LaunchPad:</p>
+
+<ul>
+<li><p>up, down, left, right: this is where you change the direction before creating a new &ldquo;worker&rdquo; on the grid,</p></li>
+<li><p>delete one: this is a switch button. When it&rsquo;s red, you&rsquo;re on the &ldquo;remove&rdquo; mode and you should be able to individually remove workers,</p></li>
+<li><p>delete all: this is an instant button, used to remove all workers on the current grid,</p></li>
+<li><p>ticks: they are pretty useless visual markers indicating that your sequencer is running.</p></li>
+</ul>
+
+
+<p>Before I explain the required MIDI routing, let&rsquo;s watch a demo video:</p>
+
+<p>[youtube=<a href="http://www.youtube.com/watch?v=http://www.youtube.com/watch?v=JWVFdrywEqc">http://www.youtube.com/watch?v=http://www.youtube.com/watch?v=JWVFdrywEqc</a>]</p>
+
+<h3>MIDI routing</h3>
+
+<p>For proper work, LaunchPlay needs you to setup this MIDI routing in your VST Host:</p>
+
+<ul>
+<li><p>LaunchPlay VSTi must receive notes from LaunchPad</p></li>
+<li><p>It will send MIDI events from channel 1 to channel 9:</p>
+
+<ul>
+<li><p>channel 1 is dedicated for feedback events. They must be routed to the LaunchPad, using either my MidiFilter or VirtualCable plugins.</p></li>
+<li><p>channels 2-9 are receiving notes coming from the eight different layers of the LaunchPlay Sequencer</p></li>
+</ul>
+</li>
+</ul>
+
+
+<p><a href="http://guileboard.files.wordpress.com/2011/12/routing.png"><img src="http://guileboard.files.wordpress.com/2011/12/routing.png" alt="" /></a></p>
+
+<p>You can use:</p>
+
+<ul>
+<li><p><strong>LaunchPlayMidiFilter</strong>, which aims to filter received MIDI events in order to &ldquo;pass-thru&rdquo; events that correspond to a given channel,</p></li>
+<li><p><strong>LaunchPlayVirtualCable</strong>, which allow to bind channels from the LaunchPlaySequencer to any MIDI track of your VST Host (very handy, for instance, in Ableton Live, which doesn&rsquo;t allow to routing many MIDI channels between VST plugins)</p></li>
+<li><p>or your VST host native routing features, if any.</p></li>
+</ul>
+
+
+<p>I can show you my typical routing done in Live:</p>
+
+<p>[youtube=<a href="http://www.youtube.com/watch?v=lJOVjKdoO9E">http://www.youtube.com/watch?v=lJOVjKdoO9E</a>]</p>
+
+<h3>Grab the source code &amp; contribute</h3>
+
+<p>You can as usual grab everything for free on the <a href="https://github.com/Sample-Hold/LaunchPlayMIDIEffect">projects&#8217; GitHub page</a>.</p>
+
+<p>Please note that everything is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>, so don&rsquo;t make any commercial use of this, share it, talk about it, in the name of fun, thanks!</p>
+
+<p>Final thoughts</p>
+
+<p>To wrap up this article, Launch Play was as fun to build as it&rsquo;s probably fun to use! Of course, I had a lot of issues to overcome. For instance, VST plugins are not really tailored to behave a MIDI effect, and I had to find out a few tricks to be able to correctly route MIDI messages  between the LaunchPlay sequencer and instruments. I discovered that there is no official API for designing MIDI effect, despite that Steinberg provides the <a href="http://www.steinberg.net/en/company/developer.html">VST Module Architecture SDK</a>, which is unfortunately not used by most of the sequencers.</p>
+
+<p><strong>Edit 28/12/11</strong>: some users have reported that the &ldquo;Virtual Cable&rdquo; mode can be very laggy on some configurations. I am working on an solution using another library for sending messages between channels. In the meantime, I suggest using pure MDI routing: for this, unfortunately, you must switch the last VST parameter from &ldquo;Virtual&rdquo; to &ldquo;MIDI&rdquo; and set up your own routing.</p>
+
+<p><strong>Edit 17/01/12</strong>: for those who asked, yeees, by the way, the first video I recorded is back online! One can enjoy  my sweety pony melody again:</p>
+
+<p>[youtube=<a href="http://www.youtube.com/watch?v=pdshwDY19s4">http://www.youtube.com/watch?v=pdshwDY19s4</a>]</p>
+
+<p>I&rsquo;m thinking about some new tutorials to write on sample-hold.com. I don&rsquo;t know yet, we could discuss about writing a new VST plugin from scratch, or we could study some programming tricks based on the LaunchPlay sources. If you have any precise idea on what you would like to see on this website, please leave a comment!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">fredguile</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-19T05:00:26+01:00" pubdate data-updated="true">Dec 19<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/vst-plugins-slash-audio-units/'>VST Plugins / Audio Units</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://Sample-Hold.github.io/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/" data-via="" data-counturl="http://Sample-Hold.github.io/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/" title="Previous Post: Create a FFT Analyzer part V: final thoughts, sources for XCode 4.2 & feedback">&laquo; Create a FFT Analyzer part V: final thoughts, sources for XCode 4.2 & feedback</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/">Make Fun of Your Launchpad With LaunchPlay VST Plugin</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/">Create a FFT Analyzer Part v: Final Thoughts, Sources for XCode 4.2 & Feedback</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/">Create a FFT Analyzer Part IV: Debugging Our Audio Unit With AU Lab</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/">Create a FFT Analyzer Part III: Building UI With Cocoa and Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/">Create a FFT Analyzer Part II: Designing Our Spectral Processor</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Frederic Ghilini -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
