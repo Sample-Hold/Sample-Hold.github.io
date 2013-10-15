@@ -9,12 +9,6 @@ Tags: red, dark, white, two-columns, right-sidebar, fixed-width, theme-options, 
 */
 
 /*-------------------------------
-RESET browser defaults
--------------------------------*/
-
-@import url( 'reset.css' );
-
-/*-------------------------------
 BEGIN structure
 -------------------------------*/
 
@@ -1058,7 +1052,7 @@ START footer
   padding: 0;
   margin: 0 auto;
   width: 100%;
-  height: 455px;
+  height: 100px;
   background: #bcc5c1 url('../images/bottom.jpg') top center no-repeat;
   clear: both;
   a {
