@@ -188,7 +188,7 @@ task :update_style, :theme do |t, args|
   puts "## Updated Sass ##"
 end
 
-desc "Move source to source.old, install source theme updates, replace source/_includes/navigation.html with source.old's navigation"
+desc "Move source to source.old, install source theme updates, replace source/_includes/about.html with source.old's navigation"
 task :update_source, :theme do |t, args|
   theme = args.theme || 'classic'
   if File.directory?("#{source_dir}.old")

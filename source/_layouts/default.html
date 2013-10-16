@@ -6,12 +6,13 @@
 		<div id="header" role="banner">{% include header.html %}</div>
 		<hr/>
 		<div id="container">
-			<div id="sidebar" role="complementary">{% include sidebar.html %}</div>
+			<div id="sidebar" role="complementary">{% include navigation.html %}</div>
 			<div id="content" role="main">{{ content | expand_urls: root_url }}</div>
 			<hr/>
 			<div id="footer" role="contentinfo"></div>
 		</div>
 	</div>
 	<div id="footer-bott">{% include footer.html %}</div>
+    {% include google_analytics.html %}
 </body>
 </html>
