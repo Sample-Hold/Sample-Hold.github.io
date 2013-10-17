@@ -4,7 +4,7 @@
     <title><![CDATA[Tag: PC | Sample & Hold]]></title>
     <link href="http://Sample-Hold.github.io/tag/pc/atom.xml" rel="self"/>
     <link href="http://Sample-Hold.github.io/"/>
-    <updated>2013-10-17T16:37:07+02:00</updated>
+    <updated>2013-10-17T18:47:18+02:00</updated>
     <id>http://Sample-Hold.github.io/</id>
     <author>
         <name><![CDATA[Frederic Ghilini]]></name>
@@ -57,7 +57,7 @@
 
 <p>Before I explain the required MIDI routing, let&rsquo;s watch a demo video:</p>
 
-<p>[youtube=<a href="http://www.youtube.com/watch?v=http://www.youtube.com/watch?v=JWVFdrywEqc">http://www.youtube.com/watch?v=http://www.youtube.com/watch?v=JWVFdrywEqc</a>]</p>
+<p><iframe width="560" height="420" src="http://www.youtube.com/embed/JWVFdrywEqc?color=white&theme=light"></iframe></p>
 
 <h3>MIDI routing</h3>
 
@@ -88,7 +88,7 @@
 
 <p>I can show you my typical routing done in Live:</p>
 
-<p>[youtube=<a href="http://www.youtube.com/watch?v=lJOVjKdoO9E">http://www.youtube.com/watch?v=lJOVjKdoO9E</a>]</p>
+<p><iframe width="560" height="420" src="http://www.youtube.com/embed/lJOVjKdoO9E?color=white&theme=light"></iframe></p>
 
 <h3>Grab the source code &amp; contribute</h3>
 
@@ -104,7 +104,7 @@
 
 <p><strong>Edit 17/01/12</strong>: for those who asked, yeees, by the way, the first video I recorded is back online! One can enjoy  my sweety pony melody again:</p>
 
-<p>[youtube=<a href="http://www.youtube.com/watch?v=pdshwDY19s4">http://www.youtube.com/watch?v=pdshwDY19s4</a>]</p>
+<p><iframe width="560" height="420" src="http://www.youtube.com/embed/pdshwDY19s4?color=white&theme=light"></iframe></p>
 
 <p>I&rsquo;m thinking about some new tutorials to write on sample-hold.com. I don&rsquo;t know yet, we could discuss about writing a new VST plugin from scratch, or we could study some programming tricks based on the LaunchPlay sources. If you have any precise idea on what you would like to see on this website, please leave a comment!</p>
 ]]></content>

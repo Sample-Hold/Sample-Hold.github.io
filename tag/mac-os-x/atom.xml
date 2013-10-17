@@ -4,7 +4,7 @@
     <title><![CDATA[Tag: Mac OS X | Sample & Hold]]></title>
     <link href="http://Sample-Hold.github.io/tag/mac-os-x/atom.xml" rel="self"/>
     <link href="http://Sample-Hold.github.io/"/>
-    <updated>2013-10-17T16:37:07+02:00</updated>
+    <updated>2013-10-17T18:47:18+02:00</updated>
     <id>http://Sample-Hold.github.io/</id>
     <author>
         <name><![CDATA[Frederic Ghilini]]></name>
@@ -48,7 +48,7 @@
 
 <p>Before I throw out this hack, I can show you what it is like this OpenGL version of the Simple Spectrum Analyzer:</p>
 
-<p>[youtube=<a href="http://www.youtube.com/watch?v=8nnl2BFCZQ8&amp;w=480&amp;h=270">http://www.youtube.com/watch?v=8nnl2BFCZQ8&amp;w=480&amp;h=270</a>]</p>
+<p><iframe width="560" height="420" src="http://www.youtube.com/embed/8nnl2BFCZQ8?color=white&theme=light"></iframe></p>
 
 <p>As a conclusion, we can see that the OpenGL alternative still renders slowly with an FFT size of 16384 samples. So there must be a lot of performance tweaks to perform elsewhere. For anybody interested, the alternate code has been pushed to GitHub.</p>
 ]]></content>
