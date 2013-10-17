@@ -1,15 +1,13 @@
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head profile="http://gmpg.org/xfn/11">
   <meta charset="utf-8">
-  <title>Create a FFT Analyzer part V: final thoughts, sources for XCode 4.2 & feedback - Sample & Hold</title>
+  <title>Create a FFT Analyzer part V: final thoughts, sources for XCode 4.2 & feedback | Sample & Hold </title>
   <meta name="author" content="Frederic Ghilini">
 
   
-  <meta name="description" content="This part wraps up our tutorial on building an audio effect as Audio Unit for OS X Lion. Though it is not the craziest plug-in you&rsquo;ll ever &hellip;">
+  <meta name="description" content="Create a FFT Analyzer Part v: Final Thoughts, Sources for XCode 4.2 & Feedback Posted: Nov 23rd, 2011 by fredguile in VST Plugins / Audio Units 0 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -26,72 +24,211 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
   
-
 </head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Sample & Hold</a></h1>
-  
-    <h2>Ideas, thoughts and tutorials on audio programming</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:Sample-Hold.github.io" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">Create a FFT Analyzer Part v: Final Thoughts, Sources for XCode 4.2 & Feedback</h1>
+<body>
+	<div id="page">
+		<div id="nav"><ul>
     
     
-      <p class="meta">
+    
+    
+    <li class="page_item">
+        <a href="/">Home</a>
+    </li>
+
+    
+    
+    
+    <li class="page_item">
+        <a href="/about">About the&nbsp;author</a>
+    </li>
+
+    
+    
+    
+    <li class="page_item">
+        <a href="/tutorials-index">Tutorials&nbsp;index</a>
+    </li>
+
+    
+    
+    
+    <li class="page_item">
+        <a href="/projects">Projects</a>
+    </li>
+
+    
+    
+    
+    <li class="page_item">
+        <a href="/useful-resources">Useful&nbsp;resources</a>
+    </li>
+</ul></div>
+		<div id="header" role="banner"><h1>
+	<a href="/">Sample & Hold</a>
+</h1>
+
+<div class="description">Ideas, thoughts and tutorials on audio programming</div>
+
+<div class="rss">
+	<a href="/atom.xml" title="RSS">stay updated via rss</a>
+</div></div>
+		<hr/>
+		<div id="container">
+			<div id="sidebar" role="complementary">
+<div class="search-box">
+    <form action="http://google.com/search" method="get">
+        <input type="hidden" name="q" value="site:Sample-Hold.github.io"/>
+        <input class="search-field" size="15" type="text" name="q" results="0" placeholder="Search"
+               value="search this site" onfocus="if(this.value == 'search this site') {this.value = '';}"
+               onblur="if (this.value == '') {this.value = 'search this site';}"/>
+        <input type="submit" value="" class="search-go"/>
+    </form>
+</div>
+
+
+<ul>
+
+<li><h2>Follow me</h2>
+    <ul id="follow_me">
+        <li>
+            <a href="http://www.linkedin.com/in/fredericghilini" target="_blank">LinkedIn</a>
+        </li>
+        <li>
+            <a href="http://www.xing.com/profile/Frederic_Ghilini" target="_blank">Xing</a>
+        </li>
+        <li>
+            <a href="https://github.com/fredguile" target="_blank">GitHub</a>
+        </li>
+    </ul>
+</li><li><h2>Recent Posts</h2>
+    <ul id="recent_posts">
         
+        <li class="post">
+            <a href="/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/">
+                
+                Make Fun of Your Launchpad With LaunchPlay VST Plugin
+                
+            </a>
+        </li>
+        
+        <li class="post">
+            <a href="/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/">
+                
+                Create a FFT Analyzer Part v: Final Thoughts, Sources for XCode 4.2 & Feedback
+                
+            </a>
+        </li>
+        
+        <li class="post">
+            <a href="/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/">
+                
+                Create a FFT Analyzer Part IV: Debugging Our Audio Unit With AU Lab
+                
+            </a>
+        </li>
+        
+        <li class="post">
+            <a href="/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/">
+                
+                Create a FFT Analyzer Part III: Building UI With Cocoa and Objective-C
+                
+            </a>
+        </li>
+        
+        <li class="post">
+            <a href="/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/">
+                
+                Create a FFT Analyzer Part II: Designing Our Spectral Processor
+                
+            </a>
+        </li>
+        
+    </ul>
+</li><li><h2>Categories</h2>
+    <ul id="category_list">
+        <li><a href='/category/general'>General (1)</a></li><li><a href='/category/vst-plugins-slash-audio-units'>VST Plugins / Audio Units (7)</a></li>
+    </ul>
+</li><li><h2>Popular tags</h2>
+    <div id="tag_cloud">
+        <a style="font-size: 28px" href="/tag/audio/">Audio</a>
+<a style="font-size: 21px" href="/tag/c-plus-plus/">C++</a>
+<a style="font-size: 12px" href="/tag/debugging/">Debugging</a>
+<a style="font-size: 12px" href="/tag/launchpad/">Launchpad</a>
+<a style="font-size: 27px" href="/tag/mac-os-x/">Mac OS X</a>
+<a style="font-size: 12px" href="/tag/objective-c/">Objective-C</a>
+<a style="font-size: 27px" href="/tag/xcode/">XCode</a>
+
+    </div>
+</li><li><h2>Archives</h2>
+    <ul id="archives">
+
+    </ul>
+</li><li><h2>License</h2>
+    <div class="textwidget">
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+            <img
+                    alt="Creative Commons License"
+                    style="border-width:0;padding:1em;"
+                    src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png">
+        </a>
+        <br>
+        <span>Sample &amp; Hold source code and articles</span>
+        by
+        <a href="http://www.sample-hold.com/" rel="cc:attributionURL">Fred Ghilini</a> is licensed under a
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons
+            Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
+    </div>
+</li>
+
+</ul>
+</div>
+			<div id="content" role="main"><div id="content-inner" class="column">
+	
+<div class="posttitle">
+	<h2 class="pagetitle">
+		
+      	Create a FFT Analyzer Part v: Final Thoughts, Sources for XCode 4.2 & Feedback
+    	
+	</h2>
+	
+	<small>
+		Posted: 
+		
 
 
 
 
 
 
-
-
-  
 
 
 <time datetime="2011-11-23T16:34:55+01:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2011</time>
-        
-      </p>
-    
-  </header>
+		
+  
 
 
-<div class="entry-content"><p><a href="http://guileboard.files.wordpress.com/2011/11/au.gif"><img src="http://guileboard.files.wordpress.com/2011/11/au.gif" alt="" /></a>This part wraps up our tutorial on building an audio effect as Audio Unit for OS X Lion. Though it is not the craziest plug-in you&rsquo;ll ever built, it made us learn some basis about DSP programming, as well it introduced the XCode environment for developing Audio Units. Of course, there are numerous improvements we could do on this project. In this article, I&rsquo;ll make some remarks about my work and  also a few issues I met during development. Last but not least, we recall the GitHub repository URL for you to grab the code and make our own version.</p>
+by <strong>fredguile</strong>
+		
+
+<span class="categories">
+  
+    in <a class='category' href='/category/vst-plugins-slash-audio-units/'>VST Plugins / Audio Units</a>
+  
+</span>
+
+
+	</small>
+	
+</div>
+
+<div class="postcomments">
+	<a href="#" title="comments to implement">0</a>
+</div>
+
+<div class="entry">
+	<p><a href="http://guileboard.files.wordpress.com/2011/11/au.gif"><img src="http://guileboard.files.wordpress.com/2011/11/au.gif" alt="" /></a>This part wraps up our tutorial on building an audio effect as Audio Unit for OS X Lion. Though it is not the craziest plug-in you&rsquo;ll ever built, it made us learn some basis about DSP programming, as well it introduced the XCode environment for developing Audio Units. Of course, there are numerous improvements we could do on this project. In this article, I&rsquo;ll make some remarks about my work and  also a few issues I met during development. Last but not least, we recall the GitHub repository URL for you to grab the code and make our own version.</p>
 
 <!-- more -->
 
@@ -124,128 +261,33 @@
 <p>[youtube=<a href="http://www.youtube.com/watch?v=8nnl2BFCZQ8&amp;w=480&amp;h=270">http://www.youtube.com/watch?v=8nnl2BFCZQ8&amp;w=480&amp;h=270</a>]</p>
 
 <p>As a conclusion, we can see that the OpenGL alternative still renders slowly with an FFT size of 16384 samples. So there must be a lot of performance tweaks to perform elsewhere. For anybody interested, the alternate code has been pushed to GitHub.</p>
+	
 </div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">fredguile</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-11-23T16:34:55+01:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2011</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/vst-plugins-slash-audio-units/'>VST Plugins / Audio Units</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/" data-via="" data-counturl="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/" >Tweet</a>
-  
-  
-  
+	
 </div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/" title="Previous Post: Create a FFT Analyzer part IV: debugging our Audio Unit with AU Lab">&laquo; Create a FFT Analyzer part IV: debugging our Audio Unit with AU Lab</a>
-      
-      
-        <a class="basic-alignment right" href="/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/" title="Next Post: Make fun of your Launchpad with LaunchPlay VST plugin">Make fun of your Launchpad with LaunchPlay VST plugin &raquo;</a>
-      
-    </p>
-  </footer>
-</article>
+<div id="nav-post">
+	<div class="navigation-bott">
+		
+		<div class="leftnav">
+			<a rel="prev" href="/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/" title="Previous Post: Create a FFT Analyzer part IV: debugging our Audio Unit with AU Lab">Create a FFT Analyzer part IV: debugging our Audio Unit with AU Lab</a>
+		</div>
+		
+		
+		<div class="rightnav">
+			<a rel="next" href="/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/" title="Next Post: Make fun of your Launchpad with LaunchPlay VST plugin">Make fun of your Launchpad with LaunchPlay VST plugin</a>
+		</div>
+		
+	</div>
+</div></div>
+			<hr/>
+			<div id="footer" role="contentinfo"></div>
+		</div>
+	</div>
+	<div id="footer-bott">Copyright &copy; 2013 - Frederic Ghilini |
+Powered by <a rel="generator" href="http://octopress.org">Octopress</a>
 
 </div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
     
-      <li class="post">
-        <a href="/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/">Make Fun of Your Launchpad With LaunchPlay VST Plugin</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/">Create a FFT Analyzer Part v: Final Thoughts, Sources for XCode 4.2 & Feedback</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/">Create a FFT Analyzer Part IV: Debugging Our Audio Unit With AU Lab</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/">Create a FFT Analyzer Part III: Building UI With Cocoa and Objective-C</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/">Create a FFT Analyzer Part II: Designing Our Spectral Processor</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Frederic Ghilini -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
 
 </body>
 </html>

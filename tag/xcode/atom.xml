@@ -1,121 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: VST Plugins / Audio Units | Sample & Hold]]></title>
-  <link href="http://Sample-Hold.github.io/blog/categories/vst-plugins-slash-audio-units/atom.xml" rel="self"/>
-  <link href="http://Sample-Hold.github.io/"/>
-  <updated>2013-10-14T15:07:48+02:00</updated>
-  <id>http://Sample-Hold.github.io/</id>
-  <author>
-    <name><![CDATA[Frederic Ghilini]]></name>
+    <title><![CDATA[Tag: XCode | Sample & Hold]]></title>
+    <link href="http://Sample-Hold.github.io/tag/xcode/atom.xml" rel="self"/>
+    <link href="http://Sample-Hold.github.io/"/>
+    <updated>2013-10-17T14:13:56+02:00</updated>
+    <id>http://Sample-Hold.github.io/</id>
+    <author>
+        <name><![CDATA[Frederic Ghilini]]></name>
+        
+    </author>
+    <generator uri="http://octopress.org/">Octopress</generator>
+
     
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
-
-  
-  <entry>
-    <title type="html"><![CDATA[Make fun of your Launchpad with LaunchPlay VST plugin]]></title>
-    <link href="http://Sample-Hold.github.io/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/"/>
-    <updated>2011-12-19T05:00:26+01:00</updated>
-    <id>http://Sample-Hold.github.io/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin</id>
-    <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/12/launchplay-image.png"><img src="http://guileboard.files.wordpress.com/2011/12/launchplay-image.png" alt="" /></a>I bought a Launchpad controller from Novation a few years ago, and although it&rsquo;s a great midi interface offering a perfect native remote for Ableton Live sequencer, I couldn&rsquo;t help thinking that this amazing tool could certainly be used in other unexpected ways, thus controlling alternate gears or software. So on the same time, I was both enjoying my Launchpad and drooling to what would have offered at more experimental controller such as <a href="http://monome.org/devices">monome device</a>&hellip;</p>
-
-<p>Luckily, Novation made a programming guide available for the Lauchpad, as well as Ableton proposed an extended version of Live integrating Max/MSP (that is called &ldquo;Max for Live&rdquo;) that would help me satisfy my nerd-est desires. So I started to draft a layout for simple jamming. But I wanted more : my tool would work on any sequencer, with both Mac and Windows platforms, all of this requiring no additional license.</p>
-
-<p>Evidently, I got a bunch of new ideas when I started writing for sample-hold.com: I was now dreaming about a VST plugin that would act as a MIDI effect, allowing pure jams with a touch of randomness. I think I&rsquo;ve come up with a preliminary version called &ldquo;LaunchPlay VST&rdquo;. Let&rsquo;s look at it and explain how to use this strange plugin&hellip; <!-- more --></p>
-
-<h3>Disclaimer</h3>
-
-<p>First of all, the jamming idea of LaunchPlay VST is not really new and I would like to thanks Batuhan Bozkurt for his genius work on Otomata (<a href="http://www.earslap.com/">his website</a>), an online generative music instrument, because this is from where my work starts. While Batuhan made a mobile application of his work, on my side I have always considered that this would not suit the needs of some musicians and producers that were buying a lot a gears or synthetizers, and just wanted&hellip; to use them, leaving their cellphone in their pocket. That could be the benefit of a MIDI plugin.</p>
-
-<p>So, LaunchPlay is a<strong> VST plugin for Mac and Windows</strong>, containing three sub plugins :</p>
-
-<ul>
-<li><p>LaunchPlay VSTi: the main sequencer that you will insert into a new &ldquo;instrument&rdquo; track,</p></li>
-<li><p>LaunchPlayVirtualCable VST: a great companion that will help you overcome the MIDI routing issue we describe below,</p></li>
-<li><p>LaunchPlay MidiFilter VST: another companion that can help you achieve the MIDI routing.</p></li>
-</ul>
-
-
-<h3>LaunchPlay layout</h3>
-
-<p>Here is the very simple layout available for use in LaunchPlay:</p>
-
-<p><a href="http://guileboard.files.wordpress.com/2011/12/launchplay-layout.png"><img src="http://guileboard.files.wordpress.com/2011/12/launchplay-layout.png" alt="" /></a></p>
-
-<p>You may notice that the rightmost buttons of the Launchpad have been turned into a MIDI channel selector : this will allow us to send generative music to up to eight gears (virtual instruments or real synthetizers), bringing a nice multi-timbral feature to our generative music experience!</p>
-
-<p>The grid is where you play notes in a quite similar way than Otomata (well, not exactly). And we can reuse the top buttons for some new features not included in the genuine LaunchPad:</p>
-
-<ul>
-<li><p>up, down, left, right: this is where you change the direction before creating a new &ldquo;worker&rdquo; on the grid,</p></li>
-<li><p>delete one: this is a switch button. When it&rsquo;s red, you&rsquo;re on the &ldquo;remove&rdquo; mode and you should be able to individually remove workers,</p></li>
-<li><p>delete all: this is an instant button, used to remove all workers on the current grid,</p></li>
-<li><p>ticks: they are pretty useless visual markers indicating that your sequencer is running.</p></li>
-</ul>
-
-
-<p>Before I explain the required MIDI routing, let&rsquo;s watch a demo video:</p>
-
-<p>[youtube=<a href="http://www.youtube.com/watch?v=http://www.youtube.com/watch?v=JWVFdrywEqc">http://www.youtube.com/watch?v=http://www.youtube.com/watch?v=JWVFdrywEqc</a>]</p>
-
-<h3>MIDI routing</h3>
-
-<p>For proper work, LaunchPlay needs you to setup this MIDI routing in your VST Host:</p>
-
-<ul>
-<li><p>LaunchPlay VSTi must receive notes from LaunchPad</p></li>
-<li><p>It will send MIDI events from channel 1 to channel 9:</p>
-
-<ul>
-<li><p>channel 1 is dedicated for feedback events. They must be routed to the LaunchPad, using either my MidiFilter or VirtualCable plugins.</p></li>
-<li><p>channels 2-9 are receiving notes coming from the eight different layers of the LaunchPlay Sequencer</p></li>
-</ul>
-</li>
-</ul>
-
-
-<p><a href="http://guileboard.files.wordpress.com/2011/12/routing.png"><img src="http://guileboard.files.wordpress.com/2011/12/routing.png" alt="" /></a></p>
-
-<p>You can use:</p>
-
-<ul>
-<li><p><strong>LaunchPlayMidiFilter</strong>, which aims to filter received MIDI events in order to &ldquo;pass-thru&rdquo; events that correspond to a given channel,</p></li>
-<li><p><strong>LaunchPlayVirtualCable</strong>, which allow to bind channels from the LaunchPlaySequencer to any MIDI track of your VST Host (very handy, for instance, in Ableton Live, which doesn&rsquo;t allow to routing many MIDI channels between VST plugins)</p></li>
-<li><p>or your VST host native routing features, if any.</p></li>
-</ul>
-
-
-<p>I can show you my typical routing done in Live:</p>
-
-<p>[youtube=<a href="http://www.youtube.com/watch?v=lJOVjKdoO9E">http://www.youtube.com/watch?v=lJOVjKdoO9E</a>]</p>
-
-<h3>Grab the source code &amp; contribute</h3>
-
-<p>You can as usual grab everything for free on the <a href="https://github.com/Sample-Hold/LaunchPlayMIDIEffect">projects' GitHub page</a>.</p>
-
-<p>Please note that everything is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>, so don&rsquo;t make any commercial use of this, share it, talk about it, in the name of fun, thanks!</p>
-
-<p>Final thoughts</p>
-
-<p>To wrap up this article, Launch Play was as fun to build as it&rsquo;s probably fun to use! Of course, I had a lot of issues to overcome. For instance, VST plugins are not really tailored to behave a MIDI effect, and I had to find out a few tricks to be able to correctly route MIDI messages  between the LaunchPlay sequencer and instruments. I discovered that there is no official API for designing MIDI effect, despite that Steinberg provides the <a href="http://www.steinberg.net/en/company/developer.html">VST Module Architecture SDK</a>, which is unfortunately not used by most of the sequencers.</p>
-
-<p><strong>Edit 28/12/11</strong>: some users have reported that the &ldquo;Virtual Cable&rdquo; mode can be very laggy on some configurations. I am working on an solution using another library for sending messages between channels. In the meantime, I suggest using pure MDI routing: for this, unfortunately, you must switch the last VST parameter from &ldquo;Virtual&rdquo; to &ldquo;MIDI&rdquo; and set up your own routing.</p>
-
-<p><strong>Edit 17/01/12</strong>: for those who asked, yeees, by the way, the first video I recorded is back online! One can enjoy  my sweety pony melody again:</p>
-
-<p>[youtube=<a href="http://www.youtube.com/watch?v=pdshwDY19s4">http://www.youtube.com/watch?v=pdshwDY19s4</a>]</p>
-
-<p>I&rsquo;m thinking about some new tutorials to write on sample-hold.com. I don&rsquo;t know yet, we could discuss about writing a new VST plugin from scratch, or we could study some programming tricks based on the LaunchPlay sources. If you have any precise idea on what you would like to see on this website, please leave a comment!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Create a FFT Analyzer part V: final thoughts, sources for XCode 4.2 & feedback]]></title>
-    <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/"/>
-    <updated>2011-11-23T16:34:55+01:00</updated>
-    <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback</id>
-    <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/au.gif"><img src="http://guileboard.files.wordpress.com/2011/11/au.gif" alt="" /></a>This part wraps up our tutorial on building an audio effect as Audio Unit for OS X Lion. Though it is not the craziest plug-in you&rsquo;ll ever built, it made us learn some basis about DSP programming, as well it introduced the XCode environment for developing Audio Units. Of course, there are numerous improvements we could do on this project. In this article, I&rsquo;ll make some remarks about my work and  also a few issues I met during development. Last but not least, we recall the GitHub repository URL for you to grab the code and make our own version.</p>
+    <entry>
+        <title type="html"><![CDATA[Create a FFT Analyzer part V: final thoughts, sources for XCode 4.2 & feedback]]></title>
+        <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/"/>
+        <updated>2011-11-23T16:34:55+01:00</updated>
+        <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback</id>
+        <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/au.gif"><img src="http://guileboard.files.wordpress.com/2011/11/au.gif" alt="" /></a>This part wraps up our tutorial on building an audio effect as Audio Unit for OS X Lion. Though it is not the craziest plug-in you&rsquo;ll ever built, it made us learn some basis about DSP programming, as well it introduced the XCode environment for developing Audio Units. Of course, there are numerous improvements we could do on this project. In this article, I&rsquo;ll make some remarks about my work and  also a few issues I met during development. Last but not least, we recall the GitHub repository URL for you to grab the code and make our own version.</p>
 
 <!-- more -->
 
@@ -149,14 +52,14 @@
 
 <p>As a conclusion, we can see that the OpenGL alternative still renders slowly with an FFT size of 16384 samples. So there must be a lot of performance tweaks to perform elsewhere. For anybody interested, the alternate code has been pushed to GitHub.</p>
 ]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Create a FFT Analyzer part IV: debugging our Audio Unit with AU Lab]]></title>
-    <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/"/>
-    <updated>2011-11-23T16:33:15+01:00</updated>
-    <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab</id>
-    <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/aulab2.png"><img src="http://guileboard.files.wordpress.com/2011/11/aulab2.png" alt="" /></a>Debugging an Audio Unit is not as straightforward as debugging a Cocoa application, because your freshly coded component doesn&rsquo;t show up until you insert it in a bus of your favorite DAW.</p>
+    </entry>
+    
+    <entry>
+        <title type="html"><![CDATA[Create a FFT Analyzer part IV: debugging our Audio Unit with AU Lab]]></title>
+        <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/"/>
+        <updated>2011-11-23T16:33:15+01:00</updated>
+        <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab</id>
+        <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/aulab2.png"><img src="http://guileboard.files.wordpress.com/2011/11/aulab2.png" alt="" /></a>Debugging an Audio Unit is not as straightforward as debugging a Cocoa application, because your freshly coded component doesn&rsquo;t show up until you insert it in a bus of your favorite DAW.</p>
 
 <p>In this article, we review some methods for automating your debugging sessions using XCode 4. Concerning the DAW, our preference goes for a free host available in the CoreAudio SDK: AU Lab. In only a few steps, you will be able to setup some breakpoints and look into all potential devilish bugs as if you were debugging a simple Cocoa application.</p>
 
@@ -272,14 +175,14 @@
 
 <p>And I&rsquo;m still looking for a way to modulate the phase of this sine wave, in order to test &ldquo;frequency leakage&rdquo; and measure efficiency of our different window functions. You you have a trick for this with MDA AU or any other plug-in, please don&rsquo;t hesitate to leave me a comment !</p>
 ]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Create a FFT Analyzer part III: building UI with Cocoa and Objective-C]]></title>
-    <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/"/>
-    <updated>2011-11-23T16:32:10+01:00</updated>
-    <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c</id>
-    <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/images1.jpeg"><img src="http://guileboard.files.wordpress.com/2011/11/images1.jpeg?w=150" alt="" /></a>In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we&rsquo;ll create widgets so as to configure the FFT analysis.</p>
+    </entry>
+    
+    <entry>
+        <title type="html"><![CDATA[Create a FFT Analyzer part III: building UI with Cocoa and Objective-C]]></title>
+        <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/"/>
+        <updated>2011-11-23T16:32:10+01:00</updated>
+        <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c</id>
+        <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/images1.jpeg"><img src="http://guileboard.files.wordpress.com/2011/11/images1.jpeg?w=150" alt="" /></a>In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we&rsquo;ll create widgets so as to configure the FFT analysis.</p>
 
 <p>Why using Cocoa? Well, for two reasons: I didn&rsquo;t want to introduce a too complex API in this tutorial (such as OpenGL), and I would like to show you how to mix C++ and Objective-C in the same XCode project. Don&rsquo;t worry, it doesn&rsquo;t bother if you&rsquo;re not experienced with Objective-C: we&rsquo;ll make a straightforward use of it and we&rsquo;ll clearly explain all the interactions between our GUI classes and our C++ code.</p>
 
@@ -542,14 +445,14 @@ ComponentResult result = AudioUnitGetProperty(mAU,
 
 <p>We now have everything we need to build a clean Cocoa UI, and at this time, I hope that you have everything set up in your XCode environment and that you can hit &ldquo;Build&rdquo; to get your first debug release.</p>
 ]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Create a FFT Analyzer part II: designing our spectral processor]]></title>
-    <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/"/>
-    <updated>2011-11-23T16:26:47+01:00</updated>
-    <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor</id>
-    <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/images.jpeg"><img src="http://guileboard.files.wordpress.com/2011/11/images.jpeg" alt="" /></a>We briefly introduced the FFT part of the Accelerated Framework in Part I of this tutorial.</p>
+    </entry>
+    
+    <entry>
+        <title type="html"><![CDATA[Create a FFT Analyzer part II: designing our spectral processor]]></title>
+        <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/"/>
+        <updated>2011-11-23T16:26:47+01:00</updated>
+        <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor</id>
+        <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/images.jpeg"><img src="http://guileboard.files.wordpress.com/2011/11/images.jpeg" alt="" /></a>We briefly introduced the FFT part of the Accelerated Framework in Part I of this tutorial.</p>
 
 <p>We are now going to focus on the vDSP library and create the C++ class responsible for doing the spectral analysis work of our input samples. We want to keep it simple, with a few public methods, however we would like to perform FFT analysis on different frame sizes. So, one of our challenges is to design a circular buffer as member variable, which is a common pattern in audio programming.</p>
 
@@ -716,6 +619,126 @@ CAAutoFree&lt;Float32&gt; magnitudes = mProcessor.GetMagnitudes(currentWindow, c
 
 <p>I let you examine the Apple documentation to get acquainted of the different methods you can override from the base classes <em>AUEffectBase </em>and <em>AUBase</em>. In an upcoming tutorial, we will make a better use of the <em>AUKernelBase</em> class, but in the meantime, we shall look how we&rsquo;ll build a GUI to draw our spectrum data.</p>
 ]]></content>
-  </entry>
-  
+    </entry>
+    
+    <entry>
+        <title type="html"><![CDATA[Create a FFT Analyzer part I: prerequisites, concerns and setup]]></title>
+        <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/"/>
+        <updated>2011-11-23T16:17:44+01:00</updated>
+        <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup</id>
+        <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-13-31-29.png"><img src="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-13-31-29.png" alt="" /></a>It&rsquo;s time to build up our first audio unit.</p>
+
+<p>For a start, I propose to create a spectrum analyzer which will help us to understand how we can realize basic sound analysis using the Fourier Transform. While this might sound scarily complex for non mathematician developers, you will smoothly read this tutorial if we first explain a few concepts about sound processing, without of course entering too deeply into the maths&hellip;</p>
+
+<!-- more -->
+
+
+<h3>About the Fourier transform</h3>
+
+<p>Well, in fact, we shall talk a bit about maths.</p>
+
+<p>As you might not know, the Fourier transform is a powerful mathematical tool that can translate an audio signal, represented by a function x(t)  in the time domain, into another function X(α) in the frequency domain (α having its unit in radiant). This is exactly what we need in order to analyze every frequency that compose the audio signal coming through each input of our Audio Unit.</p>
+
+<p>To understand how this computation works, I may suggest you reading <a href="http://www.dspdimension.com/admin/dft-a-pied/">this great tutorial from Stephan Bernsee</a>. He explains how Joseph Fourier, back in the nineteenth century, found out that a periodic signal could be decomposed into a sum of simpler periodic functions which are our well known functions <strong>sinus</strong> and <strong>cosinus</strong> .</p>
+
+<p>I personally had no difficulty to read Stephan&rsquo;s tutorial, yet I couldn&rsquo;t figure out what was the relationship between sinuses and cosinuses once we were in the frequency domain. The answer, unfortunately, is tied to a dull mathematical concept : <strong>complex numbers</strong>. That is, if our audio signal can be represented with a bunch of real numbers, the resulting function X(α) uses complex numbers to represent frequencies that compose our signal, simply because the Fourier transform uses the exponential function (also known as the<strong> Euler formula</strong>), which translates real numbers from the Real domain (as input) to complex numbers into the Complex plane (as output).</p>
+
+<p>Well, it is almost  time for me to close this book and go to bed, except perhaps if you tell me a &ldquo;concrete&rdquo; method for visualizing F(α). That&rsquo;s where we use our Wikipedia card to steal a graphical representation of the Euler formula :</p>
+
+<p><a href="http://guileboard.files.wordpress.com/2011/11/220px-eulers_formula.png"><img src="http://guileboard.files.wordpress.com/2011/11/220px-eulers_formula.png" alt="" /></a></p>
+
+<p>Look at this unit circle drawn in the complex plane carefully, and I promise that an explanation will shade out in a couple of seconds.</p>
+
+<p>Just imagine that the Fourier transform F(α) draws some plots inside the above circle, thus you can draw those evil complex numbers on the complex plane with each coordinate being <strong>x = Real part = cos α and y = Imaginary part = sin α</strong>. Put your finger at the rightmost plot on this circle, where α = 0, then start moving on the circle in the counterclockwise direction. For every α frequency between 0 and 2π, you can determine at least two properties, the phase and magnitude, by using simple trigonometry with the corresponding complex number on F(α).</p>
+
+<p>Since our concern for building our spectrum analyzer is to only get the magnitude, I&rsquo;ll ignore phase for this tutorial. To compute the magnitude, you just may remember the famous Pythagorean theorem which says&hellip; well, do you remember ?</p>
+
+<p><a href="http://guileboard.files.wordpress.com/2011/11/162px-pythagorean_theorem_abc-svg2.png"><img src="http://guileboard.files.wordpress.com/2011/11/162px-pythagorean_theorem_abc-svg2.png" alt="" /></a></p>
+
+<p>That is, (magnitude(α))² = Real part² + Imaginary part² = (cos α)² + (sin α)², hence magnitude(α) = SQRT(Real part² + Imaginary part²) = SQRT((cos α)² + (sin α)²). We have almost everything we need, though some last details will be be discussed at a later stage of this tutorial.</p>
+
+<p>So far, to wrap things up, we need to :</p>
+
+<ul>
+<li><p>compute the Fourier transform F(α) of our audio signal f(t)</p></li>
+<li><p>for each frequency α, compute it&rsquo;s magnitude</p></li>
+<li><p>then, draw a beautiful spectrum analysis</p></li>
+</ul>
+
+
+<p>Fortunately, we do not have to compute the Fourier Transform by hand (that&rsquo;s why I&rsquo;m not giving you the formula). A lot of optimized algorithms are available,  and among those, there is the "<strong>Fast Fourier Transform</strong>&ldquo; (FFT), which is able to compute the Fourier transform very quickly, given a windowed audio signal of N samples, N being a power of two.</p>
+
+<p>The last statement isn&rsquo;t exactly true : in fact, the FFT is an algorithm for the &ldquo;Discrete-Time Fourier Transform&rdquo; (DTFT), which is a specific FT applied to a discrete time function x(n) representing our<strong> sampled audio signal</strong> received by our Audio Unit. There aren&rsquo;t many differences, apart the fact that since we provide to the FFT a window of N samples, the DTFT is an approximation of the FT that necessarily introduce precision loss in our spectrum analysis. This is called the &ldquo;uncertainty principle&rdquo;.</p>
+
+<p>By the way, I think we cool look at the DTFT formula to learn a few things about the FFT :</p>
+
+<p><a href="http://guileboard.files.wordpress.com/2011/11/dtft.png"><img src="http://guileboard.files.wordpress.com/2011/11/dtft.png" alt="" /></a></p>
+
+<p>What I can read here is that we&rsquo;ll pass N samples (N being a power of 2, as said above) to the FFT transform, in order to get at most N complex numbers describing frequencies on the complex plane (we&rsquo;ll choose the value for N later in the tutorial). So, as a developer, you will have to extract those N samples, store them in a buffer, and prepare an array of dimension to 2N to receive the resulting complex numbers.</p>
+
+<p>Those resulting complex numbers can be split into two equal parts : the complex part and its conjugate. Since all the conjugates aren&rsquo;t necessary for our audio analysis, you will see that we&rsquo;ll be using a library that truncates them and store in fact N/2 complex numbers in a buffer equal to an array of dimension N.  We use to call those N/2 complex number our &ldquo;bins&rdquo; (like in Bernsee&rsquo;s tutorial), and these &ldquo;bins&rdquo; gives us magnitude for N/2 frequencies. Thus, it&rsquo;s important to choose a relevant size for N so as to not introduce too much precision loss in our spectrum analysis.</p>
+
+<p>Are we done? Nope, there is one last pitfall that our spectrum analysis must handle : frequency leakage.</p>
+
+<h3>Frequency leakage</h3>
+
+<p>I suggest reading <a href="http://zone.ni.com/devzone/cda/tut/p/id/4844">this tutorial</a> to understand frequency leakage. What can we say about it ? Well, we cannot completely eliminate this phenomenon, but we can limit it by applying a window function to our N samples before we pass them to the FFT.</p>
+
+<p>There are several window function available, but I&rsquo;ll choose only three to include to this tutorial, so as to illustrate frequency leakage : Hann, Hamming and Blackman.</p>
+
+<p>So finally, here are the steps that we need develop in our Audio Unit :</p>
+
+<ul>
+<li><p>extract N samples of our audio signal</p></li>
+<li><p>apply a window function to our N samples</p></li>
+<li><p>compute the FFT</p></li>
+<li><p>for each &ldquo;bin&rdquo;  that correspond to an approximation of a frequency, compute it&rsquo;s magnitude</p></li>
+<li><p>at last, draw an almost perfect FFT analysis</p></li>
+</ul>
+
+
+<p>For the good news, I announce that my mathematical thoughts are (almost) over, and that we may now introduce the killer library that will help us achieve those beautiful things.</p>
+
+<h3>When comes the Accelerate framework</h3>
+
+<p>The Accelerate framework is part of Mac OS X since version 10, and honestly it&rsquo;s a gift given to developers that would like to do computational programs in an efficient way. Part of it, the <strong>vecLib</strong> library provides the FFT transform and many other mathematical functions, whose fast algorithms use vector processing units of x86 (and formerly PowerPC) processors. That is to say, vecLib use SIMD units (&ldquo;single instruction multiple data&rdquo;) of your processor(s), like Intel x86 SSE extensions, to accelerate FTT computing.</p>
+
+<p>Because we&rsquo;ll be using <strong>vecLib</strong> in our tutorial, there are two concerns we have to keep in mind :</p>
+
+<ul>
+<li><p>we need to design our buffers used for FFT computation so that their memory is aligned on a 16-bits boundary,</p></li>
+<li><p>we may preferably allocate our buffers memory in contiguous spaces, thus avoiding paging operations between two SIMD instructions (that would cut down performances and cancel benefit provided by the SIMD units).</p></li>
+</ul>
+
+
+<p>Don&rsquo;t worry, we won&rsquo;t implement any hard programmatic scheme to solve this : we&rsquo;ll just revisit those two requirements when we&rsquo;ll be designing our simple class called <em>SimpleSpectrumProcessor  </em>that handled all the FFT processing in part II of this tutorial.</p>
+
+<h3>Which GUI ?</h3>
+
+<p>This is not the most efficient choice for Audio Units, but for studying purpose, we&rsquo;ll design our UI using Cocoa and Objective-C. That way, we&rsquo;ll see in part III of the tutorial how to mix two different languages in the same XCode project.</p>
+
+<h3>The Setup</h3>
+
+<p>We&rsquo;ll start with the XCode template we had previously created in <a href="http://guileboard.wordpress.com/2011/11/23/gettin-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1/">my first article</a>. While our main sources will be written in C++, we&rsquo;ll create a second folder to store our Objective-C code, and also add an additional target to build the Cocoa UI.</p>
+
+<p>There are a few last steps you may require before you can move to the next part of the tutorial. I leave them as an exercise for the reader :</p>
+
+<ol>
+<li><p> Create a new XCode projet called &ldquo;SimpleSpectrumAnalyzer&rdquo; that can build an Audio Effect for OS X Lion</p></li>
+<li><p> Add the &ldquo;vecLib.framework&rdquo; and the &ldquo;Cocoa.framework&rdquo; to your project</p></li>
+<li><p>  Create two deployment targets:</p>
+
+<ol>
+<li><p> one to build the Audio Unit file &ldquo;SimpleSpectrumAnalyzer.component&rdquo;,</p></li>
+<li><p>another one to build  the second bundle called &ldquo;SpectrumCocaView.bundle&rdquo;, which will contain the CocoaUI</p></li>
+</ol>
+</li>
+<li><p> Find a way, by tweaking the build phases, to include the second bundle as a resource into the first bundle</p></li>
+</ol>
+
+
+<p>Once done, we are ready to gather all the concepts seen in this article in a simple C++ class, <em>SimpleSpectrumProcessor</em>.</p>
+]]></content>
+    </entry>
+    
 </feed>

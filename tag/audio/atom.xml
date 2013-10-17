@@ -1,0 +1,721 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+    <title><![CDATA[Tag: Audio | Sample & Hold]]></title>
+    <link href="http://Sample-Hold.github.io/tag/audio/atom.xml" rel="self"/>
+    <link href="http://Sample-Hold.github.io/"/>
+    <updated>2013-10-17T14:13:56+02:00</updated>
+    <id>http://Sample-Hold.github.io/</id>
+    <author>
+        <name><![CDATA[Frederic Ghilini]]></name>
+        
+    </author>
+    <generator uri="http://octopress.org/">Octopress</generator>
+
+    
+    <entry>
+        <title type="html"><![CDATA[Make fun of your Launchpad with LaunchPlay VST plugin]]></title>
+        <link href="http://Sample-Hold.github.io/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/"/>
+        <updated>2011-12-19T05:00:26+01:00</updated>
+        <id>http://Sample-Hold.github.io/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin</id>
+        <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/12/launchplay-image.png"><img src="http://guileboard.files.wordpress.com/2011/12/launchplay-image.png" alt="" /></a>I bought a Launchpad controller from Novation a few years ago, and although it&rsquo;s a great midi interface offering a perfect native remote for Ableton Live sequencer, I couldn&rsquo;t help thinking that this amazing tool could certainly be used in other unexpected ways, thus controlling alternate gears or software. So on the same time, I was both enjoying my Launchpad and drooling to what would have offered at more experimental controller such as <a href="http://monome.org/devices">monome device</a>&hellip;</p>
+
+<p>Luckily, Novation made a programming guide available for the Lauchpad, as well as Ableton proposed an extended version of Live integrating Max/MSP (that is called &ldquo;Max for Live&rdquo;) that would help me satisfy my nerd-est desires. So I started to draft a layout for simple jamming. But I wanted more : my tool would work on any sequencer, with both Mac and Windows platforms, all of this requiring no additional license.</p>
+
+<p>Evidently, I got a bunch of new ideas when I started writing for sample-hold.com: I was now dreaming about a VST plugin that would act as a MIDI effect, allowing pure jams with a touch of randomness. I think I&rsquo;ve come up with a preliminary version called &ldquo;LaunchPlay VST&rdquo;. Let&rsquo;s look at it and explain how to use this strange plugin&hellip; <!-- more --></p>
+
+<h3>Disclaimer</h3>
+
+<p>First of all, the jamming idea of LaunchPlay VST is not really new and I would like to thanks Batuhan Bozkurt for his genius work on Otomata (<a href="http://www.earslap.com/">his website</a>), an online generative music instrument, because this is from where my work starts. While Batuhan made a mobile application of his work, on my side I have always considered that this would not suit the needs of some musicians and producers that were buying a lot a gears or synthetizers, and just wanted&hellip; to use them, leaving their cellphone in their pocket. That could be the benefit of a MIDI plugin.</p>
+
+<p>So, LaunchPlay is a<strong> VST plugin for Mac and Windows</strong>, containing three sub plugins :</p>
+
+<ul>
+<li><p>LaunchPlay VSTi: the main sequencer that you will insert into a new &ldquo;instrument&rdquo; track,</p></li>
+<li><p>LaunchPlayVirtualCable VST: a great companion that will help you overcome the MIDI routing issue we describe below,</p></li>
+<li><p>LaunchPlay MidiFilter VST: another companion that can help you achieve the MIDI routing.</p></li>
+</ul>
+
+
+<h3>LaunchPlay layout</h3>
+
+<p>Here is the very simple layout available for use in LaunchPlay:</p>
+
+<p><a href="http://guileboard.files.wordpress.com/2011/12/launchplay-layout.png"><img src="http://guileboard.files.wordpress.com/2011/12/launchplay-layout.png" alt="" /></a></p>
+
+<p>You may notice that the rightmost buttons of the Launchpad have been turned into a MIDI channel selector : this will allow us to send generative music to up to eight gears (virtual instruments or real synthetizers), bringing a nice multi-timbral feature to our generative music experience!</p>
+
+<p>The grid is where you play notes in a quite similar way than Otomata (well, not exactly). And we can reuse the top buttons for some new features not included in the genuine LaunchPad:</p>
+
+<ul>
+<li><p>up, down, left, right: this is where you change the direction before creating a new &ldquo;worker&rdquo; on the grid,</p></li>
+<li><p>delete one: this is a switch button. When it&rsquo;s red, you&rsquo;re on the &ldquo;remove&rdquo; mode and you should be able to individually remove workers,</p></li>
+<li><p>delete all: this is an instant button, used to remove all workers on the current grid,</p></li>
+<li><p>ticks: they are pretty useless visual markers indicating that your sequencer is running.</p></li>
+</ul>
+
+
+<p>Before I explain the required MIDI routing, let&rsquo;s watch a demo video:</p>
+
+<p>[youtube=<a href="http://www.youtube.com/watch?v=http://www.youtube.com/watch?v=JWVFdrywEqc">http://www.youtube.com/watch?v=http://www.youtube.com/watch?v=JWVFdrywEqc</a>]</p>
+
+<h3>MIDI routing</h3>
+
+<p>For proper work, LaunchPlay needs you to setup this MIDI routing in your VST Host:</p>
+
+<ul>
+<li><p>LaunchPlay VSTi must receive notes from LaunchPad</p></li>
+<li><p>It will send MIDI events from channel 1 to channel 9:</p>
+
+<ul>
+<li><p>channel 1 is dedicated for feedback events. They must be routed to the LaunchPad, using either my MidiFilter or VirtualCable plugins.</p></li>
+<li><p>channels 2-9 are receiving notes coming from the eight different layers of the LaunchPlay Sequencer</p></li>
+</ul>
+</li>
+</ul>
+
+
+<p><a href="http://guileboard.files.wordpress.com/2011/12/routing.png"><img src="http://guileboard.files.wordpress.com/2011/12/routing.png" alt="" /></a></p>
+
+<p>You can use:</p>
+
+<ul>
+<li><p><strong>LaunchPlayMidiFilter</strong>, which aims to filter received MIDI events in order to &ldquo;pass-thru&rdquo; events that correspond to a given channel,</p></li>
+<li><p><strong>LaunchPlayVirtualCable</strong>, which allow to bind channels from the LaunchPlaySequencer to any MIDI track of your VST Host (very handy, for instance, in Ableton Live, which doesn&rsquo;t allow to routing many MIDI channels between VST plugins)</p></li>
+<li><p>or your VST host native routing features, if any.</p></li>
+</ul>
+
+
+<p>I can show you my typical routing done in Live:</p>
+
+<p>[youtube=<a href="http://www.youtube.com/watch?v=lJOVjKdoO9E">http://www.youtube.com/watch?v=lJOVjKdoO9E</a>]</p>
+
+<h3>Grab the source code &amp; contribute</h3>
+
+<p>You can as usual grab everything for free on the <a href="https://github.com/Sample-Hold/LaunchPlayMIDIEffect">projects' GitHub page</a>.</p>
+
+<p>Please note that everything is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>, so don&rsquo;t make any commercial use of this, share it, talk about it, in the name of fun, thanks!</p>
+
+<p>Final thoughts</p>
+
+<p>To wrap up this article, Launch Play was as fun to build as it&rsquo;s probably fun to use! Of course, I had a lot of issues to overcome. For instance, VST plugins are not really tailored to behave a MIDI effect, and I had to find out a few tricks to be able to correctly route MIDI messages  between the LaunchPlay sequencer and instruments. I discovered that there is no official API for designing MIDI effect, despite that Steinberg provides the <a href="http://www.steinberg.net/en/company/developer.html">VST Module Architecture SDK</a>, which is unfortunately not used by most of the sequencers.</p>
+
+<p><strong>Edit 28/12/11</strong>: some users have reported that the &ldquo;Virtual Cable&rdquo; mode can be very laggy on some configurations. I am working on an solution using another library for sending messages between channels. In the meantime, I suggest using pure MDI routing: for this, unfortunately, you must switch the last VST parameter from &ldquo;Virtual&rdquo; to &ldquo;MIDI&rdquo; and set up your own routing.</p>
+
+<p><strong>Edit 17/01/12</strong>: for those who asked, yeees, by the way, the first video I recorded is back online! One can enjoy  my sweety pony melody again:</p>
+
+<p>[youtube=<a href="http://www.youtube.com/watch?v=pdshwDY19s4">http://www.youtube.com/watch?v=pdshwDY19s4</a>]</p>
+
+<p>I&rsquo;m thinking about some new tutorials to write on sample-hold.com. I don&rsquo;t know yet, we could discuss about writing a new VST plugin from scratch, or we could study some programming tricks based on the LaunchPlay sources. If you have any precise idea on what you would like to see on this website, please leave a comment!</p>
+]]></content>
+    </entry>
+    
+    <entry>
+        <title type="html"><![CDATA[Create a FFT Analyzer part V: final thoughts, sources for XCode 4.2 & feedback]]></title>
+        <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/"/>
+        <updated>2011-11-23T16:34:55+01:00</updated>
+        <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback</id>
+        <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/au.gif"><img src="http://guileboard.files.wordpress.com/2011/11/au.gif" alt="" /></a>This part wraps up our tutorial on building an audio effect as Audio Unit for OS X Lion. Though it is not the craziest plug-in you&rsquo;ll ever built, it made us learn some basis about DSP programming, as well it introduced the XCode environment for developing Audio Units. Of course, there are numerous improvements we could do on this project. In this article, I&rsquo;ll make some remarks about my work and  also a few issues I met during development. Last but not least, we recall the GitHub repository URL for you to grab the code and make our own version.</p>
+
+<!-- more -->
+
+
+<h3>Remarks</h3>
+
+<p>After thinking twice about it, here are the things I finally dislike :</p>
+
+<ul>
+<li><p><strong>Mixing C, C++ and Objective-C in a (small) project is a bad idea</strong>: it definitely make your developer duties harder. I would personally prefer to stick to C++ for all tasks. Using Cocoa UI was a good way to challenge the native SDK of Mac, but I may prefer using another SDK that avoid sprinkling our code, and thus, knowledge.</p></li>
+<li><p><strong>Not all features of Cocoa are supported by AU/VST hosts</strong>: for instance, I couldn&rsquo;t resize my spectrum analyzer view in Ableton Live and Garage Band, and I couldn&rsquo;t display the NSMenu as context menu when right-clicking on the Cocoa window.</p></li>
+<li><p><strong>NSBezierPath is slow</strong>: You might have noticed how slow it is when choosing 16384 as your FFT block size. We could  probably have had better results with a Quartz or OpenGL rendering. To be perfectly honest, at first, I tried to elaborate an OpenGL version of this tutorial, but I ran into an graphical bug with Ableton Live: it seemed that my plug-in wasn&rsquo;t properly releasing the OpenGL context, thus corrupting the entire Live UI. I could not get out of this, so I decided to revert to a more &ldquo;portable&rdquo; solution for drawing the spectrum graph (though it&rsquo;s exaggerated  writing that Cocoa is &ldquo;portable&rdquo; ;)).</p></li>
+<li><p><strong>The overall result isn&rsquo;t as precise as we wanted</strong>: our graph is not big enough to give you valuable informations about dB amplitudes (especially if the host doesn&rsquo;t allow our plug-in to be resized!). We should have added some precious features like zoom, prevision, hold peaks, etc. (this is out of scope of this tutorial). And there might be more precise methods rather than simply adding a constant dB correction into our <em>SimpleSpectrumProcessor</em> class.</p></li>
+<li><p><strong>We should have proposed a solution for developing both VST au AU versions of our Spectrum Analyzer</strong>: but, as a drawback, it would make our tutorial much more difficult. Anyway, I&rsquo;ll probably publish another tutorial for this in the future.</p></li>
+</ul>
+
+
+<h3>Give feedback and share this code</h3>
+
+<p>Feedback is welcome! You may leave a comment at the bottom of this article.</p>
+
+<p>In the meantime, you can contribute to this tutorial by registering yourself on GitHub and cloning my repository : <a href="https://github.com/Sample-Hold/SimpleSpectrumAnalyzer">https://github.com/Sample-Hold/SimpleSpectrumAnalyzer</a></p>
+
+<h3>Final words</h3>
+
+<p>I spent a couple of minutes hacking my code in order to show you in a video how I had corrupted the Ableton Live UI when I was using a NSOpenGLView instead of a NSView. Unfortunately, I&rsquo;m completely unable to reproduce this bug! That&rsquo;ll teach me not to version every compiled binary as nightly builds ;)</p>
+
+<p>Before I throw out this hack, I can show you what it is like this OpenGL version of the Simple Spectrum Analyzer:</p>
+
+<p>[youtube=<a href="http://www.youtube.com/watch?v=8nnl2BFCZQ8&amp;w=480&amp;h=270">http://www.youtube.com/watch?v=8nnl2BFCZQ8&amp;w=480&amp;h=270</a>]</p>
+
+<p>As a conclusion, we can see that the OpenGL alternative still renders slowly with an FFT size of 16384 samples. So there must be a lot of performance tweaks to perform elsewhere. For anybody interested, the alternate code has been pushed to GitHub.</p>
+]]></content>
+    </entry>
+    
+    <entry>
+        <title type="html"><![CDATA[Create a FFT Analyzer part IV: debugging our Audio Unit with AU Lab]]></title>
+        <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/"/>
+        <updated>2011-11-23T16:33:15+01:00</updated>
+        <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab</id>
+        <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/aulab2.png"><img src="http://guileboard.files.wordpress.com/2011/11/aulab2.png" alt="" /></a>Debugging an Audio Unit is not as straightforward as debugging a Cocoa application, because your freshly coded component doesn&rsquo;t show up until you insert it in a bus of your favorite DAW.</p>
+
+<p>In this article, we review some methods for automating your debugging sessions using XCode 4. Concerning the DAW, our preference goes for a free host available in the CoreAudio SDK: AU Lab. In only a few steps, you will be able to setup some breakpoints and look into all potential devilish bugs as if you were debugging a simple Cocoa application.</p>
+
+<!-- more -->
+
+
+<h3>Prerequisites</h3>
+
+<p>We assume that you&rsquo;ve downloaded <a href="http://github.com/fredguile/SimpleSpectrumAnalyzer">the sources of this tutorial on GitHub</a>, and that you have successfully built your component with the default debug configuration.</p>
+
+<h3>Manage schemes</h3>
+
+<p>Xcode 4 provides a classic workflow for testing and packaging your component:</p>
+
+<ol>
+<li><p> Build your component</p></li>
+<li><p> Run it using debug configuration</p></li>
+<li><p> Test it using debug configuration</p></li>
+<li><p> Profile it using release configuration</p></li>
+<li><p> Analyze your code for possible tweaks</p></li>
+<li><p> Archive a delivery for distributing</p></li>
+</ol>
+
+
+<p>This basically suits our needs. The only thing we have to do is launching &ldquo;AU Lab&rdquo; on step 2:</p>
+
+<ul>
+<li><p>Click on your target &ldquo;SpectrumAU&rdquo; in the top left area of XCode</p></li>
+<li><p>Choose &ldquo;Edit scheme&hellip;&rdquo;</p></li>
+<li><p>Select step &ldquo;Run &ndash; Debug&rdquo;</p></li>
+<li><p>In the &ldquo;Executable&rdquo; field, choose &ldquo;Other&hellip;&rdquo; and browse you Mac in order to find &ldquo;/Developer/Applications/Audio/AU Lab&rdquo;</p></li>
+<li><p>Save scheme</p></li>
+</ul>
+
+
+<p><a href="http://guileboard.files.wordpress.com/2011/11/xcode-edit-scheme.png"><img src="http://guileboard.files.wordpress.com/2011/11/xcode-edit-scheme.png?w=300" alt="" /></a></p>
+
+<p>Now, AU Lab will automatically launch each time you hit &ldquo;Run&rdquo;.</p>
+
+<p>Still, your Audio Unit doesn&rsquo;t show up, because we haven&rsquo;t copied the file <em>SimpleSpectrumAU.component</em> into your audio plugins folder. Since we don&rsquo;t want to do it each time we compile a new version, we ought to tweak a bit our build settings to automate this.</p>
+
+<h3>Tweaking build settings</h3>
+
+<p>There are a couple of build settings that may help us automating each deployment.</p>
+
+<p>To understand how they work, let&rsquo;s make a few changes as a first try:</p>
+
+<ul>
+<li><p>deployment > Deployment Location: choose &ldquo;Yes&rdquo;</p></li>
+<li><p>deployment > Deployment Postprocessing: choose &ldquo;Yes&rdquo;</p></li>
+<li><p>deployment > Installation Build Products Location: type &ldquo;/&rdquo;</p></li>
+<li><p>deployment > Installation Directory: write &ldquo;$(USER_LIBRARY_DIR)/Audio/Plug-Ins/Components/&rdquo;</p></li>
+</ul>
+
+
+<p>As a result, your audio unit is copied into your audio plugins folder each time you build! So, in one-pass, we successively build our audio unit, deploy it to the proper folder then run AU Lab to start a debugging session.</p>
+
+<p>But I still get an annoying issue on my side (perhaps you won&rsquo;t get it) : <strong>breakpoints don&rsquo;t break.</strong> I suspect Xcode not doing the things we want. When I look into the &ldquo;Debug&rdquo; folder, the compiled component has turned into an alias, pointing to a binary now located in $(USER_LIBRARY_DIR)/Audio/Plug-Ins/Components/.</p>
+
+<p><a href="http://guileboard.files.wordpress.com/2011/11/xcode-created-an-alias.png"><img src="http://guileboard.files.wordpress.com/2011/11/xcode-created-an-alias.png" alt="" /></a></p>
+
+<p>Actually, I don&rsquo;t think the build settings we mentioned above are a viable solution for the &ldquo;debug&rdquo; configuration. However, we could keep them for the next stages of our workflow, so I suggest changing the build setting in that way:</p>
+
+<ul>
+<li><p>deployment > Deployment Location:</p>
+
+<ul>
+<li><p>choose &ldquo;No&rdquo; for debug</p></li>
+<li><p>choose &ldquo;Yes&rdquo; for release</p></li>
+</ul>
+</li>
+<li><p>deployment > Deployment Postprocessing:</p>
+
+<ul>
+<li><p>choose &ldquo;No&rdquo; for debug</p></li>
+<li><p>choose &ldquo;Yes&rdquo; for release</p></li>
+</ul>
+</li>
+<li><p>deployment > Installation Build Products Location:</p>
+
+<ul>
+<li><p>write &ldquo;/tmp/$(PROJECT_NAME).dst&rdquo; for debug</p></li>
+<li><p>write &ldquo;/&rdquo; for release</p></li>
+</ul>
+</li>
+<li><p>deployment > Installation Directory: write &ldquo;$(USER_LIBRARY_DIR)/Audio/Plug-Ins/Components/&rdquo;</p></li>
+</ul>
+
+
+<p>There is another trick we could try in order to automate our deployment in debug mode:</p>
+
+<ul>
+<li><p>Open the &ldquo;Build phases&rdquo;</p></li>
+<li><p>Add a &ldquo;Copy files&rdquo; phase as the last build phase</p></li>
+<li><p>Specify an &ldquo;absolute path&rdquo; as destination: $(USER_LIBRARY_DIR)/Audio/Plug-Ins/Components/</p></li>
+<li><p>Add the file &ldquo;SimpleSpectrumAnalyzer.component&rdquo; to the list</p></li>
+</ul>
+
+
+<p>Now everything should be okay and our breakpoints will correctly <strong>break</strong>. The only drawback of this method is that you&rsquo;ll have to cancel this build phase before you move into the next stages of you workflow. You must delete when I build your &ldquo;release&rdquo; configuration, else XCode will alert you of a possible loop when executing your deployment workflow.</p>
+
+<h3>Still&hellip; no sound ?</h3>
+
+<p>First off, don&rsquo;t forget to start the AU Lab engine if you want your Audio Unit to process any sample. You can do this by clicking on the label &ldquo;Audio engine stopped&rdquo; on the lowest part of AU Lab&rsquo;s mixer.</p>
+
+<p><a href="http://guileboard.files.wordpress.com/2011/11/smartelectronix.png"><img src="http://guileboard.files.wordpress.com/2011/11/smartelectronix.png" alt="" /></a>Next, I recommend downloading the MDA AU plug-ins from <a href="http://mda.smartelectronix.com/effects.htm">Smartelectronix&rsquo;s website</a> in order to test our Spectrum Analyzer with a simple sinusoid as input signal. After you have installed it, you should be able to use the &ldquo;TestTone&rdquo; plug-in and generate a pure sine signal to test our spectrum analyzer:</p>
+
+<p>[caption id=&ldquo;attachment_225&rdquo; align=&ldquo;aligncenter&rdquo; width=&ldquo;400&rdquo; caption=&ldquo;Blocksize is 1024 samples&rdquo;]<a href="http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-1024-samples.png"><img src="http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-1024-samples.png" alt="" /></a>[/caption]</p>
+
+<p>By the way, we shall notice how inaccurate is our analyzer when testing a low-frequency sine-wave with 1024 samples as FFT Size. We can correct that by raising our FFT size : right-click on the graph and choose &ldquo;2048&rdquo; as block size.</p>
+
+<p>[caption id=&ldquo;attachment_226&rdquo; align=&ldquo;aligncenter&rdquo; width=&ldquo;400&rdquo; caption=&ldquo;With 2048 samples&rdquo;]<a href="http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-2048-samples.png"><img src="http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-2048-samples.png" alt="" /></a>[/caption]</p>
+
+<p>And I&rsquo;m still looking for a way to modulate the phase of this sine wave, in order to test &ldquo;frequency leakage&rdquo; and measure efficiency of our different window functions. You you have a trick for this with MDA AU or any other plug-in, please don&rsquo;t hesitate to leave me a comment !</p>
+]]></content>
+    </entry>
+    
+    <entry>
+        <title type="html"><![CDATA[Create a FFT Analyzer part III: building UI with Cocoa and Objective-C]]></title>
+        <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/"/>
+        <updated>2011-11-23T16:32:10+01:00</updated>
+        <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c</id>
+        <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/images1.jpeg"><img src="http://guileboard.files.wordpress.com/2011/11/images1.jpeg?w=150" alt="" /></a>In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we&rsquo;ll create widgets so as to configure the FFT analysis.</p>
+
+<p>Why using Cocoa? Well, for two reasons: I didn&rsquo;t want to introduce a too complex API in this tutorial (such as OpenGL), and I would like to show you how to mix C++ and Objective-C in the same XCode project. Don&rsquo;t worry, it doesn&rsquo;t bother if you&rsquo;re not experienced with Objective-C: we&rsquo;ll make a straightforward use of it and we&rsquo;ll clearly explain all the interactions between our GUI classes and our C++ code.</p>
+
+<!-- more -->
+
+
+<h3>One build target more</h3>
+
+<p>First off, we ought to organize a bit our XCode project before we start coding our Cocoa UI. I may suggest you to create a new folder into &ldquo;Sources&rdquo; that will contain all your Objective-C code. Let&rsquo;s call it &ldquo;SpectrumCocoaView&rdquo;.</p>
+
+<p>We need to add a new build target to our project:</p>
+
+<ol>
+<li><p> Choose the template &ldquo;Mac OS X > Framework &amp; Library > Bundle&rdquo; and call you target &ldquo;SpectrumCocoaView&rdquo;. Please note that we don&rsquo;t use the &ldquo;Automatic Reference Counting&rdquo; feature in this tutorial, so you may uncheck it. And yes, this time, you must link your target to the Cocoa framework.</p></li>
+<li><p> Edit your new target&rsquo;s build settings and add this to the &ldquo;Other Linker flags&rdquo;: <em>-framework Foundation -framework AppKit </em></p></li>
+<li><p> There&rsquo;s not much to say about build phases: we classically include the required headers, then our Objective-C sources, however we just must not forget to add a XIB file which describes our GUI. I&rsquo;ll explain this very soon.</p></li>
+</ol>
+
+
+<p>You have to make a &ldquo;build relationship&rdquo; between you two targets :</p>
+
+<ol>
+<li><p> Open the build phases for your C++ target called &ldquo;SimpleSpectrumAnalyzer&rdquo;.</p></li>
+<li><p> Add a build phase of type &ldquo;Target dependencies&rdquo; <strong>positioned as your first operation</strong>.</p></li>
+<li><p> Then add the product &ldquo;SpectrumCocoaView&rdquo; as a dependency.</p></li>
+</ol>
+
+
+<p>Perhaps you don&rsquo;t want to put your hands into problems for now, so you may prefer <a href="http://github.com/fredguile/SimpleSpectrumAnalyzer">grabbing our existing XCode project</a> before you continue your reading.</p>
+
+<h3>Design your interface</h3>
+
+<p>That&rsquo;s where you create a new XIB file (preferably in your &ldquo;Resources&rdquo; folder) in order to design your GUI. At this step, we just draw our GUI components, and keep all the logic inside Objective-C classes we&rsquo;ll create afterwards. It&rsquo;s a good occasion to separate concerns between components: our Spectrum Analyzer GUI will divide the work between two main classes.</p>
+
+<p>Here are the components we need to add to this document:</p>
+
+<ul>
+<li><p>The root view, called &ldquo;SpectrumAnalyzerView&rdquo;: a <strong>Custom View</strong> responsible for all exchanges between the Audio Unit and the GUI, like sending/receiving parameters, or receiving new audio data to draw.</p></li>
+<li><p>The subview, called &ldquo;SimpleSpectrumGraphView&rdquo;: a <strong>Custom View</strong> responsible for drawing the GUI using basic Cocoa objects such as Bezier curve, text labels, etc.</p></li>
+<li><p>We add a child element to the subview: a <strong>TextField</strong> widget, that we&rsquo;ll use to give more precise informations about frequencies and magnitudes.</p></li>
+</ul>
+
+
+<p>Finally, We create a <strong>NSMenu </strong>widget in order to let users modify the Audio Unit parameters. It will pops up when you right-click anywhere in the SpectrumAnalyzerView.</p>
+
+<p><a href="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-18-14-07.png"><img src="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-18-14-07.png?w=300" alt="" /></a></p>
+
+<h3>Create GUI classes</h3>
+
+<p>For each custom view that we have added above, we need to create a class owning the programming logic. Objective-C is quite similar than C++: you first define your classes into header files, then implement them in source files. There are two things you should know before creating them:</p>
+
+<ul>
+<li><p>Objective-C can contain either C or C++ code. It depends of the file&rsquo;s extension you choose when you create your implementation : .m stands for C, .mm for C++. To keep this tutorial simple, and because we&rsquo;ll include C++ headers in our Objective-C classes, I strongly suggest<strong> renaming all your .m extensions to .mm extensions</strong>.</p></li>
+<li><p>There is no namespace in Objective-C, so Apple recommends to name all you classes using very specific names.</p></li>
+</ul>
+
+
+<p>Before you go, don&rsquo;t forget to choose the &ldquo;SpectrumCocoaView&rdquo; target each time you create a new Objective-C class. So we create these ones:</p>
+
+<ul>
+<li><p><strong>SimpleSpectrum_GraphView</strong></p></li>
+<li><p><strong>SimpleSpectrum_UIView</strong></p></li>
+<li><p>and a very important one, <strong>SimpleSpectrum_ViewFactory</strong></p></li>
+</ul>
+
+
+<p>What is it for? This latter class is responsible for binding your GUI with you Audio Unit, hence it must implement the <strong>AUCocoaUIBase</strong> protocol. What is a protocol? It&rsquo;s more or less like an interface in Java: by adding it to your class, you agree to implement all the methods defined inside. So in our case, it&rsquo;s necessary to implement this method:</p>
+
+<pre><code>-(NSView *)uiViewForAudioUnit:(AudioUnit)inAudioUnit withSize:(NSSize)inPreferredSize {
+if(![NSBundle loadNibNamed:@"SpectrumView" owner:self]) {
+NSLog(@"Unable to load nib from view");
+return nil;
+}
+
+[uiFreshlyLoadedView setAU:inAudioUnit];
+NSView *returnView = uiFreshlyLoadedView;
+uiFreshlyLoadedView = nil; // zero out pointer.  This is a view factory.  Once a view's been created
+
+// and handed off, the factory keeps no record of it.
+return [returnView autorelease];
+}
+</code></pre>
+
+<h3>Bind UI widgets to IBActions</h3>
+
+<p>This is the fun part of the Cocoa Framework. All you have to do is:</p>
+
+<ol>
+<li><p> in your Objective-C code:</p>
+
+<ol>
+<li><p>declare all your subviews and widgets as member variables of you custom class, using pointers to their base class</p></li>
+<li><p>put the magic qualifier <strong>IBOutlet</strong> on each variable</p></li>
+<li><p>create &ldquo;action methods&rdquo; that return the <strong>IBAction</strong> type and take an unique parameter of type <strong>id</strong></p></li>
+</ol>
+</li>
+<li><p> in the XIB document:</p>
+
+<ol>
+<li><p>select each view (or widget) for which you have developed a custom class</p></li>
+<li><p>define this custom class in the &ldquo;Class&rdquo; attribute (on the right pane of Xcode)</p></li>
+<li><p>bind <strong>Outlets </strong>together, that is to say, bind views with their subview and their widgets</p></li>
+<li><p>bind <strong>Received Actions </strong>with the methods you&rsquo;ve previously created</p></li>
+</ol>
+</li>
+</ol>
+
+
+<p><a href="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-20-54-13.png"><img src="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-20-54-13.png?w=179" alt="" /></a></p>
+
+<p>So far, we have designed a basic Cocoa UI and we have bound the most important widgets to actions developed in Objective-C classes. We have had an overall sight of how our Spectrum Analyzer basically interacts with the Cocoa UI.</p>
+
+<p>We&rsquo;ll soon study how to draw a beautiful spectrum analyzer, but in the meantime, we need to talk about the data we need to manage on both sides in order to transmit the FFT analysis to the UI.</p>
+
+<h3>Create Audio Unit&rsquo;s parameters and properties</h3>
+
+<p>Your GUI will communicate with your Audio Unit using two types of data:</p>
+
+<ul>
+<li><p><strong>parameters</strong>: they hold user settings. They are called by the Audio Unit during audio processing and they are called by the GUI classes when the user modify them through UI widgets,</p></li>
+<li><p><strong>properties</strong>: they hold any kind of data exchanged between the Audio Unit, the Host and the GUI. They can be defined in the CoreAudio SDK, as well in your code as &ldquo;custom properties&rdquo;.</p></li>
+</ul>
+
+
+<p>For our Spectrum analyzer, we define these three parameters:</p>
+
+<ul>
+<li><p><strong>kSpectrumParam_BlockSize</strong>: the FFT block size, from 1024 to 16384 samples. By raising this parameters, we raise the FFT precision, but in the other hand we get slower computing/drawing times,</p></li>
+<li><p><strong><strong>kSpectrumParam_SelectC</strong>hannel</strong>: a simple parameter to restrict FFT analysis on left or right channel (if our audio unit is inserted into a stereo bus),</p></li>
+<li><p><strong>kSpectrumParam_Window</strong>: the window function we choose to compute our samples before we do FFT analysis.</p></li>
+</ul>
+
+
+<p>And we need those two custom properties:</p>
+
+<ul>
+<li><p><strong>kAudioUnitProperty_SpectrumGraphInfo</strong>: a simple structure that hold the infos our GUI needs to know before it can draw a spectrum graph,</p></li>
+<li><p><strong>kAudioUnitProperty_SpectrumGraphData</strong>: an array of floating-point numbers to pass the computed magnitudes to the GUI.</p></li>
+</ul>
+
+
+<p>Building those parameters and properties on the Audio Unit side would require to add another endless part to this tutorial. Fortunately, there are many articles available on the net and I suggest reading <a href="http://developer.apple.com/library/mac/#documentation/MusicAudio/Conceptual/AudioUnitProgrammingGuide/Tutorial-BuildingASimpleEffectUnitWithAGenericView/Tutorial-BuildingASimpleEffectUnitWithAGenericView.html">the official Apple tutorial</a> if you want to get more details in creating them in your C++ code .</p>
+
+<p>Still, we must comment some lines of code from the C++ class &ldquo;SimpleSpectrum&rdquo;:</p>
+
+<ul>
+<li><p>Parameters must be declared as soon as your Audio Unit initializes:</p>
+
+<p>SimpleSpectrum::SimpleSpectrum(AudioUnit component) : AUEffectBase(component), mCAMutex(&ldquo;mutex&rdquo;){
+&hellip;
+SetParameter(kSpectrumParam_BlockSize, kBlockSize_Default);
+SetParameter(kSpectrumParam_SelectChannel, kSelectChannel_Default);
+SetParameter(kSpectrumParam_Window, kWindow_Default);
+&hellip;
+}</p></li>
+<li><p>It&rsquo;s best to declare all parameters and properties in a separate C++ header: <em>SimpleSpectrumSharedData.h</em> in our case. That way, we could use C++ for our Audio Unit and restrict our GUI code to pure Objective-C and C</p></li>
+<li><p>Basically, to use a parameter defined both in the Audio Unit and the GUI, we have to call:</p>
+
+<ul>
+<li><p>from the Audio Unit side: <em>GetParameter(kSpectrumParam_BlockSize)</em></p></li>
+<li><p>from the Cocoa UI side: <em>AudioUnitGetParameter(mAU, kSpectrumParam_BlockSize, kAudioUnitScope_Global, 0, &amp;inValue)</em></p></li>
+</ul>
+</li>
+<li><p> In this tutorial, we assume that the GUI has previously allocated sufficient memory <strong>before</strong> it requests any property content. Hence it&rsquo;s also responsible for freeing this memory when it&rsquo;s released. That&rsquo;s why the code that transmit our custom properties looks like this, without allocating anything:</p>
+
+<p>&hellip;
+case kAudioUnitProperty_SpectrumGraphData: {
+   Float32<em> mData = (Float32</em>) outData;
+   if(mInfos.mNumBins > 0) {
+      mCAMutex.Lock();
+      memcpy(mData, mComputedMagnitudes(), mInfos.mNumBins * sizeof(Float32));
+      mCAMutex.Unlock();
+   }
+}</p></li>
+<li><p>On the other side, in the class SimpleSpectrum_UIView class:</p>
+
+<p>&hellip;
+SpectrumGraphInfo graphInfo;
+graphInfo.mNumBins = 0;
+UInt32 sizeOfResult = sizeof(graphInfo);
+ComponentResult result = AudioUnitGetProperty(mAU,
+                                                  kAudioUnitProperty_SpectrumGraphInfo,
+                                                  kAudioUnitScope_Global,
+                                                  0,
+                                                  &amp;graphInfo,
+                                                  &amp;sizeOfResult);</p>
+
+<p>if(result == noErr &amp;&amp; graphInfo.mNumBins > 0) {
+        CAAutoFree graphData;
+        graphData.allocBytes(sizeOfResult = graphInfo.mNumBins * sizeof(Float32));</p>
+
+<pre><code>    result = AudioUnitGetProperty(mAU,
+                                  kAudioUnitProperty_SpectrumGraphData,
+                                  kAudioUnitScope_Global,
+                                  0,
+                                  graphData(),
+                                  &amp;sizeOfResult);
+
+    [graphView plotData: graphData givenInfos: graphInfo];
+</code></pre>
+
+<p>}</p></li>
+<li><p>The most of you, readers, will have noticed that we protect access to the computed magnitudes array with a mutex, provided by the class <strong>CAMutex</strong> (found in the &ldquo;PublicUtility&rdquo; folder). This is because the GUI code and the Audio Unit code both run in separate threads. The former may ask for the magnitudes <strong>while </strong>they are being computed, so we must synchronize this.</p></li>
+<li><p><strong>Edit 15/01/12</strong>: I committed a few changes on the lines above that brought some performance tweaks. It looks like the mutex isn&rsquo;t that necessary, and I also removed some dynamic memory allocations to save some CPU cycles.</p></li>
+</ul>
+
+
+<h3>Synchronize Audio Unit&rsquo;s data with UI</h3>
+
+<p>So&hellip; how can we draw the spectrum graph once magnitudes have been computed by our <em>SimpleSpectrumProcessor</em> class? We have two options:</p>
+
+<ul>
+<li><p>We could add a <strong>NSTimer </strong>in the class <strong>SimpleSpectrum_UIView </strong>that cyclically &ldquo;asks&rdquo; for the computed magnitudes.</p></li>
+<li><p>We could &ldquo;notify&rdquo; the class <strong>SimpleSpectrum_UIView </strong>each time new magnitudes have been computed.</p></li>
+</ul>
+
+
+<p>I tried both solutions, and I prefer the second one. To achieve this, you need to create a callback listener in the class <strong>SimpleSpectrum_UIView</strong>, and follow these guidelines:</p>
+
+<ul>
+<li><p>create the method <strong>dispatchAudioUnitEventProc </strong>with a special signature and register it as a callback method (SimpleSpectrum_UIView.mm, line 188)</p></li>
+<li><p>register an <strong>AudioUnitEvent</strong> for every parameter/property you&rsquo;ve created (SimpleSpectrum_UIView.mm, lines 194-215)</p></li>
+<li><p>catch a &ldquo;property changed&rdquo;  event for our custom properties <strong>kAudioUnitProperty_SpectrumGraphData</strong> and <strong>kAudioUnitProperty_SpectrumGraphInfo</strong>(SimpleSpectrum_UIView.mm, lines 144-149)</p></li>
+<li><p>send this &ldquo;property changed&rdquo; event in the audio unit main code (SimpleSpectrum.cpp, line 89)</p></li>
+<li><p>write a method that will pass properties to the UI (SimpleSpectrum.cpp, lines 95-150)</p></li>
+<li><p>write a method that will draw magnitudes, or at least delegate this draw to the class <strong>SimpleSpectrum_GraphView</strong> (SimpleSpectrum_UIView.mm, lines 224-251)</p></li>
+</ul>
+
+
+<p>Okay, I admit that there is a lot of steps. There are many lines of code involved in this synchronization, written with different semantics, three programming languages, etc. Things could be easier, that&rsquo;s we&rsquo;ll perhaps discover when we&rsquo;ll write our first VST in an upcoming tutorial ;)</p>
+
+<p>Though, our spectrum is still not moving. We need to talk about the class <strong>SimpleSpectrum_GraphView</strong> and its drawing techniques.</p>
+
+<h3>Bringing the spectrum alive</h3>
+
+<p>There are three things I would like to write about in this class.</p>
+
+<p>First of all, the object <strong>NSBezierPath </strong>is my easy method for drawing the spectrum. All I have to do is moving to a certain <strong>NSPoint,</strong> then draw lines/curves using the methods <em>lineToPoint</em> and <em>curveToPoint</em> (or may I write &ldquo;messages&rdquo;? Since we are writing Objective-C&hellip;). There is a good tutorial on this <a href="http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CocoaDrawingGuide/Introduction/Introduction.html">in the Apple documentation</a>.</p>
+
+<p><a href="http://guileboard.files.wordpress.com/2011/11/bezier_curvec1.png"><img src="http://guileboard.files.wordpress.com/2011/11/bezier_curvec1.png" alt="" /></a></p>
+
+<p>Secondly, I use the object <strong>NSAffineTransform</strong> each time I need to change my coordinate system. This is important to understand that we have to draw several different things:</p>
+
+<ul>
+<li><p>the grid, from left-to-right and top-to-bottom</p></li>
+<li><p>the frequencies/decibels labels, by transforming twice the coordinate system</p></li>
+<li><p>the spectrum curve from left-to-right</p></li>
+</ul>
+
+
+<p>So either you get an headache with maths, either you feel sick using <strong>NSAffineTransform</strong>. I personally got an headache and felt sick, but the use of <strong>NSAffineTransform</strong> has structured my code. You should look at <a href="http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CocoaDrawingGuide/Transforms/Transforms.html#//apple_ref/doc/uid/TP40003290-CH204-BCIFCIHJ">this tutorial</a> for further explanations.</p>
+
+<p>At last, you might notice a few additional things:</p>
+
+<ul>
+<li><p>that we have used a bunch of methods so as to draw frequencies/decibels in a logarithmic scale (SimpleSpectrum_GraphView.mm, lines 87-145)</p></li>
+<li><p>that we have added some mouse callbacks in order to display the precise frequency/decibel under the mouse cursor (SimpleSpectrum_GraphView.mm, lines 334-374)</p></li>
+</ul>
+
+
+<p>We now have everything we need to build a clean Cocoa UI, and at this time, I hope that you have everything set up in your XCode environment and that you can hit &ldquo;Build&rdquo; to get your first debug release.</p>
+]]></content>
+    </entry>
+    
+    <entry>
+        <title type="html"><![CDATA[Create a FFT Analyzer part II: designing our spectral processor]]></title>
+        <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/"/>
+        <updated>2011-11-23T16:26:47+01:00</updated>
+        <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor</id>
+        <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/images.jpeg"><img src="http://guileboard.files.wordpress.com/2011/11/images.jpeg" alt="" /></a>We briefly introduced the FFT part of the Accelerated Framework in Part I of this tutorial.</p>
+
+<p>We are now going to focus on the vDSP library and create the C++ class responsible for doing the spectral analysis work of our input samples. We want to keep it simple, with a few public methods, however we would like to perform FFT analysis on different frame sizes. So, one of our challenges is to design a circular buffer as member variable, which is a common pattern in audio programming.</p>
+
+<!-- more -->
+
+
+<h3>Xcode Setup</h3>
+
+<p>In case you don&rsquo;t have your development environment initialized with a clean template for building audio units, I suggest you <a href="http://github.com/fredguile/SimpleSpectrumAnalyzer">download the source code of this tutorial</a>, then open the C++ class called <em>SimpleSpectrumProcessor.h</em> located in the &ldquo;Sources/SpectrumAU&rdquo; folder.</p>
+
+<p>First of all, if you look at the &ldquo;PublicUtility&rdquo; folder of the CoreAudio SDK, you may notice a quite similar class called &ldquo;CASpectralProcessor&rdquo;. Actually, you can consider our class as a reduced version of &ldquo;CASpectralProcessor&rdquo;, more readable to my opinion, with a different buffers organization that allows the use of various FFT sizes upon time (between 1024 and 16384 frames). As common design, we will reuse the classes <em>CAAutoFree</em> and <em>CAAutoArrayDelete</em> so as to implement each data buffer. The former is basically an alternative to the std::auto smart pointer with the same restrictions on pointer ownership, but since it&rsquo;s using <em>malloc</em> to allocate memory, it will guarantee that the allocated memory is aligned on a 16-bits boundary (what vecLib needs). The latter is a similar version using &ldquo;new&rdquo; for memory allocation.</p>
+
+<p>So you need to include the header &ldquo;PublicUtility/CAAutoDisposer.h&rdquo;, either in our class header, either in the project&rsquo;s precompiled headers section. You also need &lt;Accelerate/Accelerate.h> for the vDSP library and the &ldquo;vecLib.framework&rdquo; binary added to your build settings.</p>
+
+<h3>SimpleSpectrumProcessor.h</h3>
+
+<pre><code>class SimpleSpectrumProcessor {
+public:
+enum Window { Rectangular = 1, Hann = 2, Hamming = 3, Blackman = 4 };
+private:
+UInt32 mNumChannels;
+UInt32 mRingBufferCapacity;
+UInt32 mRingBufferPosRead;
+UInt32 mRingBufferPosWrite;
+UInt32 mRingBufferCount;
+UInt32 mFFTSize;
+FFTSetup mFFTSetup;
+bool mFFTSetupCreated;
+struct ChannelBuffers {
+CAAutoFree&lt;Float32&gt; mRingBufferData;
+CAAutoFree&lt;Float32&gt; mInputData;
+CAAutoFree&lt;Float32&gt; mSplitData;
+CAAutoFree&lt;Float32&gt; mOutputData;
+CAAutoFree&lt;DSPSplitComplex&gt; mDSPSplitComplex;
+};
+
+CAAutoArrayDelete&lt;ChannelBuffers&gt; mChannels;
+CAAutoFree&lt;Float32&gt; mWindowData;
+
+protected:
+void InitFFT(UInt32 FFTSize, UInt32 log2FFTSize, UInt32 bins);
+void ExtractRingBufferToFFTInput(UInt32 inNumFrames);
+void ApplyWindow(Window w);
+
+public:
+SimpleSpectrumProcessor();
+virtual ~SimpleSpectrumProcessor();
+void Allocate(UInt32 inNumChannels, UInt32 ringBufferCapacity);
+bool CopyInputToRingBuffer(UInt32 inNumFrames, AudioBufferList* inInput);
+bool TryFFT(UInt32 inFFTSize, Window w = Rectangular);
+CAAutoFree&lt;Float32&gt; GetMagnitudes(Window w, UInt32 channelSelect = 3);
+};
+</code></pre>
+
+<p>The first member variables are storing our circular buffer&rsquo;s capacity, fill count and two locations for reading/writing. Next, FFTSetup is holding the FFT weights array required by vDSP to perform the FFT transform. Concerning the buffers:</p>
+
+<ul>
+<li><p><em>mChannels</em> is an array containing various auto-pointers for each buffer we need : input/output data, split buffer to hold complex numbers that we&rsquo;ll access using our specific pointer <em>mDSPSplitComplex </em>(we&rsquo;ll explain that in a few seconds),</p></li>
+<li><p><em>mWindowData </em>holds floating-pont numbers of the window function we&rsquo;ll choose to limit frequency leakage on our frequency spectrum (see <a href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/">part I</a>),</p></li>
+<li><p><em>mFFTSize </em>holds the FFT size, and we propose 5 values : 1024, 2048, 4096, 8192 or 16384 samples.</p></li>
+</ul>
+
+
+<p>By using auto-pointers as member variables (instead of simple pointers),  we use the RAII (&ldquo;resource acquisition is initialization&rdquo;) technique of C++ to free our buffers when our Audio Unit is released (or, of course, if an exception occur). That is to say, destructors for <em>CAAutoFree </em>and <em>CAAutoArrayDelete</em> will be called automatically when our main class is released.</p>
+
+<p>Here is the basic workflow of this class:</p>
+
+<ul>
+<li><p>We first call <em>Allocate()</em> to initialize the circular buffer with a capacity of 16384 samples,</p></li>
+<li><p> Each time our plugin render, we copy N frames to our circular buffer using <em>CopyInputToRingBuffer()</em>, then we call <em>TryFFT()</em> to compute those data,</p></li>
+<li><p>In case the method <em>TryFFT()</em> returns successfully, we call <em>GetMagnitudes() </em>to obtain a floating-point array of magnitudes to display on a graph. We can get magnitudes for left/right channel separately (<em>channelSelect </em>is 1 or 2), or we can look at the average magnitudes of a stereo channel (<em>channelSelect </em>is 3).</p></li>
+</ul>
+
+
+<h3>Using a Ring Buffer</h3>
+
+<p><a href="http://guileboard.files.wordpress.com/2011/11/200px-circular_buffer-svg.png"><img src="http://guileboard.files.wordpress.com/2011/11/200px-circular_buffer-svg.png?w=150" alt="" /></a>Audio Units generally capture N input samples each time they are rendered, N being set by the host in which they operate. N has a value usually lower than the minimum number of  frames required for computing FFT, so before we can provide at least 1024 samples to FFT, we have those N samples stored into a ring buffer over a few cycles.</p>
+
+<p> This kind of buffer is circular: thus, it never overflows. We always keep K samples in the ring buffer, K being the buffer&rsquo;s capacity. That&rsquo;s why we maintain two<em> int pointers</em> :</p>
+
+<ul>
+<li><p><em>mRingBufferPosRead</em> indicates where we must read when we extract samples to compute FFT,</p></li>
+<li><p><em>mRingBufferPosWrite </em> is the same for writing into the ring buffer.</p></li>
+</ul>
+
+
+<p>We use an &ldquo;overlap-add&rdquo; algorithm to fill our ring buffer, that is, we possibly split the N samples being added, on part being stored at the end of the buffer and the other being stored from the beginning index. You can look at the method <em>CopyInputToRingBuffer</em> to get an example of such algorithm.</p>
+
+<p>We also use this technique to extract N samples from the ring buffer (look at the protected method <em>ExtractRingBufferToFFTInput() </em> method). However, we ensure that enough samples have been stored into the buffer before we call this method.</p>
+
+<p>You may note that our implement isn&rsquo;t thread-safe, hence all calls to the <em>SimpleSpectrunProcessor</em>&rsquo;s methods must be called from the same thread.</p>
+
+<h3>Data packing for vDSP FFT</h3>
+
+<p>The library vDSP.h provides two structures for packing the N samples you pass to the FFT: <em>DSPComplex </em>and <em>DSPSplitComplex</em>. You should first read the <a href="http://developer.apple.com/library/ios/#documentation/Performance/Conceptual/vDSP_Programming_Guide/UsingFourierTransforms/UsingFourierTransforms.html">neat article made by Apple on data packing</a>. Here is a summary:</p>
+
+<ol>
+<li><p> Your N samples are first stored into a 16-bits aligned float-point array, called our <em>input buffer</em>,</p></li>
+<li><p> Whereas a real FFT would produce 2N complex numbers, the vDSP FFT truncates the result to store N/2 complex numbers in our <em>output buffer:</em> hence the input/output buffers have the same N size,</p></li>
+<li><p> Prior to the FFT function, you need to reorganize your <em>input buffer</em> by copying your N samples into a <em>split buffer</em>.</p></li>
+</ol>
+
+
+<p>This <em>split buffer</em> is first initialized as a 16-bits aligned floating-point array, as you may read in the protected method <em>InitFFT()</em>. It is next accessed using a <em>DSPSplitComplex </em>structure that &ldquo;groups&rdquo; floating-point together, for this buffer to behave as an array of N/2 complex numbers (with both real and imaginary parts).</p>
+
+<p><em><em>This is important to remember that the last mandatory step before we can compute FFT is to reorganize you </em>split buffer</em> by calling <strong>vDSP_ctoz</strong>: this will &ldquo;pack&rdquo; floating-point numbers for the vDSP FFT by a stride of 2.</p>
+
+<p>For instance,  if your input buffer is [x1, x2, x3, x4, x5, x6, x7, x8], then your split buffer will be [x1, x5, x2, x6, x3, x7, x4, x8]. After FFT, you&rsquo;ll get [c1.real, c1.imag, c2.real, c2.imag, c3.real, c3.imag, c4.real, c4.imag]. But, if the <em>DSPSplitComplex</em> structure can see interleaved complex numbers like previously, our split buffer remains an aligned buffer with [c1.real, c2.real, c3.real, c1.imag, c2.imag, c3.imag, c4.imag].</p>
+
+<h3>The power of SIMD</h3>
+
+<p><a href="http://guileboard.files.wordpress.com/2011/11/images-1.jpeg"><img src="http://guileboard.files.wordpress.com/2011/11/images-1.jpeg?w=150" alt="" /></a>What is the plot of having all those buffers ? We could have reworked things to diminish memory footprint.</p>
+
+<p>Instead, we&rsquo;ll use the great SIMD features of the vDSP library with no proprietary code at all!  The benefit here is to drastically reduce the computing time of a large number of samples. Furthermore, vDSP provide numerous mathematical functions that will help us achieve our sound analysis.</p>
+
+<p>At first sight, there are a lot of functions. You&rsquo;ll soon get use to the naming conventions used by Apple to find the good one: for instance, if you are looking to a vector-scalar operation, you may search for a function named vDSP_vs[something] or vDSP_sv[something]. It you are working with 64-bits IEEE floating point numbers, you will look at the functions named vDSP_[something]D (D for double).</p>
+
+<p>Here is what our SimpleSpectrumAnalyzer will do:</p>
+
+<ol>
+<li><p> First, we determine our current windowing function by simply calling one of the ready-to-use functions: <strong>vDSP_hann_window </strong>(Hann), <strong>vDSP_hamm_window</strong> (Hamming) or <strong>vDSP_blkman_window</strong> (Blackman)</p></li>
+<li><p> We multiply our N samples with the window function using <strong>vDSP_vmul</strong></p></li>
+<li><p> As seen above, our DSPComplexSplit structure is organized by <strong>vDSP_ctoz</strong></p></li>
+<li><p> We compute FFT with <strong>vDSP_fft_zip </strong>(as a naming convention, &ldquo;z&rdquo; stands for complex numbers),</p></li>
+<li><p> Magnitude of a complex number can be obtained with <strong>vDSP_zvabs </strong>(we could have possibly used <strong>vDSP_zvmags</strong>, see below)</p></li>
+<li><p> We next normalize our magnitudes, by dividing then by two, using <strong>vDSP_vsdiv </strong>(since we got N/2 complex numbers which is half of the N input samples)</p></li>
+<li><p> We convert magnitudes to a decibel value using <strong>vDSP_vdbconv</strong></p></li>
+<li><p> We correct each decibel values by applying a Db correction with <strong>vDSP_vadd</strong></p></li>
+<li><p> We could possible obtain an average value for left and right channels using <strong>vDSP_vadd</strong> and <strong>vDSP_vsdiv</strong>.</p></li>
+</ol>
+
+
+<p>We&rsquo;ll leave these steps unchanged to keep this tutorial simple, though we could have tweaked things a bit. As you know, the decibel formula is given by:</p>
+
+<p><a href="http://guileboard.files.wordpress.com/2011/11/062fdd96385ff2ddfdb4426194c49b29.png"><img src="http://guileboard.files.wordpress.com/2011/11/062fdd96385ff2ddfdb4426194c49b29.png" alt="" /></a></p>
+
+<p>As an optimization, rather than multiplying/dividing U1 or U2, we could have left U1 unchanged, called <strong>vDSP_vdbconv</strong>, then take this into account when applying our dB correction. Indeed, every multiplication or division on U1 can translate into an addition or deletion on log10(U1). In the same manner, we could have used <strong>vDSP_zvmags</strong> instead of <strong>vDSP_zvabs</strong> and saved one <em>sqrt </em>operation.</p>
+
+<h3>Using SimpleSpectrumProcessor in our Audio Unit</h3>
+
+<p>We&rsquo;ll wrap up this part by showing you how our SimpleSpectrumProcessor is used in the main code. Basically:</p>
+
+<ul>
+<li><p>It&rsquo;s a member variable of the main class <em>SimpleSpectrum.h</em> (hence all of our resources are released using the RAII technique),</p></li>
+<li><p>We override the <em>AUEffectBase::Render()</em> method, responsible for grabbing N samples from the audio inputs and computing FFT,</p></li>
+<li><p>You may notice that we aren&rsquo;t using the class <em>SimpleSpectrumKernel</em> at all, even if we have overridden the method <em>AUKernelBase::Process()</em>, which is a required step for our Audio Unit to be validated by the <strong>auval</strong> tool.</p></li>
+</ul>
+
+
+<p>Here the snippet of the main work:</p>
+
+<pre><code>...
+AudioBufferList&amp; inputBufList = GetInput(0)-&gt;GetBufferList();
+mProcessor.CopyInputToRingBuffer(inFramesToProcess, &amp;inputBufList);
+...
+if(mProcessor.TryFFT(currentBlockSize, currentWindow)) {
+...
+CAAutoFree&lt;Float32&gt; magnitudes = mProcessor.GetMagnitudes(currentWindow, channelSelect);
+...
+}
+</code></pre>
+
+<h3>Conclusion</h3>
+
+<p>I let you examine the Apple documentation to get acquainted of the different methods you can override from the base classes <em>AUEffectBase </em>and <em>AUBase</em>. In an upcoming tutorial, we will make a better use of the <em>AUKernelBase</em> class, but in the meantime, we shall look how we&rsquo;ll build a GUI to draw our spectrum data.</p>
+]]></content>
+    </entry>
+    
+</feed>
