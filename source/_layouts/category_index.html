@@ -4,7 +4,7 @@ footer: false
 ---
 
 <div id="content-category" class="column">
-    <h2 class="archivetitle">Archives for the '{{page.category}}' Category</h2>
+    <h2 class="archivetitle">Archived posts</h2>
 
     {% for post in site.categories[page.category] %}
     {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}

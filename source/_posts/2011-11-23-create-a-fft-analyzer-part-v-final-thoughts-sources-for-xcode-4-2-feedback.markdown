@@ -70,8 +70,6 @@ I spent a couple of minutes hacking my code in order to show you in a video how 
 
 Before I throw out this hack, I can show you what it is like this OpenGL version of the Simple Spectrum Analyzer:
 
-
-[youtube=http://www.youtube.com/watch?v=8nnl2BFCZQ8&w=480&h=270]
-
+{% youtube 8nnl2BFCZQ8 %}
 
 As a conclusion, we can see that the OpenGL alternative still renders slowly with an FFT size of 16384 samples. So there must be a lot of performance tweaks to perform elsewhere. For anybody interested, the alternate code has been pushed to GitHub.

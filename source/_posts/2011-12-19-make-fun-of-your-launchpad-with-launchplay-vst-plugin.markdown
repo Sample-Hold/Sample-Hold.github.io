@@ -104,8 +104,7 @@ Before I explain the required MIDI routing, let's watch a demo video:
 
 
 
-[youtube=http://www.youtube.com/watch?v=http://www.youtube.com/watch?v=JWVFdrywEqc]
-
+{% youtube JWVFdrywEqc %}
 
 
 
@@ -159,8 +158,7 @@ You can use:
 I can show you my typical routing done in Live:
 
 
-[youtube=http://www.youtube.com/watch?v=lJOVjKdoO9E]
-
+{% youtube lJOVjKdoO9E %}
 
 
 
@@ -200,7 +198,7 @@ To wrap up this article, Launch Play was as fun to build as it's probably fun to
 
 
 
-[youtube=http://www.youtube.com/watch?v=pdshwDY19s4]
+{% youtube pdshwDY19s4 %}
 
 
 I'm thinking about some new tutorials to write on sample-hold.com. I don't know yet, we could discuss about writing a new VST plugin from scratch, or we could study some programming tricks based on the LaunchPlay sources. If you have any precise idea on what you would like to see on this website, please leave a comment!

@@ -1,0 +1,32 @@
+---
+layout: default
+footer: false
+---
+
+<div id="content-category" class="column">
+    <h2 class="archivetitle">{{ page.title }}</h2>
+
+    {% for post in paginator.posts %}
+    {% include archive_post.html %}
+    {% endfor %}
+</div>
+<div id="nav-post">
+    <div class="navigation-bott">
+        {% if paginator.previous_page %}
+        {% if paginator.previous_page > 1 %}
+        <div class="leftnav">
+            <a rel="prev" href="/{{ page.year}}/{{ page.month }}/page/{{ paginator.previous_page }}/" title="Previous Post: {{page.previous.title}}">Previous Entries</a>
+        </div>
+        {% else %}
+        <div class="leftnav">
+            <a rel="prev" href="/{{ page.year}}/{{ page.month }}/" title="Previous Post: {{page.previous.title}}">Previous Entries</a>
+        </div>
+        {% endif %}
+        {% endif %}
+        {% if paginator.next_page %}
+        <div class="rightnav">
+            <a rel="next" href="/{{ page.year}}/{{ page.month }}/page/{{ paginator.next_page }}/" title="Next Post: {{page.next.title}}">Next Entries</a>
+        </div>
+        {% endif %}
+    </div>
+</div>

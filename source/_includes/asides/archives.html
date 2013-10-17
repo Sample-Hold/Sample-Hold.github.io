@@ -1,5 +1,29 @@
 <li><h2>Archives</h2>
     <ul id="archives">
+        {% for post in site.posts %}
 
+        {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
+        {% capture month %}{{ post.date | date: '%m' }}{% endcapture %}
+
+        {% unless post.next %}
+        {% assign nyear = year %}
+        {% assign nmonth = moth %}
+        <li>
+            <a href="/{{ year }}/{{ month }}">{{ month }} / {{ year }}</a>
+        </li>
+
+        {% else %}
+        {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
+        {% capture nmonth %}{{ post.next.date | date: '%m' }}{% endcapture %}
+
+        {% if nyear != year && nmonth != month %}
+        <li>
+            <a href="/{{ nyear }}/{{ nmonth }}">{{ nmonth }} / {{ nyear }}</a>
+        </li>
+        {% endif %}
+
+        {% endunless %}
+
+        {% endfor %}
     </ul>
 </li>
