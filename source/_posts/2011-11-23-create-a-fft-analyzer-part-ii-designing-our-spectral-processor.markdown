@@ -15,7 +15,7 @@ tags:
 - XCode
 ---
 
-[![](http://guileboard.files.wordpress.com/2011/11/images.jpeg)](http://guileboard.files.wordpress.com/2011/11/images.jpeg)We briefly introduced the FFT part of the Accelerated Framework in Part I of this tutorial.
+{% img alignleft http://guileboard.files.wordpress.com/2011/11/images.jpeg %} We briefly introduced the FFT part of the Accelerated Framework in Part I of this tutorial.
 
 
 
@@ -43,15 +43,7 @@ First of all, if you look at the "PublicUtility" folder of the CoreAudio SDK, yo
 
 So you need to include the header "PublicUtility/CAAutoDisposer.h", either in our class header, either in the project's precompiled headers section. You also need <Accelerate/Accelerate.h> for the vDSP library and the "vecLib.framework" binary added to your build settings.
 
-
-
-
-
-### SimpleSpectrumProcessor.h
-
-
-
-    
+``` c++ SimpleSpectrumProcessor.h
     class SimpleSpectrumProcessor {
     public:
     enum Window { Rectangular = 1, Hann = 2, Hamming = 3, Blackman = 4 };
@@ -88,7 +80,7 @@ So you need to include the header "PublicUtility/CAAutoDisposer.h", either in ou
     bool TryFFT(UInt32 inFFTSize, Window w = Rectangular);
     CAAutoFree<Float32> GetMagnitudes(Window w, UInt32 channelSelect = 3);
     };
-
+```
 
 
 
@@ -140,7 +132,7 @@ Here is the basic workflow of this class:
 
 
 
-[![](http://guileboard.files.wordpress.com/2011/11/200px-circular_buffer-svg.png?w=150)](http://guileboard.files.wordpress.com/2011/11/200px-circular_buffer-svg.png)Audio Units generally capture N input samples each time they are rendered, N being set by the host in which they operate. N has a value usually lower than the minimum number of  frames required for computing FFT, so before we can provide at least 1024 samples to FFT, we have those N samples stored into a ring buffer over a few cycles.
+{% img alignleft http://guileboard.files.wordpress.com/2011/11/200px-circular_buffer-svg.png?w=150 %} Audio Units generally capture N input samples each time they are rendered, N being set by the host in which they operate. N has a value usually lower than the minimum number of  frames required for computing FFT, so before we can provide at least 1024 samples to FFT, we have those N samples stored into a ring buffer over a few cycles.
 
 
 
@@ -222,7 +214,7 @@ For instance,  if your input buffer is [x1, x2, x3, x4, x5, x6, x7, x8], then y
 
 
 
-[![](http://guileboard.files.wordpress.com/2011/11/images-1.jpeg?w=150)](http://guileboard.files.wordpress.com/2011/11/images-1.jpeg)What is the plot of having all those buffers ? We could have reworked things to diminish memory footprint.
+{% img alignleft http://guileboard.files.wordpress.com/2011/11/images-1.jpeg?w=150 %} What is the plot of having all those buffers ? We could have reworked things to diminish memory footprint.
 
 
 
@@ -274,7 +266,7 @@ We'll leave these steps unchanged to keep this tutorial simple, though we could 
 
 
 
-[![](http://guileboard.files.wordpress.com/2011/11/062fdd96385ff2ddfdb4426194c49b29.png)](http://guileboard.files.wordpress.com/2011/11/062fdd96385ff2ddfdb4426194c49b29.png)
+{% img centered http://guileboard.files.wordpress.com/2011/11/062fdd96385ff2ddfdb4426194c49b29.png %}
 
 
 
@@ -309,7 +301,7 @@ We'll wrap up this part by showing you how our SimpleSpectrumProcessor is used i
 
 Here the snippet of the main work:
 
-    
+``` c++
     ...
     AudioBufferList& inputBufList = GetInput(0)->GetBufferList();
     mProcessor.CopyInputToRingBuffer(inFramesToProcess, &inputBufList);
@@ -319,7 +311,7 @@ Here the snippet of the main work:
     CAAutoFree<Float32> magnitudes = mProcessor.GetMagnitudes(currentWindow, channelSelect);
     ...
     }
-
+```
 
 
 

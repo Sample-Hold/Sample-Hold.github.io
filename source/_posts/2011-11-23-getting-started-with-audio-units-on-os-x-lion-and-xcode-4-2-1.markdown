@@ -15,34 +15,21 @@ tags:
 - XCode
 ---
 
-[![](http://guileboard.files.wordpress.com/2011/11/home-ios-sdk.png)](http://guileboard.files.wordpress.com/2011/11/home-ios-sdk.png)Apple usually takes care of their developers community.  Whereas they lately delivered an impressive update of their Xcode IDE with tons of new features (read a [cool  review here](http://pilky.me/view/28)), they surprisingly removed the project template for creating Audio Units. Nevertheless, let's see how to create a new unit from scratch...
-
+{% img alignleft http://guileboard.files.wordpress.com/2011/11/home-ios-sdk.png %} Apple usually takes care of their developers community.  Whereas they lately delivered an impressive update of their Xcode IDE with tons of new features (read a [cool  review here](http://pilky.me/view/28)), they surprisingly removed the project template for creating Audio Units. Nevertheless, let's see how to create a new unit from scratch...
 
 <!-- more -->
 
 Of course, the Core Audio SDK is still located in /Developer/Extras/CoreAudio and it's still possible to develop Audio Units with XCode 4.2. So you have two solutions :
 
-
-
-	
   * either you grab a sample code from Apple documentation (like "FilterDemo" for instance) and migrate it to suit the latest changes done in OS X Lion for the Core Audio SDK (there is an [official technical note to read here](http://developer.apple.com/library/mac/#technotes/tn2276/_index.html#//apple_ref/doc/uid/DTS40011031)),
 
-	
   * or you can learn, by following this tutorial, how to build you audio unit template from scratch in only a few steps !
-
-
 
 
 **EDIT for XCode 4.3.2 users: You may have noticed that starting from version 4.3.2, XCode is now a bundled app installed in /Applications. There is no more /Developer folder and since you are likely to use the CoreAudio API, you absolutely need to dowload the optional package named "Audio Tools for XCode" from the Apple website. Please click on XCode > Open Developer Tool > More Developer Tools... to reach the dowload page. And of course, you'll have to rewrite by yourself some links provided in this tutorial.**
 
 
-
-
-
-
-
 ### Create the project
-
 
 You need to create a new project using the template "Mac OS X > Framework & Library >Bundle".
 
@@ -53,9 +40,6 @@ Indeed, an Audio Unit is basically a bundle with a different file name extensi
 
 
 Your project must contain at least :
-
-
-
 	
   * one group for storing all C++ sources files, including your created classes and some sources coming from the CoreAudio SDK you will necessarily use,
 
@@ -69,9 +53,7 @@ Your project must contain at least :
 By the way, don't neglect the "Identity" pane displayed when you open the rightmost view. You'll find two fields, "Location" and "Full Path" that can help you cleaning the mess if you want to add / delete a lot of files, or create new groups that "map" to existing folders in your project directory.
 
 
-### [![](http://guileboard.files.wordpress.com/2011/11/identity.png)](http://guileboard.files.wordpress.com/2011/11/identity.png)
-
-
+### {% img centered http://guileboard.files.wordpress.com/2011/11/identity.png %}
 
 
 ### Tune your deployment target
@@ -82,8 +64,6 @@ Click on the project's name to display the available deployment targets.
 You can reuse the default target created by Xcode. The first tab "Info" shows the content of the property list file located in your resources folder (if not, check the path entered in the tab "build settings", under the key "Info.plist File"). There is only one piece of information missing here : you must add a new Dictionary called "AudioComponent" containing at least  7 strings :
 
 
-
-	
   * **manufacturer**: your name
 
 	
@@ -105,13 +85,11 @@ You can reuse the default target created by Xcode. The first tab "Info" shows th
   * **version**: an hexadecimal number defining the version number of the unit. The magic here wants you to enter OxMMMMmmHH, where MMMM is major version, mm is minor version and HH is hotfix number. But if, like me, you want to test your updated plugin every time you compile a new version, just enter "0xFFFFFFFF".
 
 
-[![](http://guileboard.files.wordpress.com/2011/11/info.png)](http://guileboard.files.wordpress.com/2011/11/info.png)
+{% img centered http://guileboard.files.wordpress.com/2011/11/info.png %}
 
 Next, move ahead to the tab "Build settings". Toggle the filter from "Basic" to "All" and proceed to a few changes on values :
 
 
-
-	
   * Architectures: I suggest creating a standard 32/64-bit Intel binary
 
 	
@@ -147,19 +125,12 @@ Next, move ahead to the tab "Build settings". Toggle the filter from "Basic" to 
 There will be one more key to adjust, but we can't see it until we have modified the "Build phases" first. So let's move to this third tab.
 
 
-
-
-
-
-
 ### Refactor the build phases
 
 
 Honestly, I find the XCode build system absolutely wonderful. Everything you need is to add a few build phases then XCode will compile and link your binary without asking too much questions.
 
 Here are the build phases to add for our Audio Unit:
-
-
 
 	
   1. Copy Bundle Resources: this may already exist. You will necessarily include in this phase the Info.PList we tweaked earlier.
@@ -210,7 +181,7 @@ Here we are.
 
 Here is the minimal precompiled header you would write for your Audio Unit :
 
-    
+``` c++
     #if !defined(__COREAUDIO_USE_FLAT_INCLUDES__)
     #include <CoreAudio/CoreAudioTypes.h>
     #include <CoreFoundation/CoreFoundation.h>
@@ -221,7 +192,7 @@ Here is the minimal precompiled header you would write for your Audio Unit :
     
     #include "AUEffectBase.h"
     #include <AudioToolbox/AudioUnitUtilities.h>
-
+```
 
 
 
@@ -290,7 +261,7 @@ Normally, all the .h and .cpp files have been added automatically to the "Copy h
 
 You may create at least one header file and one cpp file for your custom classes. For the purpose of our tutorial, here are the minimalistic classes you need to copy'n'paste:
 
-    
+``` c++
     class MyTestedPluginKernel : public AUKernelBase {
     public:
     	MyTestedPluginKernel(AUEffectBase * inAudioUnit);
@@ -327,7 +298,7 @@ You may create at least one header file and one cpp file for your custom classes
     }
     return result;
     }
-
+```
 
 You ought to not omit the macro AUDIOCOMPONENT_ENTRY, since it's responsible for creating the stub classes MyTestedPluginEntry and MytestedPluginFactory as entry points for your Audio Unit.
 
@@ -337,7 +308,7 @@ You ought to not omit the macro AUDIOCOMPONENT_ENTRY, since it's responsible fo
 
 Remember the file "MyTestedPlugin.r" you created earlier ? It's time to fill it with standard content :
 
-    
+``` c++
     #include <AudioUnit/AudioUnit.r>
     
     #define RES_ID    1000
@@ -350,7 +321,7 @@ Remember the file "MyTestedPlugin.r" you created earlier ? It's time to fill it 
     #define ENTRY_POINT "MyTestedPluginEntry"
     
     #include "AUResources.r"
-
+```
 
 This step remains to keep backward compatibility with previous versions of CoreAudio SDK. You may  copy and past the information you wrote in the Info.PList.
 
@@ -378,29 +349,20 @@ Then go to your project build settings and give the path to this file into the k
 You should be able to compile you Audio Unit  now, but before we go we have to test using _auval _:
 
 
-
-	
   1. First, copy your compiled component into ~/Library/Audio/Plug-Ins/Components
 
 	
   2. Secondly, open Terminal and type :
 
-
-
-    
     auval -v aufx TEST FRED
 
 
 In case you've made a 64 bits plugin, you should rather type :
 
-    
     auval -64 -v aufx TEST FRED
 
 
 Auval is processing a bunch of tests to validate your Audio Unit. Since it currently does nothing, you should get the PASS mention and see it in you favourite sequencer as an audio effect.
-
-
-
 
 
 ### Conclusion

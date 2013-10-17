@@ -14,7 +14,7 @@ tags:
 - XCode
 ---
 
-[![](http://guileboard.files.wordpress.com/2011/11/au.gif)](http://guileboard.files.wordpress.com/2011/11/au.gif)This part wraps up our tutorial on building an audio effect as Audio Unit for OS X Lion. Though it is not the craziest plug-in you'll ever built, it made us learn some basis about DSP programming, as well it introduced the XCode environment for developing Audio Units. Of course, there are numerous improvements we could do on this project. In this article, I'll make some remarks about my work and  also a few issues I met during development. Last but not least, we recall the GitHub repository URL for you to grab the code and make our own version.
+{% img alignleft http://guileboard.files.wordpress.com/2011/11/au.gif %} This part wraps up our tutorial on building an audio effect as Audio Unit for OS X Lion. Though it is not the craziest plug-in you'll ever built, it made us learn some basis about DSP programming, as well it introduced the XCode environment for developing Audio Units. Of course, there are numerous improvements we could do on this project. In this article, I'll make some remarks about my work and  also a few issues I met during development. Last but not least, we recall the GitHub repository URL for you to grab the code and make our own version.
 
 
 

@@ -16,7 +16,7 @@ tags:
 - XCode
 ---
 
-[![](http://guileboard.files.wordpress.com/2011/11/images1.jpeg?w=150)](http://guileboard.files.wordpress.com/2011/11/images1.jpeg)In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we'll create widgets so as to configure the FFT analysis.
+{% img alignleft http://guileboard.files.wordpress.com/2011/11/images1.jpeg?w=150 %} In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we'll create widgets so as to configure the FFT analysis.
 
 
 
@@ -103,7 +103,7 @@ Here are the components we need to add to this document:
 Finally, We create a **NSMenu **widget in order to let users modify the Audio Unit parameters. It will pops up when you right-click anywhere in the SpectrumAnalyzerView.
 
 
-[![](http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-18-14-07.png?w=300)](http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-18-14-07.png)
+{% img centered http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-18-14-07.png?w=300 %}
 
 
 
@@ -154,14 +154,7 @@ Before you go, don't forget to choose the "SpectrumCocoaView" target each time y
 What is it for? This latter class is responsible for binding your GUI with you Audio Unit, hence it must implement the **AUCocoaUIBase** protocol. What is a protocol? It's more or less like an interface in Java: by adding it to your class, you agree to implement all the methods defined inside. So in our case, it's necessary to implement this method:
 
 
-
-
-
-
-
-
-
-    
+``` objective-c
     -(NSView *)uiViewForAudioUnit:(AudioUnit)inAudioUnit withSize:(NSSize)inPreferredSize {
     if(![NSBundle loadNibNamed:@"SpectrumView" owner:self]) {
     NSLog(@"Unable to load nib from view");
@@ -175,7 +168,7 @@ What is it for? This latter class is responsible for binding your GUI with you A
     // and handed off, the factory keeps no record of it.
     return [returnView autorelease];
     }
-
+```
 
 
 
@@ -222,7 +215,7 @@ This is the fun part of the Cocoa Framework. All you have to do is:
 
 
 
-[![](http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-20-54-13.png?w=179)](http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-20-54-13.png)
+{% img centered http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-20-54-13.png?w=179 %}
 
 
 
@@ -306,7 +299,7 @@ Still, we must comment some lines of code from the C++ class "SimpleSpectrum":
 
 
 
-    
+``` c++
     SimpleSpectrum::SimpleSpectrum(AudioUnit component) : AUEffectBase(component), mCAMutex("mutex"){
     ...
     SetParameter(kSpectrumParam_BlockSize, kBlockSize_Default);
@@ -314,7 +307,7 @@ Still, we must comment some lines of code from the C++ class "SimpleSpectrum":
     SetParameter(kSpectrumParam_Window, kWindow_Default);
     ...
     }
-
+```
 
 
 
@@ -339,7 +332,7 @@ Still, we must comment some lines of code from the C++ class "SimpleSpectrum":
 
 
 
-    
+``` c++
     ...
     case kAudioUnitProperty_SpectrumGraphData: {
        Float32* mData = (Float32*) outData;
@@ -349,7 +342,7 @@ Still, we must comment some lines of code from the C++ class "SimpleSpectrum":
           mCAMutex.Unlock();
        }
     }
-
+```
 
 
 
@@ -359,7 +352,7 @@ Still, we must comment some lines of code from the C++ class "SimpleSpectrum":
 
 
 
-    
+``` c++
     ...
     SpectrumGraphInfo graphInfo;
     graphInfo.mNumBins = 0;
@@ -384,7 +377,7 @@ Still, we must comment some lines of code from the C++ class "SimpleSpectrum":
     
             [graphView plotData: graphData givenInfos: graphInfo];
     }
-
+```
 
 
 
@@ -471,7 +464,7 @@ There are three things I would like to write about in this class.
 First of all, the object **NSBezierPath **is my easy method for drawing the spectrum. All I have to do is moving to a certain **NSPoint,** then draw lines/curves using the methods _lineToPoint_ and _curveToPoint_ (or may I write "messages"? Since we are writing Objective-C...). There is a good tutorial on this [in the Apple documentation](http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CocoaDrawingGuide/Introduction/Introduction.html).
 
 
-[![](http://guileboard.files.wordpress.com/2011/11/bezier_curvec1.png)](http://guileboard.files.wordpress.com/2011/11/bezier_curvec1.png)
+{% img centered http://guileboard.files.wordpress.com/2011/11/bezier_curvec1.png %}
 
 
 Secondly, I use the object **NSAffineTransform** each time I need to change my coordinate system. This is important to understand that we have to draw several different things:

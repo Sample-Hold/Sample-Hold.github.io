@@ -14,7 +14,7 @@ tags:
 - XCode
 ---
 
-[![](http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-13-31-29.png)](http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-13-31-29.png)It's time to build up our first audio unit.
+{% img alignleft http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-13-31-29.png %} It's time to build up our first audio unit.
 
 
 
@@ -53,7 +53,7 @@ I personally had no difficulty to read Stephan's tutorial, yet I couldn't figure
 Well, it is almost  time for me to close this book and go to bed, except perhaps if you tell me a "concrete" method for visualizing F(α). That's where we use our Wikipedia card to steal a graphical representation of the Euler formula :
 
 
-[![](http://guileboard.files.wordpress.com/2011/11/220px-eulers_formula.png)](http://guileboard.files.wordpress.com/2011/11/220px-eulers_formula.png)
+{% img centered http://guileboard.files.wordpress.com/2011/11/220px-eulers_formula.png %}
 
 
 Look at this unit circle drawn in the complex plane carefully, and I promise that an explanation will shade out in a couple of seconds.
@@ -71,7 +71,7 @@ Since our concern for building our spectrum analyzer is to only get the magnitud
 
 
 
-[![](http://guileboard.files.wordpress.com/2011/11/162px-pythagorean_theorem_abc-svg2.png)](http://guileboard.files.wordpress.com/2011/11/162px-pythagorean_theorem_abc-svg2.png)
+{% img centered http://guileboard.files.wordpress.com/2011/11/162px-pythagorean_theorem_abc-svg2.png %}
 
 
 
@@ -116,7 +116,7 @@ By the way, I think we cool look at the DTFT formula to learn a few things about
 
 
 
-[![](http://guileboard.files.wordpress.com/2011/11/dtft.png)](http://guileboard.files.wordpress.com/2011/11/dtft.png)
+{% img centered http://guileboard.files.wordpress.com/2011/11/dtft.png %}
 
 
 

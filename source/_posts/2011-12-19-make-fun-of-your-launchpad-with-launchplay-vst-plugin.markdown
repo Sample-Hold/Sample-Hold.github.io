@@ -17,7 +17,7 @@ tags:
 - VST Plugin
 ---
 
-[![](http://guileboard.files.wordpress.com/2011/12/launchplay-image.png)](http://guileboard.files.wordpress.com/2011/12/launchplay-image.png)I bought a Launchpad controller from Novation a few years ago, and although it's a great midi interface offering a perfect native remote for Ableton Live sequencer, I couldn't help thinking that this amazing tool could certainly be used in other unexpected ways, thus controlling alternate gears or software. So on the same time, I was both enjoying my Launchpad and drooling to what would have offered at more experimental controller such as [monome device](http://monome.org/devices)...
+{% img alignleft http://guileboard.files.wordpress.com/2011/12/launchplay-image.png %} I bought a Launchpad controller from Novation a few years ago, and although it's a great midi interface offering a perfect native remote for Ableton Live sequencer, I couldn't help thinking that this amazing tool could certainly be used in other unexpected ways, thus controlling alternate gears or software. So on the same time, I was both enjoying my Launchpad and drooling to what would have offered at more experimental controller such as [monome device](http://monome.org/devices)...
 
 
 
@@ -69,7 +69,7 @@ So, LaunchPlay is a** VST plugin for Mac and Windows**, containing three sub plu
 
 Here is the very simple layout available for use in LaunchPlay:
 
-[![](http://guileboard.files.wordpress.com/2011/12/launchplay-layout.png)](http://guileboard.files.wordpress.com/2011/12/launchplay-layout.png)
+{% img centered http://guileboard.files.wordpress.com/2011/12/launchplay-layout.png %}
 
 
 You may notice that the rightmost buttons of the Launchpad have been turned into a MIDI channel selector : this will allow us to send generative music to up to eight gears (virtual instruments or real synthetizers), bringing a nice multi-timbral feature to our generative music experience!
@@ -137,7 +137,7 @@ For proper work, LaunchPlay needs you to setup this MIDI routing in your VST Hos
 
 
 
-[![](http://guileboard.files.wordpress.com/2011/12/routing.png)](http://guileboard.files.wordpress.com/2011/12/routing.png)
+{% img centered http://guileboard.files.wordpress.com/2011/12/routing.png %}
 
 
 

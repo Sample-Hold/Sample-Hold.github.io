@@ -15,7 +15,7 @@ tags:
 - XCode
 ---
 
-[![](http://guileboard.files.wordpress.com/2011/11/aulab2.png)](http://guileboard.files.wordpress.com/2011/11/aulab2.png)Debugging an Audio Unit is not as straightforward as debugging a Cocoa application, because your freshly coded component doesn't show up until you insert it in a bus of your favorite DAW.
+{% img alignleft http://guileboard.files.wordpress.com/2011/11/aulab2.png %} Debugging an Audio Unit is not as straightforward as debugging a Cocoa application, because your freshly coded component doesn't show up until you insert it in a bus of your favorite DAW.
 
 
 
@@ -95,7 +95,7 @@ This basically suits our needs. The only thing we have to do is launching "AU La
 
 
 
-[![](http://guileboard.files.wordpress.com/2011/11/xcode-edit-scheme.png?w=300)](http://guileboard.files.wordpress.com/2011/11/xcode-edit-scheme.png)
+{% img centered http://guileboard.files.wordpress.com/2011/11/xcode-edit-scheme.png?w=300 %}
 
 
 
@@ -154,7 +154,7 @@ But I still get an annoying issue on my side (perhaps you won't get it) : **brea
 
 
 
-[![](http://guileboard.files.wordpress.com/2011/11/xcode-created-an-alias.png)](http://guileboard.files.wordpress.com/2011/11/xcode-created-an-alias.png)
+{% img centered http://guileboard.files.wordpress.com/2011/11/xcode-created-an-alias.png %}
 
 
 
@@ -243,16 +243,16 @@ First off, don't forget to start the AU Lab engine if you want your Audio Unit t
 
 
 
-[![](http://guileboard.files.wordpress.com/2011/11/smartelectronix.png)](http://guileboard.files.wordpress.com/2011/11/smartelectronix.png)Next, I recommend downloading the MDA AU plug-ins from [Smartelectronix's website](http://mda.smartelectronix.com/effects.htm) in order to test our Spectrum Analyzer with a simple sinusoid as input signal. After you have installed it, you should be able to use the "TestTone" plug-in and generate a pure sine signal to test our spectrum analyzer:
+{% img alignleft http://guileboard.files.wordpress.com/2011/11/smartelectronix.png %} Next, I recommend downloading the MDA AU plug-ins from [Smartelectronix's website](http://mda.smartelectronix.com/effects.htm) in order to test our Spectrum Analyzer with a simple sinusoid as input signal. After you have installed it, you should be able to use the "TestTone" plug-in and generate a pure sine signal to test our spectrum analyzer:
 
 
 
 
-[caption id="attachment_225" align="aligncenter" width="400" caption="Blocksize is 1024 samples"][![](http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-1024-samples.png)](http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-1024-samples.png)[/caption]
+{% img centered http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-1024-samples.png Blocksize is 1024 samples %}
 
 By the way, we shall notice how inaccurate is our analyzer when testing a low-frequency sine-wave with 1024 samples as FFT Size. We can correct that by raising our FFT size : right-click on the graph and choose "2048" as block size.
 
-[caption id="attachment_226" align="aligncenter" width="400" caption="With 2048 samples"][![](http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-2048-samples.png)](http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-2048-samples.png)[/caption]
+{% img centered http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-2048-samples.png With 2048 samples %}
 
 
 And I'm still looking for a way to modulate the phase of this sine wave, in order to test "frequency leakage" and measure efficiency of our different window functions. You you have a trick for this with MDA AU or any other plug-in, please don't hesitate to leave me a comment !
