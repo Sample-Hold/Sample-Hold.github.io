@@ -265,13 +265,20 @@ by <strong>fredguile</strong>
 </div>
 
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
+<script>(function (d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id; js.async = true;
+    if (d.getElementById(id)) {
+        return;
+    }
+    js = d.createElement(s);
+    js.id = id;
+    js.async = true;
     js.src = "//connect.facebook.net/en_US/all.js#appId=687955091216855&xfbml=1";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/"
+     data-width="The pixel width of the plugin" data-height="The pixel height of the plugin" data-colorscheme="light"
+     data-layout="standard" data-action="like" data-show-faces="true" data-send="false"></div>
 
 
 	
