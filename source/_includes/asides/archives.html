@@ -4,21 +4,19 @@
 
         {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
         {% capture month %}{{ post.date | date: '%m' }}{% endcapture %}
+        {% capture month_name %}{{ post.date | date: '%B' }}{% endcapture %}
 
-        {% unless post.next %}
-        {% assign nyear = year %}
-        {% assign nmonth = moth %}
+        {% unless post.previous %}
         <li>
-            <a href="/{{ year }}/{{ month }}">{{ month }} / {{ year }}</a>
+            <a href="/{{ year }}/{{ month }}">{{ month_name }} {{ pyear }}</a>
         </li>
-
         {% else %}
-        {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
-        {% capture nmonth %}{{ post.next.date | date: '%m' }}{% endcapture %}
+        {% capture pyear %}{{ post.previous.date | date: '%Y' }}{% endcapture %}
+        {% capture pmonth %}{{ post.previous.date | date: '%m' }}{% endcapture %}
 
-        {% if nyear != year && nmonth != month %}
+        {% if pmonth != month %}
         <li>
-            <a href="/{{ nyear }}/{{ nmonth }}">{{ nmonth }} / {{ nyear }}</a>
+            <a href="/{{ year }}/{{ month }}">{{ month_name }} {{ year }}</a>
         </li>
         {% endif %}
 
