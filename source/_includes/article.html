@@ -19,10 +19,12 @@
 	{% endunless %}
 </div>
 {% endunless %}
-<div class="postcomments">
-	<a href="#" title="comments to implement">0</a>
-</div>
 {% if index %}
+{% if site.disqus_show_comment_count %}
+<div class="postcomments">
+    <a href="{{ site.url }}{{ post.url }}#disqus_thread" data-disqus-identifier="{{ site.url }}{{ post.url }}">0</a>
+</div>
+{% endif %}
 <div class="entry">
 	{{ content | excerpt }}	
 	{% capture excerpted %}{{ content | has_excerpt }}{% endcapture %}
@@ -31,8 +33,16 @@
 	{% endif %}
 </div>
 {% else %}
+{% if page.comments and site.disqus_show_comment_count %}
+<div class="postcomments">
+    <a href="#disqus_thread" data-disqus-identifier="{{ site.url }}{{ page.url }}">0</a>
+</div>
+{% endif %}
 <div class="entry">
-	{{ content }}	
+	{{ content }}
 </div>
 {% include facebook_like.html %}
+{% if page.comments %}
+{% include disqus_thread.html %}
+{% endif %}
 {% endif %}
