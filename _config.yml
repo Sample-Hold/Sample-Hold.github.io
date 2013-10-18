@@ -2,7 +2,7 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://Sample-Hold.github.io
+url: http://sample-hold.com
 title: Sample & Hold
 subtitle: Ideas, thoughts and tutorials on audio programming
 author: Frederic Ghilini
@@ -20,9 +20,6 @@ subscribe_rss: /atom.xml
 subscribe_email:
 # RSS feeds can list your email address if you like
 email:
-
-# Facebook
-facebook_app_id: 687955091216855
 
 # ----------------------- #
 #    Jekyll & Plugins     #
@@ -95,11 +92,12 @@ delicious_user:
 delicious_count: 3
 
 # Disqus Comments
-disqus_short_name:
+disqus_short_name: sample_hold
 disqus_show_comment_count: true
 
 # Google Analytics
-google_analytics_tracking_id:
+google_analytics_tracking_id: UA-44962545-1
 
 # Facebook Like
+facebook_app_id: 687955091216855
 facebook_like: true
