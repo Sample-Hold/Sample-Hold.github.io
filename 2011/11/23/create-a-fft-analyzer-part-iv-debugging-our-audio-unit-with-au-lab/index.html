@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab">
+  <link rel="canonical" href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Sample & Hold" type="application/atom+xml">
@@ -79,7 +79,7 @@
 			<div id="sidebar" role="complementary">
 <div class="search-box">
     <form action="http://google.com/search" method="get">
-        <input type="hidden" name="q" value="site:Sample-Hold.github.io"/>
+        <input type="hidden" name="q" value="site:sample-hold.com"/>
         <input class="search-field" size="15" type="text" name="q" results="0" placeholder="Search"
                value="search this site" onfocus="if(this.value == 'search this site') {this.value = '';}"
                onblur="if (this.value == '') {this.value = 'search this site';}"/>
@@ -337,12 +337,14 @@ by <strong>fredguile</strong>
 	
 </div>
 
+
+
 <div class="postcomments">
-	<a href="#" title="comments to implement">0</a>
+    <a href="#disqus_thread" data-disqus-identifier="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/">0</a>
 </div>
 
 <div class="entry">
-	<p><a href="http://guileboard.files.wordpress.com/2011/11/aulab2.png"><img src="http://guileboard.files.wordpress.com/2011/11/aulab2.png" alt="" /></a>Debugging an Audio Unit is not as straightforward as debugging a Cocoa application, because your freshly coded component doesn&rsquo;t show up until you insert it in a bus of your favorite DAW.</p>
+	<p><img class="alignleft" src="http://guileboard.files.wordpress.com/2011/11/aulab2.png"> Debugging an Audio Unit is not as straightforward as debugging a Cocoa application, because your freshly coded component doesn&rsquo;t show up until you insert it in a bus of your favorite DAW.</p>
 
 <p>In this article, we review some methods for automating your debugging sessions using XCode 4. Concerning the DAW, our preference goes for a free host available in the CoreAudio SDK: AU Lab. In only a few steps, you will be able to setup some breakpoints and look into all potential devilish bugs as if you were debugging a simple Cocoa application.</p>
 
@@ -378,7 +380,7 @@ by <strong>fredguile</strong>
 </ul>
 
 
-<p><a href="http://guileboard.files.wordpress.com/2011/11/xcode-edit-scheme.png"><img src="http://guileboard.files.wordpress.com/2011/11/xcode-edit-scheme.png?w=300" alt="" /></a></p>
+<p><img class="centered" src="http://guileboard.files.wordpress.com/2011/11/xcode-edit-scheme.png?w=300"></p>
 
 <p>Now, AU Lab will automatically launch each time you hit &ldquo;Run&rdquo;.</p>
 
@@ -402,7 +404,7 @@ by <strong>fredguile</strong>
 
 <p>But I still get an annoying issue on my side (perhaps you won&rsquo;t get it) : <strong>breakpoints don&rsquo;t break.</strong> I suspect Xcode not doing the things we want. When I look into the &ldquo;Debug&rdquo; folder, the compiled component has turned into an alias, pointing to a binary now located in $(USER_LIBRARY_DIR)/Audio/Plug-Ins/Components/.</p>
 
-<p><a href="http://guileboard.files.wordpress.com/2011/11/xcode-created-an-alias.png"><img src="http://guileboard.files.wordpress.com/2011/11/xcode-created-an-alias.png" alt="" /></a></p>
+<p><img class="centered" src="http://guileboard.files.wordpress.com/2011/11/xcode-created-an-alias.png"></p>
 
 <p>Actually, I don&rsquo;t think the build settings we mentioned above are a viable solution for the &ldquo;debug&rdquo; configuration. However, we could keep them for the next stages of our workflow, so I suggest changing the build setting in that way:</p>
 
@@ -448,16 +450,16 @@ by <strong>fredguile</strong>
 
 <p>First off, don&rsquo;t forget to start the AU Lab engine if you want your Audio Unit to process any sample. You can do this by clicking on the label &ldquo;Audio engine stopped&rdquo; on the lowest part of AU Lab&rsquo;s mixer.</p>
 
-<p><a href="http://guileboard.files.wordpress.com/2011/11/smartelectronix.png"><img src="http://guileboard.files.wordpress.com/2011/11/smartelectronix.png" alt="" /></a>Next, I recommend downloading the MDA AU plug-ins from <a href="http://mda.smartelectronix.com/effects.htm">Smartelectronix&rsquo;s website</a> in order to test our Spectrum Analyzer with a simple sinusoid as input signal. After you have installed it, you should be able to use the &ldquo;TestTone&rdquo; plug-in and generate a pure sine signal to test our spectrum analyzer:</p>
+<p><img class="alignleft" src="http://guileboard.files.wordpress.com/2011/11/smartelectronix.png"> Next, I recommend downloading the MDA AU plug-ins from <a href="http://mda.smartelectronix.com/effects.htm">Smartelectronix&rsquo;s website</a> in order to test our Spectrum Analyzer with a simple sinusoid as input signal. After you have installed it, you should be able to use the &ldquo;TestTone&rdquo; plug-in and generate a pure sine signal to test our spectrum analyzer:</p>
 
-<p>[caption id=&ldquo;attachment_225&rdquo; align=&ldquo;aligncenter&rdquo; width=&ldquo;400&rdquo; caption=&ldquo;Blocksize is 1024 samples&rdquo;]<a href="http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-1024-samples.png"><img src="http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-1024-samples.png" alt="" /></a>[/caption]</p>
+<p><img class="centered" src="http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-1024-samples.png" title="Blocksize is 1024 samples" ></p>
 
 <p>By the way, we shall notice how inaccurate is our analyzer when testing a low-frequency sine-wave with 1024 samples as FFT Size. We can correct that by raising our FFT size : right-click on the graph and choose &ldquo;2048&rdquo; as block size.</p>
 
-<p>[caption id=&ldquo;attachment_226&rdquo; align=&ldquo;aligncenter&rdquo; width=&ldquo;400&rdquo; caption=&ldquo;With 2048 samples&rdquo;]<a href="http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-2048-samples.png"><img src="http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-2048-samples.png" alt="" /></a>[/caption]</p>
+<p><img class="centered" src="http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-2048-samples.png" title="With 2048 samples" ></p>
 
 <p>And I&rsquo;m still looking for a way to modulate the phase of this sine wave, in order to test &ldquo;frequency leakage&rdquo; and measure efficiency of our different window functions. You you have a trick for this with MDA AU or any other plug-in, please don&rsquo;t hesitate to leave me a comment !</p>
-	
+
 </div>
 
 <div id="fb-root"></div>
@@ -477,7 +479,10 @@ by <strong>fredguile</strong>
      data-layout="standard" data-action="like" data-show-faces="true" data-send="false"></div>
 
 
-	
+
+<div id="disqus_thread"></div>
+
+
 </div>
 <div id="nav-post">
 	<div class="navigation-bott">
@@ -502,6 +507,48 @@ Powered by <a rel="generator" href="http://octopress.org">Octopress</a>
 
 </div>
     
+
+<script type="text/javascript">
+    var dsq_scripts = [], dsq = null;
+    var disqus_shortname = 'sample-hold';
+
+
+
+    // var disqus_developer = 1;
+    var disqus_identifier = 'http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/';
+    var disqus_url = 'http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/';
+
+    dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    dsq_scripts.push(dsq);
+
+
+    dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq_scripts.push(dsq);
+
+    $(function () {
+        $(dsq_scripts).each(function() {
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(this);
+        });
+    });
+</script>
+
+
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-44962545-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
 
 </body>
 </html>

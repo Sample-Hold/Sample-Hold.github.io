@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
     <title><![CDATA[Tag: Mac OS X | Sample & Hold]]></title>
-    <link href="http://Sample-Hold.github.io/tag/mac-os-x/atom.xml" rel="self"/>
-    <link href="http://Sample-Hold.github.io/"/>
-    <updated>2013-10-17T18:47:18+02:00</updated>
-    <id>http://Sample-Hold.github.io/</id>
+    <link href="http://sample-hold.com/tag/mac-os-x/atom.xml" rel="self"/>
+    <link href="http://sample-hold.com/"/>
+    <updated>2013-10-18T13:26:35+02:00</updated>
+    <id>http://sample-hold.com/</id>
     <author>
         <name><![CDATA[Frederic Ghilini]]></name>
         
@@ -15,10 +15,10 @@
     
     <entry>
         <title type="html"><![CDATA[Create a FFT Analyzer part V: final thoughts, sources for XCode 4.2 & feedback]]></title>
-        <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/"/>
+        <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/"/>
         <updated>2011-11-23T16:34:55+01:00</updated>
-        <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback</id>
-        <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/au.gif"><img src="http://guileboard.files.wordpress.com/2011/11/au.gif" alt="" /></a>This part wraps up our tutorial on building an audio effect as Audio Unit for OS X Lion. Though it is not the craziest plug-in you&rsquo;ll ever built, it made us learn some basis about DSP programming, as well it introduced the XCode environment for developing Audio Units. Of course, there are numerous improvements we could do on this project. In this article, I&rsquo;ll make some remarks about my work and  also a few issues I met during development. Last but not least, we recall the GitHub repository URL for you to grab the code and make our own version.</p>
+        <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback</id>
+        <content type="html"><![CDATA[<p><img class="alignleft <a" src="href="http://guileboard.files.wordpress.com/2011/11/au.gif">http://guileboard.files.wordpress.com/2011/11/au.gif</a>"> This part wraps up our tutorial on building an audio effect as Audio Unit for OS X Lion. Though it is not the craziest plug-in you&rsquo;ll ever built, it made us learn some basis about DSP programming, as well it introduced the XCode environment for developing Audio Units. Of course, there are numerous improvements we could do on this project. In this article, I&rsquo;ll make some remarks about my work and  also a few issues I met during development. Last but not least, we recall the GitHub repository URL for you to grab the code and make our own version.</p>
 
 <!-- more -->
 
@@ -56,10 +56,10 @@
     
     <entry>
         <title type="html"><![CDATA[Create a FFT Analyzer part IV: debugging our Audio Unit with AU Lab]]></title>
-        <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/"/>
+        <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/"/>
         <updated>2011-11-23T16:33:15+01:00</updated>
-        <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab</id>
-        <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/aulab2.png"><img src="http://guileboard.files.wordpress.com/2011/11/aulab2.png" alt="" /></a>Debugging an Audio Unit is not as straightforward as debugging a Cocoa application, because your freshly coded component doesn&rsquo;t show up until you insert it in a bus of your favorite DAW.</p>
+        <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab</id>
+        <content type="html"><![CDATA[<p><img class="alignleft <a" src="href="http://guileboard.files.wordpress.com/2011/11/aulab2.png">http://guileboard.files.wordpress.com/2011/11/aulab2.png</a>"> Debugging an Audio Unit is not as straightforward as debugging a Cocoa application, because your freshly coded component doesn&rsquo;t show up until you insert it in a bus of your favorite DAW.</p>
 
 <p>In this article, we review some methods for automating your debugging sessions using XCode 4. Concerning the DAW, our preference goes for a free host available in the CoreAudio SDK: AU Lab. In only a few steps, you will be able to setup some breakpoints and look into all potential devilish bugs as if you were debugging a simple Cocoa application.</p>
 
@@ -95,7 +95,7 @@
 </ul>
 
 
-<p><a href="http://guileboard.files.wordpress.com/2011/11/xcode-edit-scheme.png"><img src="http://guileboard.files.wordpress.com/2011/11/xcode-edit-scheme.png?w=300" alt="" /></a></p>
+<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/11/xcode-edit-scheme.png?w=300">http://guileboard.files.wordpress.com/2011/11/xcode-edit-scheme.png?w=300</a>"></p>
 
 <p>Now, AU Lab will automatically launch each time you hit &ldquo;Run&rdquo;.</p>
 
@@ -119,7 +119,7 @@
 
 <p>But I still get an annoying issue on my side (perhaps you won&rsquo;t get it) : <strong>breakpoints don&rsquo;t break.</strong> I suspect Xcode not doing the things we want. When I look into the &ldquo;Debug&rdquo; folder, the compiled component has turned into an alias, pointing to a binary now located in $(USER_LIBRARY_DIR)/Audio/Plug-Ins/Components/.</p>
 
-<p><a href="http://guileboard.files.wordpress.com/2011/11/xcode-created-an-alias.png"><img src="http://guileboard.files.wordpress.com/2011/11/xcode-created-an-alias.png" alt="" /></a></p>
+<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/11/xcode-created-an-alias.png">http://guileboard.files.wordpress.com/2011/11/xcode-created-an-alias.png</a>"></p>
 
 <p>Actually, I don&rsquo;t think the build settings we mentioned above are a viable solution for the &ldquo;debug&rdquo; configuration. However, we could keep them for the next stages of our workflow, so I suggest changing the build setting in that way:</p>
 
@@ -165,13 +165,13 @@
 
 <p>First off, don&rsquo;t forget to start the AU Lab engine if you want your Audio Unit to process any sample. You can do this by clicking on the label &ldquo;Audio engine stopped&rdquo; on the lowest part of AU Lab&rsquo;s mixer.</p>
 
-<p><a href="http://guileboard.files.wordpress.com/2011/11/smartelectronix.png"><img src="http://guileboard.files.wordpress.com/2011/11/smartelectronix.png" alt="" /></a>Next, I recommend downloading the MDA AU plug-ins from <a href="http://mda.smartelectronix.com/effects.htm">Smartelectronix&rsquo;s website</a> in order to test our Spectrum Analyzer with a simple sinusoid as input signal. After you have installed it, you should be able to use the &ldquo;TestTone&rdquo; plug-in and generate a pure sine signal to test our spectrum analyzer:</p>
+<p><img class="alignleft <a" src="href="http://guileboard.files.wordpress.com/2011/11/smartelectronix.png">http://guileboard.files.wordpress.com/2011/11/smartelectronix.png</a>"> Next, I recommend downloading the MDA AU plug-ins from <a href="http://mda.smartelectronix.com/effects.htm">Smartelectronix&rsquo;s website</a> in order to test our Spectrum Analyzer with a simple sinusoid as input signal. After you have installed it, you should be able to use the &ldquo;TestTone&rdquo; plug-in and generate a pure sine signal to test our spectrum analyzer:</p>
 
-<p>[caption id=&ldquo;attachment_225&rdquo; align=&ldquo;aligncenter&rdquo; width=&ldquo;400&rdquo; caption=&ldquo;Blocksize is 1024 samples&rdquo;]<a href="http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-1024-samples.png"><img src="http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-1024-samples.png" alt="" /></a>[/caption]</p>
+<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-1024-samples.png">http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-1024-samples.png</a>" title="Blocksize is 1024 samples" ></p>
 
 <p>By the way, we shall notice how inaccurate is our analyzer when testing a low-frequency sine-wave with 1024 samples as FFT Size. We can correct that by raising our FFT size : right-click on the graph and choose &ldquo;2048&rdquo; as block size.</p>
 
-<p>[caption id=&ldquo;attachment_226&rdquo; align=&ldquo;aligncenter&rdquo; width=&ldquo;400&rdquo; caption=&ldquo;With 2048 samples&rdquo;]<a href="http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-2048-samples.png"><img src="http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-2048-samples.png" alt="" /></a>[/caption]</p>
+<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-2048-samples.png">http://guileboard.files.wordpress.com/2011/11/debugging-simplespectrum-analyzer-with-2048-samples.png</a>" title="With 2048 samples" ></p>
 
 <p>And I&rsquo;m still looking for a way to modulate the phase of this sine wave, in order to test &ldquo;frequency leakage&rdquo; and measure efficiency of our different window functions. You you have a trick for this with MDA AU or any other plug-in, please don&rsquo;t hesitate to leave me a comment !</p>
 ]]></content>
@@ -179,10 +179,10 @@
     
     <entry>
         <title type="html"><![CDATA[Create a FFT Analyzer part III: building UI with Cocoa and Objective-C]]></title>
-        <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/"/>
+        <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/"/>
         <updated>2011-11-23T16:32:10+01:00</updated>
-        <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c</id>
-        <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/images1.jpeg"><img src="http://guileboard.files.wordpress.com/2011/11/images1.jpeg?w=150" alt="" /></a>In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we&rsquo;ll create widgets so as to configure the FFT analysis.</p>
+        <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c</id>
+        <content type="html"><![CDATA[<p><img class="alignleft <a" src="href="http://guileboard.files.wordpress.com/2011/11/images1.jpeg?w=150">http://guileboard.files.wordpress.com/2011/11/images1.jpeg?w=150</a>"> In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we&rsquo;ll create widgets so as to configure the FFT analysis.</p>
 
 <p>Why using Cocoa? Well, for two reasons: I didn&rsquo;t want to introduce a too complex API in this tutorial (such as OpenGL), and I would like to show you how to mix C++ and Objective-C in the same XCode project. Don&rsquo;t worry, it doesn&rsquo;t bother if you&rsquo;re not experienced with Objective-C: we&rsquo;ll make a straightforward use of it and we&rsquo;ll clearly explain all the interactions between our GUI classes and our C++ code.</p>
 
@@ -228,7 +228,7 @@
 
 <p>Finally, We create a <strong>NSMenu </strong>widget in order to let users modify the Audio Unit parameters. It will pops up when you right-click anywhere in the SpectrumAnalyzerView.</p>
 
-<p><a href="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-18-14-07.png"><img src="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-18-14-07.png?w=300" alt="" /></a></p>
+<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-18-14-07.png?w=300">http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-18-14-07.png?w=300</a>"></p>
 
 <h3>Create GUI classes</h3>
 
@@ -251,6 +251,8 @@
 
 <p>What is it for? This latter class is responsible for binding your GUI with you Audio Unit, hence it must implement the <strong>AUCocoaUIBase</strong> protocol. What is a protocol? It&rsquo;s more or less like an interface in Java: by adding it to your class, you agree to implement all the methods defined inside. So in our case, it&rsquo;s necessary to implement this method:</p>
 
+<p>``` objective-c</p>
+
 <pre><code>-(NSView *)uiViewForAudioUnit:(AudioUnit)inAudioUnit withSize:(NSSize)inPreferredSize {
 if(![NSBundle loadNibNamed:@"SpectrumView" owner:self]) {
 NSLog(@"Unable to load nib from view");
@@ -265,6 +267,8 @@ uiFreshlyLoadedView = nil; // zero out pointer.  This is a view factory.  Once
 return [returnView autorelease];
 }
 </code></pre>
+
+<p>```</p>
 
 <h3>Bind UI widgets to IBActions</h3>
 
@@ -291,7 +295,7 @@ return [returnView autorelease];
 </ol>
 
 
-<p><a href="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-20-54-13.png"><img src="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-20-54-13.png?w=179" alt="" /></a></p>
+<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-20-54-13.png?w=179">http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-20-54-13.png?w=179</a>"></p>
 
 <p>So far, we have designed a basic Cocoa UI and we have bound the most important widgets to actions developed in Objective-C classes. We have had an overall sight of how our Spectrum Analyzer basically interacts with the Cocoa UI.</p>
 
@@ -329,15 +333,24 @@ return [returnView autorelease];
 <p>Still, we must comment some lines of code from the C++ class &ldquo;SimpleSpectrum&rdquo;:</p>
 
 <ul>
-<li><p>Parameters must be declared as soon as your Audio Unit initializes:</p>
+<li>Parameters must be declared as soon as your Audio Unit initializes:</li>
+</ul>
 
-<p>SimpleSpectrum::SimpleSpectrum(AudioUnit component) : AUEffectBase(component), mCAMutex(&ldquo;mutex&rdquo;){
-&hellip;
+
+<p>``` c++</p>
+
+<pre><code>SimpleSpectrum::SimpleSpectrum(AudioUnit component) : AUEffectBase(component), mCAMutex("mutex"){
+...
 SetParameter(kSpectrumParam_BlockSize, kBlockSize_Default);
 SetParameter(kSpectrumParam_SelectChannel, kSelectChannel_Default);
 SetParameter(kSpectrumParam_Window, kWindow_Default);
-&hellip;
-}</p></li>
+...
+}
+</code></pre>
+
+<p>```</p>
+
+<ul>
 <li><p>It&rsquo;s best to declare all parameters and properties in a separate C++ header: <em>SimpleSpectrumSharedData.h</em> in our case. That way, we could use C++ for our Audio Unit and restrict our GUI code to pure Objective-C and C</p></li>
 <li><p>Basically, to use a parameter defined both in the Audio Unit and the GUI, we have to call:</p>
 
@@ -346,20 +359,33 @@ SetParameter(kSpectrumParam_Window, kWindow_Default);
 <li><p>from the Cocoa UI side: <em>AudioUnitGetParameter(mAU, kSpectrumParam_BlockSize, kAudioUnitScope_Global, 0, &amp;inValue)</em></p></li>
 </ul>
 </li>
-<li><p> In this tutorial, we assume that the GUI has previously allocated sufficient memory <strong>before</strong> it requests any property content. Hence it&rsquo;s also responsible for freeing this memory when it&rsquo;s released. That&rsquo;s why the code that transmit our custom properties looks like this, without allocating anything:</p>
+<li><p> In this tutorial, we assume that the GUI has previously allocated sufficient memory <strong>before</strong> it requests any property content. Hence it&rsquo;s also responsible for freeing this memory when it&rsquo;s released. That&rsquo;s why the code that transmit our custom properties looks like this, without allocating anything:</p></li>
+</ul>
 
-<p>&hellip;
+
+<p>``` c++</p>
+
+<pre><code>...
 case kAudioUnitProperty_SpectrumGraphData: {
-   Float32<em> mData = (Float32</em>) outData;
-   if(mInfos.mNumBins > 0) {
+   Float32* mData = (Float32*) outData;
+   if(mInfos.mNumBins &gt; 0) {
       mCAMutex.Lock();
       memcpy(mData, mComputedMagnitudes(), mInfos.mNumBins * sizeof(Float32));
       mCAMutex.Unlock();
    }
-}</p></li>
-<li><p>On the other side, in the class SimpleSpectrum_UIView class:</p>
+}
+</code></pre>
 
-<p>&hellip;
+<p>```</p>
+
+<ul>
+<li>On the other side, in the class SimpleSpectrum_UIView class:</li>
+</ul>
+
+
+<p>``` c++</p>
+
+<pre><code>...
 SpectrumGraphInfo graphInfo;
 graphInfo.mNumBins = 0;
 UInt32 sizeOfResult = sizeof(graphInfo);
@@ -368,23 +394,26 @@ ComponentResult result = AudioUnitGetProperty(mAU,
                                                   kAudioUnitScope_Global,
                                                   0,
                                                   &amp;graphInfo,
-                                                  &amp;sizeOfResult);</p>
+                                                  &amp;sizeOfResult);
 
-<p>if(result == noErr &amp;&amp; graphInfo.mNumBins > 0) {
+if(result == noErr &amp;&amp; graphInfo.mNumBins &gt; 0) {
         CAAutoFree graphData;
-        graphData.allocBytes(sizeOfResult = graphInfo.mNumBins * sizeof(Float32));</p>
+        graphData.allocBytes(sizeOfResult = graphInfo.mNumBins * sizeof(Float32));
 
-<pre><code>    result = AudioUnitGetProperty(mAU,
-                                  kAudioUnitProperty_SpectrumGraphData,
-                                  kAudioUnitScope_Global,
-                                  0,
-                                  graphData(),
-                                  &amp;sizeOfResult);
+        result = AudioUnitGetProperty(mAU,
+                                      kAudioUnitProperty_SpectrumGraphData,
+                                      kAudioUnitScope_Global,
+                                      0,
+                                      graphData(),
+                                      &amp;sizeOfResult);
 
-    [graphView plotData: graphData givenInfos: graphInfo];
+        [graphView plotData: graphData givenInfos: graphInfo];
+}
 </code></pre>
 
-<p>}</p></li>
+<p>```</p>
+
+<ul>
 <li><p>The most of you, readers, will have noticed that we protect access to the computed magnitudes array with a mutex, provided by the class <strong>CAMutex</strong> (found in the &ldquo;PublicUtility&rdquo; folder). This is because the GUI code and the Audio Unit code both run in separate threads. The former may ask for the magnitudes <strong>while </strong>they are being computed, so we must synchronize this.</p></li>
 <li><p><strong>Edit 15/01/12</strong>: I committed a few changes on the lines above that brought some performance tweaks. It looks like the mutex isn&rsquo;t that necessary, and I also removed some dynamic memory allocations to save some CPU cycles.</p></li>
 </ul>
@@ -422,7 +451,7 @@ ComponentResult result = AudioUnitGetProperty(mAU,
 
 <p>First of all, the object <strong>NSBezierPath </strong>is my easy method for drawing the spectrum. All I have to do is moving to a certain <strong>NSPoint,</strong> then draw lines/curves using the methods <em>lineToPoint</em> and <em>curveToPoint</em> (or may I write &ldquo;messages&rdquo;? Since we are writing Objective-C&hellip;). There is a good tutorial on this <a href="http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CocoaDrawingGuide/Introduction/Introduction.html">in the Apple documentation</a>.</p>
 
-<p><a href="http://guileboard.files.wordpress.com/2011/11/bezier_curvec1.png"><img src="http://guileboard.files.wordpress.com/2011/11/bezier_curvec1.png" alt="" /></a></p>
+<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/11/bezier_curvec1.png">http://guileboard.files.wordpress.com/2011/11/bezier_curvec1.png</a>"></p>
 
 <p>Secondly, I use the object <strong>NSAffineTransform</strong> each time I need to change my coordinate system. This is important to understand that we have to draw several different things:</p>
 
@@ -449,10 +478,10 @@ ComponentResult result = AudioUnitGetProperty(mAU,
     
     <entry>
         <title type="html"><![CDATA[Create a FFT Analyzer part II: designing our spectral processor]]></title>
-        <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/"/>
+        <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/"/>
         <updated>2011-11-23T16:26:47+01:00</updated>
-        <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor</id>
-        <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/images.jpeg"><img src="http://guileboard.files.wordpress.com/2011/11/images.jpeg" alt="" /></a>We briefly introduced the FFT part of the Accelerated Framework in Part I of this tutorial.</p>
+        <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor</id>
+        <content type="html"><![CDATA[<p><img class="alignleft <a" src="href="http://guileboard.files.wordpress.com/2011/11/images.jpeg">http://guileboard.files.wordpress.com/2011/11/images.jpeg</a>"> We briefly introduced the FFT part of the Accelerated Framework in Part I of this tutorial.</p>
 
 <p>We are now going to focus on the vDSP library and create the C++ class responsible for doing the spectral analysis work of our input samples. We want to keep it simple, with a few public methods, however we would like to perform FFT analysis on different frame sizes. So, one of our challenges is to design a circular buffer as member variable, which is a common pattern in audio programming.</p>
 
@@ -467,7 +496,7 @@ ComponentResult result = AudioUnitGetProperty(mAU,
 
 <p>So you need to include the header &ldquo;PublicUtility/CAAutoDisposer.h&rdquo;, either in our class header, either in the project&rsquo;s precompiled headers section. You also need &lt;Accelerate/Accelerate.h> for the vDSP library and the &ldquo;vecLib.framework&rdquo; binary added to your build settings.</p>
 
-<h3>SimpleSpectrumProcessor.h</h3>
+<p>``` c++ SimpleSpectrumProcessor.h</p>
 
 <pre><code>class SimpleSpectrumProcessor {
 public:
@@ -507,6 +536,8 @@ CAAutoFree&lt;Float32&gt; GetMagnitudes(Window w, UInt32 channelSelect = 3);
 };
 </code></pre>
 
+<p>```</p>
+
 <p>The first member variables are storing our circular buffer&rsquo;s capacity, fill count and two locations for reading/writing. Next, FFTSetup is holding the FFT weights array required by vDSP to perform the FFT transform. Concerning the buffers:</p>
 
 <ul>
@@ -529,7 +560,7 @@ CAAutoFree&lt;Float32&gt; GetMagnitudes(Window w, UInt32 channelSelect = 3);
 
 <h3>Using a Ring Buffer</h3>
 
-<p><a href="http://guileboard.files.wordpress.com/2011/11/200px-circular_buffer-svg.png"><img src="http://guileboard.files.wordpress.com/2011/11/200px-circular_buffer-svg.png?w=150" alt="" /></a>Audio Units generally capture N input samples each time they are rendered, N being set by the host in which they operate. N has a value usually lower than the minimum number of  frames required for computing FFT, so before we can provide at least 1024 samples to FFT, we have those N samples stored into a ring buffer over a few cycles.</p>
+<p><img class="alignleft <a" src="href="http://guileboard.files.wordpress.com/2011/11/200px-circular_buffer-svg.png?w=150">http://guileboard.files.wordpress.com/2011/11/200px-circular_buffer-svg.png?w=150</a>"> Audio Units generally capture N input samples each time they are rendered, N being set by the host in which they operate. N has a value usually lower than the minimum number of  frames required for computing FFT, so before we can provide at least 1024 samples to FFT, we have those N samples stored into a ring buffer over a few cycles.</p>
 
 <p> This kind of buffer is circular: thus, it never overflows. We always keep K samples in the ring buffer, K being the buffer&rsquo;s capacity. That&rsquo;s why we maintain two<em> int pointers</em> :</p>
 
@@ -564,7 +595,7 @@ CAAutoFree&lt;Float32&gt; GetMagnitudes(Window w, UInt32 channelSelect = 3);
 
 <h3>The power of SIMD</h3>
 
-<p><a href="http://guileboard.files.wordpress.com/2011/11/images-1.jpeg"><img src="http://guileboard.files.wordpress.com/2011/11/images-1.jpeg?w=150" alt="" /></a>What is the plot of having all those buffers ? We could have reworked things to diminish memory footprint.</p>
+<p><img class="alignleft <a" src="href="http://guileboard.files.wordpress.com/2011/11/images-1.jpeg?w=150">http://guileboard.files.wordpress.com/2011/11/images-1.jpeg?w=150</a>"> What is the plot of having all those buffers ? We could have reworked things to diminish memory footprint.</p>
 
 <p>Instead, we&rsquo;ll use the great SIMD features of the vDSP library with no proprietary code at all!  The benefit here is to drastically reduce the computing time of a large number of samples. Furthermore, vDSP provide numerous mathematical functions that will help us achieve our sound analysis.</p>
 
@@ -587,7 +618,7 @@ CAAutoFree&lt;Float32&gt; GetMagnitudes(Window w, UInt32 channelSelect = 3);
 
 <p>We&rsquo;ll leave these steps unchanged to keep this tutorial simple, though we could have tweaked things a bit. As you know, the decibel formula is given by:</p>
 
-<p><a href="http://guileboard.files.wordpress.com/2011/11/062fdd96385ff2ddfdb4426194c49b29.png"><img src="http://guileboard.files.wordpress.com/2011/11/062fdd96385ff2ddfdb4426194c49b29.png" alt="" /></a></p>
+<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/11/062fdd96385ff2ddfdb4426194c49b29.png">http://guileboard.files.wordpress.com/2011/11/062fdd96385ff2ddfdb4426194c49b29.png</a>"></p>
 
 <p>As an optimization, rather than multiplying/dividing U1 or U2, we could have left U1 unchanged, called <strong>vDSP_vdbconv</strong>, then take this into account when applying our dB correction. Indeed, every multiplication or division on U1 can translate into an addition or deletion on log10(U1). In the same manner, we could have used <strong>vDSP_zvmags</strong> instead of <strong>vDSP_zvabs</strong> and saved one <em>sqrt </em>operation.</p>
 
@@ -604,6 +635,8 @@ CAAutoFree&lt;Float32&gt; GetMagnitudes(Window w, UInt32 channelSelect = 3);
 
 <p>Here the snippet of the main work:</p>
 
+<p>``` c++</p>
+
 <pre><code>...
 AudioBufferList&amp; inputBufList = GetInput(0)-&gt;GetBufferList();
 mProcessor.CopyInputToRingBuffer(inFramesToProcess, &amp;inputBufList);
@@ -615,6 +648,8 @@ CAAutoFree&lt;Float32&gt; magnitudes = mProcessor.GetMagnitudes(currentWindow, c
 }
 </code></pre>
 
+<p>```</p>
+
 <h3>Conclusion</h3>
 
 <p>I let you examine the Apple documentation to get acquainted of the different methods you can override from the base classes <em>AUEffectBase </em>and <em>AUBase</em>. In an upcoming tutorial, we will make a better use of the <em>AUKernelBase</em> class, but in the meantime, we shall look how we&rsquo;ll build a GUI to draw our spectrum data.</p>
@@ -623,10 +658,10 @@ CAAutoFree&lt;Float32&gt; magnitudes = mProcessor.GetMagnitudes(currentWindow, c
     
     <entry>
         <title type="html"><![CDATA[Create a FFT Analyzer part I: prerequisites, concerns and setup]]></title>
-        <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/"/>
+        <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/"/>
         <updated>2011-11-23T16:17:44+01:00</updated>
-        <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup</id>
-        <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-13-31-29.png"><img src="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-13-31-29.png" alt="" /></a>It&rsquo;s time to build up our first audio unit.</p>
+        <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup</id>
+        <content type="html"><![CDATA[<p><img class="alignleft <a" src="href="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-13-31-29.png">http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-13-31-29.png</a>"> It&rsquo;s time to build up our first audio unit.</p>
 
 <p>For a start, I propose to create a spectrum analyzer which will help us to understand how we can realize basic sound analysis using the Fourier Transform. While this might sound scarily complex for non mathematician developers, you will smoothly read this tutorial if we first explain a few concepts about sound processing, without of course entering too deeply into the maths&hellip;</p>
 
@@ -645,7 +680,7 @@ CAAutoFree&lt;Float32&gt; magnitudes = mProcessor.GetMagnitudes(currentWindow, c
 
 <p>Well, it is almost  time for me to close this book and go to bed, except perhaps if you tell me a &ldquo;concrete&rdquo; method for visualizing F(α). That&rsquo;s where we use our Wikipedia card to steal a graphical representation of the Euler formula :</p>
 
-<p><a href="http://guileboard.files.wordpress.com/2011/11/220px-eulers_formula.png"><img src="http://guileboard.files.wordpress.com/2011/11/220px-eulers_formula.png" alt="" /></a></p>
+<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/11/220px-eulers_formula.png">http://guileboard.files.wordpress.com/2011/11/220px-eulers_formula.png</a>"></p>
 
 <p>Look at this unit circle drawn in the complex plane carefully, and I promise that an explanation will shade out in a couple of seconds.</p>
 
@@ -653,7 +688,7 @@ CAAutoFree&lt;Float32&gt; magnitudes = mProcessor.GetMagnitudes(currentWindow, c
 
 <p>Since our concern for building our spectrum analyzer is to only get the magnitude, I&rsquo;ll ignore phase for this tutorial. To compute the magnitude, you just may remember the famous Pythagorean theorem which says&hellip; well, do you remember ?</p>
 
-<p><a href="http://guileboard.files.wordpress.com/2011/11/162px-pythagorean_theorem_abc-svg2.png"><img src="http://guileboard.files.wordpress.com/2011/11/162px-pythagorean_theorem_abc-svg2.png" alt="" /></a></p>
+<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/11/162px-pythagorean_theorem_abc-svg2.png">http://guileboard.files.wordpress.com/2011/11/162px-pythagorean_theorem_abc-svg2.png</a>"></p>
 
 <p>That is, (magnitude(α))² = Real part² + Imaginary part² = (cos α)² + (sin α)², hence magnitude(α) = SQRT(Real part² + Imaginary part²) = SQRT((cos α)² + (sin α)²). We have almost everything we need, though some last details will be be discussed at a later stage of this tutorial.</p>
 
@@ -672,7 +707,7 @@ CAAutoFree&lt;Float32&gt; magnitudes = mProcessor.GetMagnitudes(currentWindow, c
 
 <p>By the way, I think we cool look at the DTFT formula to learn a few things about the FFT :</p>
 
-<p><a href="http://guileboard.files.wordpress.com/2011/11/dtft.png"><img src="http://guileboard.files.wordpress.com/2011/11/dtft.png" alt="" /></a></p>
+<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/11/dtft.png">http://guileboard.files.wordpress.com/2011/11/dtft.png</a>"></p>
 
 <p>What I can read here is that we&rsquo;ll pass N samples (N being a power of 2, as said above) to the FFT transform, in order to get at most N complex numbers describing frequencies on the complex plane (we&rsquo;ll choose the value for N later in the tutorial). So, as a developer, you will have to extract those N samples, store them in a buffer, and prepare an array of dimension to 2N to receive the resulting complex numbers.</p>
 

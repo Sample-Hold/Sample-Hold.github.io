@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://Sample-Hold.github.io/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1">
+  <link rel="canonical" href="http://sample-hold.com/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Sample & Hold" type="application/atom+xml">
@@ -79,7 +79,7 @@
 			<div id="sidebar" role="complementary">
 <div class="search-box">
     <form action="http://google.com/search" method="get">
-        <input type="hidden" name="q" value="site:Sample-Hold.github.io"/>
+        <input type="hidden" name="q" value="site:sample-hold.com"/>
         <input class="search-field" size="15" type="text" name="q" results="0" placeholder="Search"
                value="search this site" onfocus="if(this.value == 'search this site') {this.value = '';}"
                onblur="if (this.value == '') {this.value = 'search this site';}"/>
@@ -337,12 +337,14 @@ by <strong>fredguile</strong>
 	
 </div>
 
+
+
 <div class="postcomments">
-	<a href="#" title="comments to implement">0</a>
+    <a href="#disqus_thread" data-disqus-identifier="http://sample-hold.com/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1/">0</a>
 </div>
 
 <div class="entry">
-	<p><a href="http://guileboard.files.wordpress.com/2011/11/home-ios-sdk.png"><img src="http://guileboard.files.wordpress.com/2011/11/home-ios-sdk.png" alt="" /></a>Apple usually takes care of their developers community.  Whereas they lately delivered an impressive update of their Xcode IDE with tons of new features (read a <a href="http://pilky.me/view/28">cool  review here</a>), they surprisingly removed the project template for creating Audio Units. Nevertheless, let&rsquo;s see how to create a new unit from scratch&hellip;</p>
+	<p><img class="alignleft" src="http://guileboard.files.wordpress.com/2011/11/home-ios-sdk.png"> Apple usually takes care of their developers community.  Whereas they lately delivered an impressive update of their Xcode IDE with tons of new features (read a <a href="http://pilky.me/view/28">cool  review here</a>), they surprisingly removed the project template for creating Audio Units. Nevertheless, let&rsquo;s see how to create a new unit from scratch&hellip;</p>
 
 <!-- more -->
 
@@ -376,7 +378,7 @@ by <strong>fredguile</strong>
 
 <p>By the way, don&rsquo;t neglect the &ldquo;Identity&rdquo; pane displayed when you open the rightmost view. You&rsquo;ll find two fields, &ldquo;Location&rdquo; and &ldquo;Full Path&rdquo; that can help you cleaning the mess if you want to add / delete a lot of files, or create new groups that &ldquo;map&rdquo; to existing folders in your project directory.</p>
 
-<h3><a href="http://guileboard.files.wordpress.com/2011/11/identity.png"><img src="http://guileboard.files.wordpress.com/2011/11/identity.png" alt="" /></a></h3>
+<h3><img class="centered" src="http://guileboard.files.wordpress.com/2011/11/identity.png"></h3>
 
 <h3>Tune your deployment target</h3>
 
@@ -395,7 +397,7 @@ by <strong>fredguile</strong>
 </ul>
 
 
-<p><a href="http://guileboard.files.wordpress.com/2011/11/info.png"><img src="http://guileboard.files.wordpress.com/2011/11/info.png" alt="" /></a></p>
+<p><img class="centered" src="http://guileboard.files.wordpress.com/2011/11/info.png"></p>
 
 <p>Next, move ahead to the tab &ldquo;Build settings&rdquo;. Toggle the filter from &ldquo;Basic&rdquo; to &ldquo;All&rdquo; and proceed to a few changes on values :</p>
 
@@ -446,17 +448,28 @@ by <strong>fredguile</strong>
 
 <p>Here is the minimal precompiled header you would write for your Audio Unit :</p>
 
-<pre><code>#if !defined(__COREAUDIO_USE_FLAT_INCLUDES__)
-#include &lt;CoreAudio/CoreAudioTypes.h&gt;
-#include &lt;CoreFoundation/CoreFoundation.h&gt;
-#else
-#include &lt;CoreAudioTypes.h&gt;
-#include &lt;CoreFoundation.h&gt;
-#endif
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="cp">#if !defined(__COREAUDIO_USE_FLAT_INCLUDES__)</span>
+</span><span class='line'><span class="cp">#include &lt;CoreAudio/CoreAudioTypes.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;CoreFoundation/CoreFoundation.h&gt;</span>
+</span><span class='line'><span class="cp">#else</span>
+</span><span class='line'><span class="cp">#include &lt;CoreAudioTypes.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;CoreFoundation.h&gt;</span>
+</span><span class='line'><span class="cp">#endif</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#include &quot;AUEffectBase.h&quot;</span>
+</span><span class='line'><span class="cp">#include &lt;AudioToolbox/AudioUnitUtilities.h&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-#include "AUEffectBase.h"
-#include &lt;AudioToolbox/AudioUnitUtilities.h&gt;
-</code></pre>
 
 <h3>Add CoreAudio files to your project</h3>
 
@@ -491,43 +504,80 @@ by <strong>fredguile</strong>
 
 <p>You may create at least one header file and one cpp file for your custom classes. For the purpose of our tutorial, here are the minimalistic classes you need to copy&#8217;n&#8217;paste:</p>
 
-<pre><code>class MyTestedPluginKernel : public AUKernelBase {
-public:
-    MyTestedPluginKernel(AUEffectBase * inAudioUnit);
-    virtual void Process(Float32 const* inSourceP,
-                         Float32 * inDestP,
-                         UInt32 inFramesToProcess,
-                         UInt32 inNumChannels,
-                         bool &amp; ioSilence);
-};
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="k">class</span> <span class="nc">MyTestedPluginKernel</span> <span class="o">:</span> <span class="k">public</span> <span class="n">AUKernelBase</span> <span class="p">{</span>
+</span><span class='line'><span class="k">public</span><span class="o">:</span>
+</span><span class='line'>  <span class="n">MyTestedPluginKernel</span><span class="p">(</span><span class="n">AUEffectBase</span> <span class="o">*</span> <span class="n">inAudioUnit</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Process</span><span class="p">(</span><span class="n">Float32</span> <span class="k">const</span><span class="o">*</span> <span class="n">inSourceP</span><span class="p">,</span>
+</span><span class='line'>                         <span class="n">Float32</span> <span class="o">*</span> <span class="n">inDestP</span><span class="p">,</span>
+</span><span class='line'>                         <span class="n">UInt32</span> <span class="n">inFramesToProcess</span><span class="p">,</span>
+</span><span class='line'>                         <span class="n">UInt32</span> <span class="n">inNumChannels</span><span class="p">,</span>
+</span><span class='line'>                         <span class="kt">bool</span> <span class="o">&amp;</span> <span class="n">ioSilence</span><span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">MyTestedPlugin</span> <span class="o">:</span> <span class="k">public</span> <span class="n">AUEffectBase</span> <span class="p">{</span>
+</span><span class='line'><span class="k">public</span><span class="o">:</span>
+</span><span class='line'>  <span class="n">MyTestedPlugin</span><span class="p">(</span><span class="n">AudioUnit</span> <span class="n">component</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">virtual</span> <span class="n">OSStatus</span> <span class="n">Version</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="mh">0xFFFFFF</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>  <span class="k">virtual</span> <span class="n">OSStatus</span> <span class="n">Initialize</span><span class="p">();</span>
+</span><span class='line'>  <span class="k">virtual</span> <span class="n">AUKernelBase</span> <span class="o">*</span> <span class="n">NewKernel</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">new</span> <span class="n">MyTestedPluginKernel</span><span class="p">(</span><span class="k">this</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">AUDIOCOMPONENT_ENTRY</span><span class="p">(</span><span class="n">AUBaseFactory</span><span class="p">,</span> <span class="n">MyTestedPlugin</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">MyTestedPluginKernel</span><span class="o">::</span><span class="n">MyTestedPluginKernel</span><span class="p">(</span><span class="n">AUEffectBase</span> <span class="o">*</span> <span class="n">inAudioUnit</span> <span class="p">)</span> <span class="o">:</span> <span class="n">AUKernelBase</span><span class="p">(</span><span class="n">inAudioUnit</span><span class="p">)</span> <span class="p">{}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">MyTestedPluginKernel</span><span class="o">::</span><span class="n">Process</span><span class="p">(</span><span class="n">Float32</span> <span class="k">const</span><span class="o">*</span> <span class="n">inSourceP</span><span class="p">,</span> <span class="n">Float32</span> <span class="o">*</span> <span class="n">inDestP</span><span class="p">,</span> <span class="n">UInt32</span> <span class="n">inFramesToProcess</span><span class="p">,</span> <span class="n">UInt32</span> <span class="n">inNumChannels</span><span class="p">,</span> <span class="kt">bool</span> <span class="o">&amp;</span> <span class="n">ioSilence</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'><span class="c1">//This code will pass-thru the audio data.</span>
+</span><span class='line'><span class="c1">//This is usually where you want to process data to produce an effect.</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">MyTestedPlugin</span><span class="o">::</span><span class="n">MyTestedPlugin</span><span class="p">(</span><span class="n">AudioUnit</span> <span class="n">component</span><span class="p">)</span> <span class="o">:</span> <span class="n">AUEffectBase</span><span class="p">(</span><span class="n">component</span><span class="p">)</span> <span class="p">{}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">OSStatus</span> <span class="n">MyTestedPlugin</span><span class="o">::</span><span class="n">Initialize</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'><span class="n">OSStatus</span> <span class="n">result</span> <span class="o">=</span> <span class="n">AUEffectBase</span><span class="o">::</span><span class="n">Initialize</span><span class="p">();</span>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">noErr</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'><span class="err"> </span>  <span class="c1">// do something</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-class MyTestedPlugin : public AUEffectBase {
-public:
-    MyTestedPlugin(AudioUnit component);
-    virtual OSStatus Version() { return 0xFFFFFF; }
-    virtual OSStatus Initialize();
-    virtual AUKernelBase * NewKernel() { return new MyTestedPluginKernel(this); }
-};
-
-AUDIOCOMPONENT_ENTRY(AUBaseFactory, MyTestedPlugin)
-
-MyTestedPluginKernel::MyTestedPluginKernel(AUEffectBase * inAudioUnit ) : AUKernelBase(inAudioUnit) {}
-
-void MyTestedPluginKernel::Process(Float32 const* inSourceP, Float32 * inDestP, UInt32 inFramesToProcess, UInt32 inNumChannels, bool &amp; ioSilence) {
-//This code will pass-thru the audio data.
-//This is usually where you want to process data to produce an effect.
-}
-
-MyTestedPlugin::MyTestedPlugin(AudioUnit component) : AUEffectBase(component) {}
-
-OSStatus MyTestedPlugin::Initialize() {
-OSStatus result = AUEffectBase::Initialize();
-if(result == noErr ) {
-   // do something
-}
-return result;
-}
-</code></pre>
 
 <p>You ought to not omit the macro AUDIOCOMPONENT_ENTRY, since it&rsquo;s responsible for creating the stub classes MyTestedPluginEntry and MytestedPluginFactory as entry points for your Audio Unit.</p>
 
@@ -535,19 +585,32 @@ return result;
 
 <p>Remember the file &ldquo;MyTestedPlugin.r&rdquo; you created earlier ? It&rsquo;s time to fill it with standard content :</p>
 
-<pre><code>#include &lt;AudioUnit/AudioUnit.r&gt;
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="cp">#include &lt;AudioUnit/AudioUnit.r&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#define RES_ID    1000</span>
+</span><span class='line'><span class="cp">#define COMP_TYPE &#39;aufx&#39;</span>
+</span><span class='line'><span class="cp">#define COMP_SUBTYPE &#39;TEST&#39;</span>
+</span><span class='line'><span class="cp">#define COMP_MANUF &#39;FRED&#39;</span>
+</span><span class='line'><span class="cp">#define VERSION 0xFFFFFFFF</span>
+</span><span class='line'><span class="cp">#define NAME &quot;Test Plugin&quot;</span>
+</span><span class='line'><span class="cp">#define DESCRIPTION &quot;description&quot;</span>
+</span><span class='line'><span class="cp">#define ENTRY_POINT &quot;MyTestedPluginEntry&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#include &quot;AUResources.r&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-#define RES_ID    1000
-#define COMP_TYPE 'aufx'
-#define COMP_SUBTYPE 'TEST'
-#define COMP_MANUF 'FRED'
-#define VERSION 0xFFFFFFFF
-#define NAME "Test Plugin"
-#define DESCRIPTION "description"
-#define ENTRY_POINT "MyTestedPluginEntry"
-
-#include "AUResources.r"
-</code></pre>
 
 <p>This step remains to keep backward compatibility with previous versions of CoreAudio SDK. You may  copy and past the information you wrote in the Info.PList.</p>
 
@@ -589,7 +652,7 @@ _MyTestedPluginEntry
 <p>I agree that this tutorial isn&rsquo;t the funniest you&rsquo;ve ever read, but it was necessary to setup our template to move on more interesting things in our next tutorials. We&rsquo;ll soon see how we can make some fun out of this Xcode template.</p>
 
 <p><a href="https://github.com/Sample-Hold/SimpleEmptyAudioEffect">Click here to download the sources for Xcode 4.2.1</a></p>
-	
+
 </div>
 
 <div id="fb-root"></div>
@@ -609,7 +672,10 @@ _MyTestedPluginEntry
      data-layout="standard" data-action="like" data-show-faces="true" data-send="false"></div>
 
 
-	
+
+<div id="disqus_thread"></div>
+
+
 </div>
 <div id="nav-post">
 	<div class="navigation-bott">
@@ -634,6 +700,48 @@ Powered by <a rel="generator" href="http://octopress.org">Octopress</a>
 
 </div>
     
+
+<script type="text/javascript">
+    var dsq_scripts = [], dsq = null;
+    var disqus_shortname = 'sample-hold';
+
+
+
+    // var disqus_developer = 1;
+    var disqus_identifier = 'http://sample-hold.com/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1/';
+    var disqus_url = 'http://sample-hold.com/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1/';
+
+    dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    dsq_scripts.push(dsq);
+
+
+    dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq_scripts.push(dsq);
+
+    $(function () {
+        $(dsq_scripts).each(function() {
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(this);
+        });
+    });
+</script>
+
+
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-44962545-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
 
 </body>
 </html>

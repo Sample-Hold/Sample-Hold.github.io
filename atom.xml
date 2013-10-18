@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Sample & Hold]]></title>
-  <link href="http://Sample-Hold.github.io/atom.xml" rel="self"/>
-  <link href="http://Sample-Hold.github.io/"/>
-  <updated>2013-10-17T18:47:18+02:00</updated>
-  <id>http://Sample-Hold.github.io/</id>
+  <link href="http://sample-hold.com/atom.xml" rel="self"/>
+  <link href="http://sample-hold.com/"/>
+  <updated>2013-10-18T13:26:35+02:00</updated>
+  <id>http://sample-hold.com/</id>
   <author>
     <name><![CDATA[Frederic Ghilini]]></name>
     
@@ -15,10 +15,10 @@
   
   <entry>
     <title type="html"><![CDATA[Make fun of your Launchpad with LaunchPlay VST plugin]]></title>
-    <link href="http://Sample-Hold.github.io/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/"/>
+    <link href="http://sample-hold.com/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/"/>
     <updated>2011-12-19T05:00:26+01:00</updated>
-    <id>http://Sample-Hold.github.io/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin</id>
-    <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/12/launchplay-image.png"><img src="http://guileboard.files.wordpress.com/2011/12/launchplay-image.png" alt="" /></a>I bought a Launchpad controller from Novation a few years ago, and although it&rsquo;s a great midi interface offering a perfect native remote for Ableton Live sequencer, I couldn&rsquo;t help thinking that this amazing tool could certainly be used in other unexpected ways, thus controlling alternate gears or software. So on the same time, I was both enjoying my Launchpad and drooling to what would have offered at more experimental controller such as <a href="http://monome.org/devices">monome device</a>&hellip;</p>
+    <id>http://sample-hold.com/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin</id>
+    <content type="html"><![CDATA[<p><img class="alignleft" src="http://guileboard.files.wordpress.com/2011/12/launchplay-image.png"> I bought a Launchpad controller from Novation a few years ago, and although it&rsquo;s a great midi interface offering a perfect native remote for Ableton Live sequencer, I couldn&rsquo;t help thinking that this amazing tool could certainly be used in other unexpected ways, thus controlling alternate gears or software. So on the same time, I was both enjoying my Launchpad and drooling to what would have offered at more experimental controller such as <a href="http://monome.org/devices">monome device</a>&hellip;</p>
 
 <p>Luckily, Novation made a programming guide available for the Lauchpad, as well as Ableton proposed an extended version of Live integrating Max/MSP (that is called &ldquo;Max for Live&rdquo;) that would help me satisfy my nerd-est desires. So I started to draft a layout for simple jamming. But I wanted more : my tool would work on any sequencer, with both Mac and Windows platforms, all of this requiring no additional license.</p>
 
@@ -27,20 +27,20 @@
   
   <entry>
     <title type="html"><![CDATA[Create a FFT Analyzer part V: final thoughts, sources for XCode 4.2 & feedback]]></title>
-    <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/"/>
+    <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/"/>
     <updated>2011-11-23T16:34:55+01:00</updated>
-    <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback</id>
-    <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/au.gif"><img src="http://guileboard.files.wordpress.com/2011/11/au.gif" alt="" /></a>This part wraps up our tutorial on building an audio effect as Audio Unit for OS X Lion. Though it is not the craziest plug-in you&rsquo;ll ever built, it made us learn some basis about DSP programming, as well it introduced the XCode environment for developing Audio Units. Of course, there are numerous improvements we could do on this project. In this article, I&rsquo;ll make some remarks about my work and  also a few issues I met during development. Last but not least, we recall the GitHub repository URL for you to grab the code and make our own version.</p>
+    <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback</id>
+    <content type="html"><![CDATA[<p><img class="alignleft" src="http://guileboard.files.wordpress.com/2011/11/au.gif"> This part wraps up our tutorial on building an audio effect as Audio Unit for OS X Lion. Though it is not the craziest plug-in you&rsquo;ll ever built, it made us learn some basis about DSP programming, as well it introduced the XCode environment for developing Audio Units. Of course, there are numerous improvements we could do on this project. In this article, I&rsquo;ll make some remarks about my work and  also a few issues I met during development. Last but not least, we recall the GitHub repository URL for you to grab the code and make our own version.</p>
 
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Create a FFT Analyzer part IV: debugging our Audio Unit with AU Lab]]></title>
-    <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/"/>
+    <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/"/>
     <updated>2011-11-23T16:33:15+01:00</updated>
-    <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab</id>
-    <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/aulab2.png"><img src="http://guileboard.files.wordpress.com/2011/11/aulab2.png" alt="" /></a>Debugging an Audio Unit is not as straightforward as debugging a Cocoa application, because your freshly coded component doesn&rsquo;t show up until you insert it in a bus of your favorite DAW.</p>
+    <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab</id>
+    <content type="html"><![CDATA[<p><img class="alignleft" src="http://guileboard.files.wordpress.com/2011/11/aulab2.png"> Debugging an Audio Unit is not as straightforward as debugging a Cocoa application, because your freshly coded component doesn&rsquo;t show up until you insert it in a bus of your favorite DAW.</p>
 
 <p>In this article, we review some methods for automating your debugging sessions using XCode 4. Concerning the DAW, our preference goes for a free host available in the CoreAudio SDK: AU Lab. In only a few steps, you will be able to setup some breakpoints and look into all potential devilish bugs as if you were debugging a simple Cocoa application.</p>
 
@@ -49,10 +49,10 @@
   
   <entry>
     <title type="html"><![CDATA[Create a FFT Analyzer part III: building UI with Cocoa and Objective-C]]></title>
-    <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/"/>
+    <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/"/>
     <updated>2011-11-23T16:32:10+01:00</updated>
-    <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c</id>
-    <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/images1.jpeg"><img src="http://guileboard.files.wordpress.com/2011/11/images1.jpeg?w=150" alt="" /></a>In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we&rsquo;ll create widgets so as to configure the FFT analysis.</p>
+    <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c</id>
+    <content type="html"><![CDATA[<p><img class="alignleft" src="http://guileboard.files.wordpress.com/2011/11/images1.jpeg?w=150"> In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we&rsquo;ll create widgets so as to configure the FFT analysis.</p>
 
 <p>Why using Cocoa? Well, for two reasons: I didn&rsquo;t want to introduce a too complex API in this tutorial (such as OpenGL), and I would like to show you how to mix C++ and Objective-C in the same XCode project. Don&rsquo;t worry, it doesn&rsquo;t bother if you&rsquo;re not experienced with Objective-C: we&rsquo;ll make a straightforward use of it and we&rsquo;ll clearly explain all the interactions between our GUI classes and our C++ code.</p>
 
@@ -61,10 +61,10 @@
   
   <entry>
     <title type="html"><![CDATA[Create a FFT Analyzer part II: designing our spectral processor]]></title>
-    <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/"/>
+    <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/"/>
     <updated>2011-11-23T16:26:47+01:00</updated>
-    <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor</id>
-    <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/images.jpeg"><img src="http://guileboard.files.wordpress.com/2011/11/images.jpeg" alt="" /></a>We briefly introduced the FFT part of the Accelerated Framework in Part I of this tutorial.</p>
+    <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor</id>
+    <content type="html"><![CDATA[<p><img class="alignleft" src="http://guileboard.files.wordpress.com/2011/11/images.jpeg"> We briefly introduced the FFT part of the Accelerated Framework in Part I of this tutorial.</p>
 
 <p>We are now going to focus on the vDSP library and create the C++ class responsible for doing the spectral analysis work of our input samples. We want to keep it simple, with a few public methods, however we would like to perform FFT analysis on different frame sizes. So, one of our challenges is to design a circular buffer as member variable, which is a common pattern in audio programming.</p>
 
@@ -73,10 +73,10 @@
   
   <entry>
     <title type="html"><![CDATA[Create a FFT Analyzer part I: prerequisites, concerns and setup]]></title>
-    <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/"/>
+    <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/"/>
     <updated>2011-11-23T16:17:44+01:00</updated>
-    <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup</id>
-    <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-13-31-29.png"><img src="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-13-31-29.png" alt="" /></a>It&rsquo;s time to build up our first audio unit.</p>
+    <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup</id>
+    <content type="html"><![CDATA[<p><img class="alignleft" src="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-13-31-29.png"> It&rsquo;s time to build up our first audio unit.</p>
 
 <p>For a start, I propose to create a spectrum analyzer which will help us to understand how we can realize basic sound analysis using the Fourier Transform. While this might sound scarily complex for non mathematician developers, you will smoothly read this tutorial if we first explain a few concepts about sound processing, without of course entering too deeply into the maths&hellip;</p>
 
@@ -85,19 +85,19 @@
   
   <entry>
     <title type="html"><![CDATA[Getting started with Audio Units on OS X Lion and XCode 4.2.1]]></title>
-    <link href="http://Sample-Hold.github.io/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1/"/>
+    <link href="http://sample-hold.com/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1/"/>
     <updated>2011-11-23T15:59:23+01:00</updated>
-    <id>http://Sample-Hold.github.io/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1</id>
-    <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/home-ios-sdk.png"><img src="http://guileboard.files.wordpress.com/2011/11/home-ios-sdk.png" alt="" /></a>Apple usually takes care of their developers community.  Whereas they lately delivered an impressive update of their Xcode IDE with tons of new features (read a <a href="http://pilky.me/view/28">cool  review here</a>), they surprisingly removed the project template for creating Audio Units. Nevertheless, let&rsquo;s see how to create a new unit from scratch&hellip;</p>
+    <id>http://sample-hold.com/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1</id>
+    <content type="html"><![CDATA[<p><img class="alignleft" src="http://guileboard.files.wordpress.com/2011/11/home-ios-sdk.png"> Apple usually takes care of their developers community.  Whereas they lately delivered an impressive update of their Xcode IDE with tons of new features (read a <a href="http://pilky.me/view/28">cool  review here</a>), they surprisingly removed the project template for creating Audio Units. Nevertheless, let&rsquo;s see how to create a new unit from scratch&hellip;</p>
 
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Greetings!]]></title>
-    <link href="http://Sample-Hold.github.io/2011/11/21/greetings/"/>
+    <link href="http://sample-hold.com/2011/11/21/greetings/"/>
     <updated>2011-11-21T15:46:12+01:00</updated>
-    <id>http://Sample-Hold.github.io/2011/11/21/greetings</id>
+    <id>http://sample-hold.com/2011/11/21/greetings</id>
     <content type="html"><![CDATA[<p>Whether you have been thrown out here by Google or came deliberately&hellip; welcome! I&rsquo;ll write a couple of audio tutorials in the next articles. The sole things you need are a OS X Lion and Xcode 4.2. Later, we may study other SDK/platforms like Steinberg VST and Windows. Have a nice reading !</p>
 ]]></content>
   </entry>

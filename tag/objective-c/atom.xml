@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
     <title><![CDATA[Tag: Objective-C | Sample & Hold]]></title>
-    <link href="http://Sample-Hold.github.io/tag/objective-c/atom.xml" rel="self"/>
-    <link href="http://Sample-Hold.github.io/"/>
-    <updated>2013-10-17T18:47:18+02:00</updated>
-    <id>http://Sample-Hold.github.io/</id>
+    <link href="http://sample-hold.com/tag/objective-c/atom.xml" rel="self"/>
+    <link href="http://sample-hold.com/"/>
+    <updated>2013-10-18T13:26:35+02:00</updated>
+    <id>http://sample-hold.com/</id>
     <author>
         <name><![CDATA[Frederic Ghilini]]></name>
         
@@ -15,10 +15,10 @@
     
     <entry>
         <title type="html"><![CDATA[Create a FFT Analyzer part III: building UI with Cocoa and Objective-C]]></title>
-        <link href="http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/"/>
+        <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/"/>
         <updated>2011-11-23T16:32:10+01:00</updated>
-        <id>http://Sample-Hold.github.io/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c</id>
-        <content type="html"><![CDATA[<p><a href="http://guileboard.files.wordpress.com/2011/11/images1.jpeg"><img src="http://guileboard.files.wordpress.com/2011/11/images1.jpeg?w=150" alt="" /></a>In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we&rsquo;ll create widgets so as to configure the FFT analysis.</p>
+        <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c</id>
+        <content type="html"><![CDATA[<p><img class="alignleft <a" src="href="http://guileboard.files.wordpress.com/2011/11/images1.jpeg?w=150">http://guileboard.files.wordpress.com/2011/11/images1.jpeg?w=150</a>"> In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we&rsquo;ll create widgets so as to configure the FFT analysis.</p>
 
 <p>Why using Cocoa? Well, for two reasons: I didn&rsquo;t want to introduce a too complex API in this tutorial (such as OpenGL), and I would like to show you how to mix C++ and Objective-C in the same XCode project. Don&rsquo;t worry, it doesn&rsquo;t bother if you&rsquo;re not experienced with Objective-C: we&rsquo;ll make a straightforward use of it and we&rsquo;ll clearly explain all the interactions between our GUI classes and our C++ code.</p>
 
@@ -64,7 +64,7 @@
 
 <p>Finally, We create a <strong>NSMenu </strong>widget in order to let users modify the Audio Unit parameters. It will pops up when you right-click anywhere in the SpectrumAnalyzerView.</p>
 
-<p><a href="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-18-14-07.png"><img src="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-18-14-07.png?w=300" alt="" /></a></p>
+<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-18-14-07.png?w=300">http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-18-14-07.png?w=300</a>"></p>
 
 <h3>Create GUI classes</h3>
 
@@ -87,6 +87,8 @@
 
 <p>What is it for? This latter class is responsible for binding your GUI with you Audio Unit, hence it must implement the <strong>AUCocoaUIBase</strong> protocol. What is a protocol? It&rsquo;s more or less like an interface in Java: by adding it to your class, you agree to implement all the methods defined inside. So in our case, it&rsquo;s necessary to implement this method:</p>
 
+<p>``` objective-c</p>
+
 <pre><code>-(NSView *)uiViewForAudioUnit:(AudioUnit)inAudioUnit withSize:(NSSize)inPreferredSize {
 if(![NSBundle loadNibNamed:@"SpectrumView" owner:self]) {
 NSLog(@"Unable to load nib from view");
@@ -101,6 +103,8 @@ uiFreshlyLoadedView = nil; // zero out pointer.  This is a view factory.  Once
 return [returnView autorelease];
 }
 </code></pre>
+
+<p>```</p>
 
 <h3>Bind UI widgets to IBActions</h3>
 
@@ -127,7 +131,7 @@ return [returnView autorelease];
 </ol>
 
 
-<p><a href="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-20-54-13.png"><img src="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-20-54-13.png?w=179" alt="" /></a></p>
+<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-20-54-13.png?w=179">http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-20-54-13.png?w=179</a>"></p>
 
 <p>So far, we have designed a basic Cocoa UI and we have bound the most important widgets to actions developed in Objective-C classes. We have had an overall sight of how our Spectrum Analyzer basically interacts with the Cocoa UI.</p>
 
@@ -165,15 +169,24 @@ return [returnView autorelease];
 <p>Still, we must comment some lines of code from the C++ class &ldquo;SimpleSpectrum&rdquo;:</p>
 
 <ul>
-<li><p>Parameters must be declared as soon as your Audio Unit initializes:</p>
+<li>Parameters must be declared as soon as your Audio Unit initializes:</li>
+</ul>
 
-<p>SimpleSpectrum::SimpleSpectrum(AudioUnit component) : AUEffectBase(component), mCAMutex(&ldquo;mutex&rdquo;){
-&hellip;
+
+<p>``` c++</p>
+
+<pre><code>SimpleSpectrum::SimpleSpectrum(AudioUnit component) : AUEffectBase(component), mCAMutex("mutex"){
+...
 SetParameter(kSpectrumParam_BlockSize, kBlockSize_Default);
 SetParameter(kSpectrumParam_SelectChannel, kSelectChannel_Default);
 SetParameter(kSpectrumParam_Window, kWindow_Default);
-&hellip;
-}</p></li>
+...
+}
+</code></pre>
+
+<p>```</p>
+
+<ul>
 <li><p>It&rsquo;s best to declare all parameters and properties in a separate C++ header: <em>SimpleSpectrumSharedData.h</em> in our case. That way, we could use C++ for our Audio Unit and restrict our GUI code to pure Objective-C and C</p></li>
 <li><p>Basically, to use a parameter defined both in the Audio Unit and the GUI, we have to call:</p>
 
@@ -182,20 +195,33 @@ SetParameter(kSpectrumParam_Window, kWindow_Default);
 <li><p>from the Cocoa UI side: <em>AudioUnitGetParameter(mAU, kSpectrumParam_BlockSize, kAudioUnitScope_Global, 0, &amp;inValue)</em></p></li>
 </ul>
 </li>
-<li><p> In this tutorial, we assume that the GUI has previously allocated sufficient memory <strong>before</strong> it requests any property content. Hence it&rsquo;s also responsible for freeing this memory when it&rsquo;s released. That&rsquo;s why the code that transmit our custom properties looks like this, without allocating anything:</p>
+<li><p> In this tutorial, we assume that the GUI has previously allocated sufficient memory <strong>before</strong> it requests any property content. Hence it&rsquo;s also responsible for freeing this memory when it&rsquo;s released. That&rsquo;s why the code that transmit our custom properties looks like this, without allocating anything:</p></li>
+</ul>
 
-<p>&hellip;
+
+<p>``` c++</p>
+
+<pre><code>...
 case kAudioUnitProperty_SpectrumGraphData: {
-   Float32<em> mData = (Float32</em>) outData;
-   if(mInfos.mNumBins > 0) {
+   Float32* mData = (Float32*) outData;
+   if(mInfos.mNumBins &gt; 0) {
       mCAMutex.Lock();
       memcpy(mData, mComputedMagnitudes(), mInfos.mNumBins * sizeof(Float32));
       mCAMutex.Unlock();
    }
-}</p></li>
-<li><p>On the other side, in the class SimpleSpectrum_UIView class:</p>
+}
+</code></pre>
 
-<p>&hellip;
+<p>```</p>
+
+<ul>
+<li>On the other side, in the class SimpleSpectrum_UIView class:</li>
+</ul>
+
+
+<p>``` c++</p>
+
+<pre><code>...
 SpectrumGraphInfo graphInfo;
 graphInfo.mNumBins = 0;
 UInt32 sizeOfResult = sizeof(graphInfo);
@@ -204,23 +230,26 @@ ComponentResult result = AudioUnitGetProperty(mAU,
                                                   kAudioUnitScope_Global,
                                                   0,
                                                   &amp;graphInfo,
-                                                  &amp;sizeOfResult);</p>
+                                                  &amp;sizeOfResult);
 
-<p>if(result == noErr &amp;&amp; graphInfo.mNumBins > 0) {
+if(result == noErr &amp;&amp; graphInfo.mNumBins &gt; 0) {
         CAAutoFree graphData;
-        graphData.allocBytes(sizeOfResult = graphInfo.mNumBins * sizeof(Float32));</p>
+        graphData.allocBytes(sizeOfResult = graphInfo.mNumBins * sizeof(Float32));
 
-<pre><code>    result = AudioUnitGetProperty(mAU,
-                                  kAudioUnitProperty_SpectrumGraphData,
-                                  kAudioUnitScope_Global,
-                                  0,
-                                  graphData(),
-                                  &amp;sizeOfResult);
+        result = AudioUnitGetProperty(mAU,
+                                      kAudioUnitProperty_SpectrumGraphData,
+                                      kAudioUnitScope_Global,
+                                      0,
+                                      graphData(),
+                                      &amp;sizeOfResult);
 
-    [graphView plotData: graphData givenInfos: graphInfo];
+        [graphView plotData: graphData givenInfos: graphInfo];
+}
 </code></pre>
 
-<p>}</p></li>
+<p>```</p>
+
+<ul>
 <li><p>The most of you, readers, will have noticed that we protect access to the computed magnitudes array with a mutex, provided by the class <strong>CAMutex</strong> (found in the &ldquo;PublicUtility&rdquo; folder). This is because the GUI code and the Audio Unit code both run in separate threads. The former may ask for the magnitudes <strong>while </strong>they are being computed, so we must synchronize this.</p></li>
 <li><p><strong>Edit 15/01/12</strong>: I committed a few changes on the lines above that brought some performance tweaks. It looks like the mutex isn&rsquo;t that necessary, and I also removed some dynamic memory allocations to save some CPU cycles.</p></li>
 </ul>
@@ -258,7 +287,7 @@ ComponentResult result = AudioUnitGetProperty(mAU,
 
 <p>First of all, the object <strong>NSBezierPath </strong>is my easy method for drawing the spectrum. All I have to do is moving to a certain <strong>NSPoint,</strong> then draw lines/curves using the methods <em>lineToPoint</em> and <em>curveToPoint</em> (or may I write &ldquo;messages&rdquo;? Since we are writing Objective-C&hellip;). There is a good tutorial on this <a href="http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CocoaDrawingGuide/Introduction/Introduction.html">in the Apple documentation</a>.</p>
 
-<p><a href="http://guileboard.files.wordpress.com/2011/11/bezier_curvec1.png"><img src="http://guileboard.files.wordpress.com/2011/11/bezier_curvec1.png" alt="" /></a></p>
+<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/11/bezier_curvec1.png">http://guileboard.files.wordpress.com/2011/11/bezier_curvec1.png</a>"></p>
 
 <p>Secondly, I use the object <strong>NSAffineTransform</strong> each time I need to change my coordinate system. This is important to understand that we have to draw several different things:</p>
 
