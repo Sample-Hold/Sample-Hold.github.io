@@ -41,8 +41,10 @@
 {% endif %}
 <div class="entry">
 	{{ content }}
+	{% unless page.sharing == false %}
+        {% include post/sharing.html %}
+      {% endunless %}
 </div>
-{% include facebook_like.html %}
 {% if page.comments %}
 {% include disqus_thread.html %}
 {% endif %}

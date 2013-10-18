@@ -1,6 +1,7 @@
 ---
 author: fredguile
-comments: true
+comments: false
+sharing: false
 date: 2011-11-23 14:48:37+00:00
 layout: page
 slug: tutorials-index

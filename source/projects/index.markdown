@@ -1,6 +1,7 @@
 ---
 author: fredguile
-comments: true
+comments: false
+sharing: false
 date: 2011-11-23 14:50:09+00:00
 layout: page
 slug: projects

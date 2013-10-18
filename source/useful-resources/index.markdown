@@ -1,6 +1,7 @@
 ---
 author: fredguile
 comments: false
+sharing: false
 date: 2012-03-17 22:56:44+00:00
 layout: page
 slug: useful-resources
@@ -18,11 +19,7 @@ Please don't hesitate to suggest me your own links by sending me an email! I'll 
 ##### Useful reads
 
 
-
-
 ###### Introduction to Signal Processing
-
-
 
 
 We start with a really good man, Sophocle Orfanidis, which is Associate Professor at the Rutgers University of New Jersey. He wrote several very good papers about signal processing. For every beginner, "Introduction to Signal Processing" is a must read. The copyrights were transferred back to their author in 2009, so you can now download your copy for free at [http://eceweb1.rutgers.edu/~orfanidi/intro2sp/](http://eceweb1.rutgers.edu/~orfanidi/intro2sp/)
@@ -34,11 +31,7 @@ By the way, here is our big guy's homepage: [http://www.ece.rutgers.edu/faculty/
 ###### Modern C++ Design / C++ Coding standards
 
 
-
-
 Every C++ developer should know about Andrei Alexandrescu and its excellent book "Modern C++ Design: Generic Programming and Design Patterns Applied". A very good read to learn *a lot* about trait / policies classes, and effecient coding using C++ templates. Grab your paperback edition from a local retailer.
-
-
 
 
 Since this is an advanced reading, beginners may prefer reading "C++ coding standards", which sums the coding habits that every developer should follow.
@@ -48,10 +41,6 @@ Here is Andrei's blog: [http://erdani.com/](http://erdani.com/)
 
 
 ##### Useful links
-
-
-
-
 
 	
   * [http://www.dspdimension.com/](http://www.dspdimension.com/) Articles and tutorials by Stephan Bernsee, creator of the Dirac and MPEX time-streching algorithms.
@@ -75,7 +64,7 @@ Here is Andrei's blog: [http://erdani.com/](http://erdani.com/)
   * [http://www.phon.ucl.ac.uk/courses/spsci/matlab/](http://www.phon.ucl.ac.uk/courses/spsci/matlab/) Excellent tutorials to learn the Matlab software.
 
 	
-  * [http://en.wikipedia.org/wiki/Goertzel_algorithm](en.wikipedia.org/wiki/Goertzel_algorithm) One day I'll have to look into this alternative algorithm for signal processing. Perhaps we'll use it in an upcoming tutorial... In the meantime, you may want to read this good article: [http://www.eetimes.com/design/embedded/4024443/The-Goertzel-Algorithm](http://www.eetimes.com/design/embedded/4024443/The-Goertzel-Algorithm)
+  * [http://en.wikipedia.org/wiki/Goertzel_algorithm](http://en.wikipedia.org/wiki/Goertzel_algorithm) One day I'll have to look into this alternative algorithm for signal processing. Perhaps we'll use it in an upcoming tutorial... In the meantime, you may want to read this good article: [http://www.eetimes.com/design/embedded/4024443/The-Goertzel-Algorithm](http://www.eetimes.com/design/embedded/4024443/The-Goertzel-Algorithm)
 
 	
   * [http://stackoverflow.com/questions/5503501/what-could-cause-fft-data-to-have-spikes-at-the-wrong-frequencies](http://stackoverflow.com/questions/5503501/what-could-cause-fft-data-to-have-spikes-at-the-wrong-frequencies) I know that many of you readers are trying to implement the FFT analysis in your mobile applications. Threads like this one could help.
@@ -85,5 +74,3 @@ Here is Andrei's blog: [http://erdani.com/](http://erdani.com/)
 
 	
   * [http://www.adp-gmbh.ch/csound/synth_secret.html](http://www.adp-gmbh.ch/csound/synth_secret.html) If, like me, you want to drill every synthetizers' secrets, here are numerous articles about making a sound with nothing but a set of electrical gears (or virtual Max/MSP modules).
-
-

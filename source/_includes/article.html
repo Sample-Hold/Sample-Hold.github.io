@@ -19,6 +19,7 @@
 	{% endunless %}
 </div>
 {% endunless %}
+
 {% if index %}
 {% if site.disqus_show_comment_count %}
 <div class="postcomments">
@@ -40,8 +41,10 @@
 {% endif %}
 <div class="entry">
 	{{ content }}
+	{% unless page.sharing == false %}
+        {% include post/sharing.html %}
+      {% endunless %}
 </div>
-{% include facebook_like.html %}
 {% if page.comments %}
 {% include disqus_thread.html %}
 {% endif %}

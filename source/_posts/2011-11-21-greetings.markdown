@@ -1,6 +1,7 @@
 ---
 author: fredguile
 comments: false
+sharing: false
 date: 2011-11-21 14:46:12+00:00
 layout: post
 slug: greetings
