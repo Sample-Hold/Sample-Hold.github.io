@@ -308,7 +308,7 @@ by <strong>fredguile</strong>
 </div>
 
 <div class="entry">
-	<p><img class="alignleft" src="http://guileboard.files.wordpress.com/2011/11/images.jpeg"> We briefly introduced the FFT part of the Accelerated Framework in Part I of this tutorial.</p>
+	<p><img class="alignleft" src="/images/blog/libs.jpeg"> We briefly introduced the FFT part of the Accelerated Framework in Part I of this tutorial.</p>
 
 <p>We are now going to focus on the vDSP library and create the C++ class responsible for doing the spectral analysis work of our input samples. We want to keep it simple, with a few public methods, however we would like to perform FFT analysis on different frame sizes. So, one of our challenges is to design a circular buffer as member variable, which is a common pattern in audio programming.</p>
 
@@ -420,7 +420,7 @@ by <strong>fredguile</strong>
 
 <h3>Using a Ring Buffer</h3>
 
-<p><img class="alignleft" src="http://guileboard.files.wordpress.com/2011/11/200px-circular_buffer-svg.png?w=150"> Audio Units generally capture N input samples each time they are rendered, N being set by the host in which they operate. N has a value usually lower than the minimum number of  frames required for computing FFT, so before we can provide at least 1024 samples to FFT, we have those N samples stored into a ring buffer over a few cycles.</p>
+<p><img class="alignleft" src="/images/blog/200px-circular_buffer-svg.png?w=150"> Audio Units generally capture N input samples each time they are rendered, N being set by the host in which they operate. N has a value usually lower than the minimum number of  frames required for computing FFT, so before we can provide at least 1024 samples to FFT, we have those N samples stored into a ring buffer over a few cycles.</p>
 
 <p> This kind of buffer is circular: thus, it never overflows. We always keep K samples in the ring buffer, K being the buffer&rsquo;s capacity. That&rsquo;s why we maintain two<em> int pointers</em> :</p>
 
@@ -455,7 +455,7 @@ by <strong>fredguile</strong>
 
 <h3>The power of SIMD</h3>
 
-<p><img class="alignleft" src="http://guileboard.files.wordpress.com/2011/11/images-1.jpeg?w=150"> What is the plot of having all those buffers ? We could have reworked things to diminish memory footprint.</p>
+<p><img class="alignleft" src="/images/blog/images-1.jpeg?w=150"> What is the plot of having all those buffers ? We could have reworked things to diminish memory footprint.</p>
 
 <p>Instead, we&rsquo;ll use the great SIMD features of the vDSP library with no proprietary code at all!  The benefit here is to drastically reduce the computing time of a large number of samples. Furthermore, vDSP provide numerous mathematical functions that will help us achieve our sound analysis.</p>
 
@@ -478,7 +478,7 @@ by <strong>fredguile</strong>
 
 <p>We&rsquo;ll leave these steps unchanged to keep this tutorial simple, though we could have tweaked things a bit. As you know, the decibel formula is given by:</p>
 
-<p><img class="centered" src="http://guileboard.files.wordpress.com/2011/11/062fdd96385ff2ddfdb4426194c49b29.png"></p>
+<p><img class="centered" src="/images/blog/062fdd96385ff2ddfdb4426194c49b29.png"></p>
 
 <p>As an optimization, rather than multiplying/dividing U1 or U2, we could have left U1 unchanged, called <strong>vDSP_vdbconv</strong>, then take this into account when applying our dB correction. Indeed, every multiplication or division on U1 can translate into an addition or deletion on log10(U1). In the same manner, we could have used <strong>vDSP_zvmags</strong> instead of <strong>vDSP_zvabs</strong> and saved one <em>sqrt </em>operation.</p>
 

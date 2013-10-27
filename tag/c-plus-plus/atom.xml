@@ -4,7 +4,7 @@
     <title><![CDATA[Tag: C++ | Sample & Hold]]></title>
     <link href="http://sample-hold.com/tag/c-plus-plus/atom.xml" rel="self"/>
     <link href="http://sample-hold.com/"/>
-    <updated>2013-10-25T13:13:12+02:00</updated>
+    <updated>2013-10-27T23:32:33+01:00</updated>
     <id>http://sample-hold.com/</id>
     <author>
         <name><![CDATA[Fred Ghilini]]></name>
@@ -18,7 +18,7 @@
         <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/"/>
         <updated>2011-11-23T16:32:10+01:00</updated>
         <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c</id>
-        <content type="html"><![CDATA[<p><img class="alignleft <a" src="href="http://guileboard.files.wordpress.com/2011/11/images1.jpeg?w=150">http://guileboard.files.wordpress.com/2011/11/images1.jpeg?w=150</a>"> In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we&rsquo;ll create widgets so as to configure the FFT analysis.</p>
+        <content type="html"><![CDATA[<p><img class="alignleft" src="/images/blog/images1.jpeg?w=150"> In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we&rsquo;ll create widgets so as to configure the FFT analysis.</p>
 
 <p>Why using Cocoa? Well, for two reasons: I didn&rsquo;t want to introduce a too complex API in this tutorial (such as OpenGL), and I would like to show you how to mix C++ and Objective-C in the same XCode project. Don&rsquo;t worry, it doesn&rsquo;t bother if you&rsquo;re not experienced with Objective-C: we&rsquo;ll make a straightforward use of it and we&rsquo;ll clearly explain all the interactions between our GUI classes and our C++ code.</p>
 
@@ -64,7 +64,7 @@
 
 <p>Finally, We create a <strong>NSMenu </strong>widget in order to let users modify the Audio Unit parameters. It will pops up when you right-click anywhere in the SpectrumAnalyzerView.</p>
 
-<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-18-14-07.png?w=300">http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-18-14-07.png?w=300</a>"></p>
+<p><img class="centered" src="/images/blog/capture-d_c3a9cran-2011-11-29-c3a0-18-14-07.png?w=300"></p>
 
 <h3>Create GUI classes</h3>
 
@@ -131,7 +131,7 @@ return [returnView autorelease];
 </ol>
 
 
-<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-20-54-13.png?w=179">http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-20-54-13.png?w=179</a>"></p>
+<p><img class="centered" src="/images/blog/capture-d_c3a9cran-2011-11-29-c3a0-20-54-13.png?w=179"></p>
 
 <p>So far, we have designed a basic Cocoa UI and we have bound the most important widgets to actions developed in Objective-C classes. We have had an overall sight of how our Spectrum Analyzer basically interacts with the Cocoa UI.</p>
 
@@ -287,7 +287,7 @@ if(result == noErr &amp;&amp; graphInfo.mNumBins &gt; 0) {
 
 <p>First of all, the object <strong>NSBezierPath </strong>is my easy method for drawing the spectrum. All I have to do is moving to a certain <strong>NSPoint,</strong> then draw lines/curves using the methods <em>lineToPoint</em> and <em>curveToPoint</em> (or may I write &ldquo;messages&rdquo;? Since we are writing Objective-C&hellip;). There is a good tutorial on this <a href="http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CocoaDrawingGuide/Introduction/Introduction.html">in the Apple documentation</a>.</p>
 
-<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/11/bezier_curvec1.png">http://guileboard.files.wordpress.com/2011/11/bezier_curvec1.png</a>"></p>
+<p><img class="centered" src="/images/blog/bezier_curvec1.png"></p>
 
 <p>Secondly, I use the object <strong>NSAffineTransform</strong> each time I need to change my coordinate system. This is important to understand that we have to draw several different things:</p>
 
@@ -317,7 +317,7 @@ if(result == noErr &amp;&amp; graphInfo.mNumBins &gt; 0) {
         <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/"/>
         <updated>2011-11-23T16:26:47+01:00</updated>
         <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor</id>
-        <content type="html"><![CDATA[<p><img class="alignleft <a" src="href="http://guileboard.files.wordpress.com/2011/11/images.jpeg">http://guileboard.files.wordpress.com/2011/11/images.jpeg</a>"> We briefly introduced the FFT part of the Accelerated Framework in Part I of this tutorial.</p>
+        <content type="html"><![CDATA[<p><img class="alignleft" src="/images/blog/libs.jpeg"> We briefly introduced the FFT part of the Accelerated Framework in Part I of this tutorial.</p>
 
 <p>We are now going to focus on the vDSP library and create the C++ class responsible for doing the spectral analysis work of our input samples. We want to keep it simple, with a few public methods, however we would like to perform FFT analysis on different frame sizes. So, one of our challenges is to design a circular buffer as member variable, which is a common pattern in audio programming.</p>
 
@@ -396,7 +396,7 @@ CAAutoFree&lt;Float32&gt; GetMagnitudes(Window w, UInt32 channelSelect = 3);
 
 <h3>Using a Ring Buffer</h3>
 
-<p><img class="alignleft <a" src="href="http://guileboard.files.wordpress.com/2011/11/200px-circular_buffer-svg.png?w=150">http://guileboard.files.wordpress.com/2011/11/200px-circular_buffer-svg.png?w=150</a>"> Audio Units generally capture N input samples each time they are rendered, N being set by the host in which they operate. N has a value usually lower than the minimum number of  frames required for computing FFT, so before we can provide at least 1024 samples to FFT, we have those N samples stored into a ring buffer over a few cycles.</p>
+<p><img class="alignleft" src="/images/blog/200px-circular_buffer-svg.png?w=150"> Audio Units generally capture N input samples each time they are rendered, N being set by the host in which they operate. N has a value usually lower than the minimum number of  frames required for computing FFT, so before we can provide at least 1024 samples to FFT, we have those N samples stored into a ring buffer over a few cycles.</p>
 
 <p> This kind of buffer is circular: thus, it never overflows. We always keep K samples in the ring buffer, K being the buffer&rsquo;s capacity. That&rsquo;s why we maintain two<em> int pointers</em> :</p>
 
@@ -431,7 +431,7 @@ CAAutoFree&lt;Float32&gt; GetMagnitudes(Window w, UInt32 channelSelect = 3);
 
 <h3>The power of SIMD</h3>
 
-<p><img class="alignleft <a" src="href="http://guileboard.files.wordpress.com/2011/11/images-1.jpeg?w=150">http://guileboard.files.wordpress.com/2011/11/images-1.jpeg?w=150</a>"> What is the plot of having all those buffers ? We could have reworked things to diminish memory footprint.</p>
+<p><img class="alignleft" src="/images/blog/images-1.jpeg?w=150"> What is the plot of having all those buffers ? We could have reworked things to diminish memory footprint.</p>
 
 <p>Instead, we&rsquo;ll use the great SIMD features of the vDSP library with no proprietary code at all!  The benefit here is to drastically reduce the computing time of a large number of samples. Furthermore, vDSP provide numerous mathematical functions that will help us achieve our sound analysis.</p>
 
@@ -454,7 +454,7 @@ CAAutoFree&lt;Float32&gt; GetMagnitudes(Window w, UInt32 channelSelect = 3);
 
 <p>We&rsquo;ll leave these steps unchanged to keep this tutorial simple, though we could have tweaked things a bit. As you know, the decibel formula is given by:</p>
 
-<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/11/062fdd96385ff2ddfdb4426194c49b29.png">http://guileboard.files.wordpress.com/2011/11/062fdd96385ff2ddfdb4426194c49b29.png</a>"></p>
+<p><img class="centered" src="/images/blog/062fdd96385ff2ddfdb4426194c49b29.png"></p>
 
 <p>As an optimization, rather than multiplying/dividing U1 or U2, we could have left U1 unchanged, called <strong>vDSP_vdbconv</strong>, then take this into account when applying our dB correction. Indeed, every multiplication or division on U1 can translate into an addition or deletion on log10(U1). In the same manner, we could have used <strong>vDSP_zvmags</strong> instead of <strong>vDSP_zvabs</strong> and saved one <em>sqrt </em>operation.</p>
 
@@ -497,7 +497,7 @@ CAAutoFree&lt;Float32&gt; magnitudes = mProcessor.GetMagnitudes(currentWindow, c
         <link href="http://sample-hold.com/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1/"/>
         <updated>2011-11-23T15:59:23+01:00</updated>
         <id>http://sample-hold.com/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1</id>
-        <content type="html"><![CDATA[<p><img class="alignleft <a" src="href="http://guileboard.files.wordpress.com/2011/11/home-ios-sdk.png">http://guileboard.files.wordpress.com/2011/11/home-ios-sdk.png</a>"> Apple usually takes care of their developers community.  Whereas they lately delivered an impressive update of their Xcode IDE with tons of new features (read a <a href="http://pilky.me/view/28">cool  review here</a>), they surprisingly removed the project template for creating Audio Units. Nevertheless, let&rsquo;s see how to create a new unit from scratch&hellip;</p>
+        <content type="html"><![CDATA[<p><img class="alignleft" src="/images/blog/home-ios-sdk.png"> Apple usually takes care of their developers community.  Whereas they lately delivered an impressive update of their Xcode IDE with tons of new features (read a <a href="http://pilky.me/view/28">cool  review here</a>), they surprisingly removed the project template for creating Audio Units. Nevertheless, let&rsquo;s see how to create a new unit from scratch&hellip;</p>
 
 <!-- more -->
 
@@ -531,7 +531,7 @@ CAAutoFree&lt;Float32&gt; magnitudes = mProcessor.GetMagnitudes(currentWindow, c
 
 <p>By the way, don&rsquo;t neglect the &ldquo;Identity&rdquo; pane displayed when you open the rightmost view. You&rsquo;ll find two fields, &ldquo;Location&rdquo; and &ldquo;Full Path&rdquo; that can help you cleaning the mess if you want to add / delete a lot of files, or create new groups that &ldquo;map&rdquo; to existing folders in your project directory.</p>
 
-<h3><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/11/identity.png">http://guileboard.files.wordpress.com/2011/11/identity.png</a>"></h3>
+<h3><img class="centered" src="/images/blog/identity.png"></h3>
 
 <h3>Tune your deployment target</h3>
 
@@ -550,7 +550,7 @@ CAAutoFree&lt;Float32&gt; magnitudes = mProcessor.GetMagnitudes(currentWindow, c
 </ul>
 
 
-<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/11/info.png">http://guileboard.files.wordpress.com/2011/11/info.png</a>"></p>
+<p><img class="centered" src="/images/blog/info.png"></p>
 
 <p>Next, move ahead to the tab &ldquo;Build settings&rdquo;. Toggle the filter from &ldquo;Basic&rdquo; to &ldquo;All&rdquo; and proceed to a few changes on values :</p>
 

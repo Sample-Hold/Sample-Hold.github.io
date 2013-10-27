@@ -2,76 +2,76 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://sample-hold.com/2011/11/21/greetings/</loc>
-        <lastmod>2013-10-25T13:12:43+02:00</lastmod>
+        <lastmod>2013-10-27T23:32:27+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://sample-hold.com/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1/
         </loc>
-        <lastmod>2013-10-25T13:12:43+02:00</lastmod>
+        <lastmod>2013-10-27T23:31:48+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/
         </loc>
-        <lastmod>2013-10-25T13:12:43+02:00</lastmod>
+        <lastmod>2013-10-27T23:32:32+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/
         </loc>
-        <lastmod>2013-10-25T13:12:43+02:00</lastmod>
+        <lastmod>2013-10-27T23:32:16+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/
         </loc>
-        <lastmod>2013-10-25T13:12:43+02:00</lastmod>
+        <lastmod>2013-10-27T23:32:11+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/
         </loc>
-        <lastmod>2013-10-25T13:12:43+02:00</lastmod>
+        <lastmod>2013-10-27T23:32:02+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/
         </loc>
-        <lastmod>2013-10-25T13:12:43+02:00</lastmod>
+        <lastmod>2013-10-27T23:31:55+01:00</lastmod>
     </url>
     <url>
         <loc>
             http://sample-hold.com/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/
         </loc>
-        <lastmod>2013-10-25T13:12:43+02:00</lastmod>
+        <lastmod>2013-10-27T23:31:37+01:00</lastmod>
     </url>
     <url>
         <loc>http://sample-hold.com/about/</loc>
-        <lastmod>2013-10-25T13:12:43+02:00</lastmod>
+        <lastmod>2013-10-27T23:28:57+01:00</lastmod>
     </url>
     <url>
         <loc>http://sample-hold.com/blog/archives/</loc>
-        <lastmod>2013-10-25T13:12:43+02:00</lastmod>
+        <lastmod>2013-10-27T23:32:32+01:00</lastmod>
     </url>
     <url>
         <loc>http://sample-hold.com/</loc>
-        <lastmod>2013-10-25T13:12:44+02:00</lastmod>
+        <lastmod>2013-10-27T23:32:32+01:00</lastmod>
     </url>
     <url>
         <loc>http://sample-hold.com/projects/</loc>
-        <lastmod>2013-10-25T13:12:43+02:00</lastmod>
+        <lastmod>2013-10-27T23:28:57+01:00</lastmod>
     </url>
     <url>
         <loc>http://sample-hold.com/robots.txt</loc>
-        <lastmod>2013-10-25T13:12:45+02:00</lastmod>
+        <lastmod>2013-10-18T02:14:37+02:00</lastmod>
     </url>
     <url>
         <loc>http://sample-hold.com/tutorials-index/</loc>
-        <lastmod>2013-10-25T13:12:43+02:00</lastmod>
+        <lastmod>2013-10-27T23:28:57+01:00</lastmod>
     </url>
     <url>
         <loc>http://sample-hold.com/useful-resources/</loc>
-        <lastmod>2013-10-25T13:12:43+02:00</lastmod>
+        <lastmod>2013-10-27T23:28:57+01:00</lastmod>
     </url>
 </urlset>

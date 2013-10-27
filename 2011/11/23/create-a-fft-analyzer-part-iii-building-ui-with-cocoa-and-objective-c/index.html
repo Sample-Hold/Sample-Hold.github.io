@@ -308,7 +308,7 @@ by <strong>fredguile</strong>
 </div>
 
 <div class="entry">
-	<p><img class="alignleft" src="http://guileboard.files.wordpress.com/2011/11/images1.jpeg?w=150"> In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we&rsquo;ll create widgets so as to configure the FFT analysis.</p>
+	<p><img class="alignleft" src="/images/blog/images1.jpeg?w=150"> In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we&rsquo;ll create widgets so as to configure the FFT analysis.</p>
 
 <p>Why using Cocoa? Well, for two reasons: I didn&rsquo;t want to introduce a too complex API in this tutorial (such as OpenGL), and I would like to show you how to mix C++ and Objective-C in the same XCode project. Don&rsquo;t worry, it doesn&rsquo;t bother if you&rsquo;re not experienced with Objective-C: we&rsquo;ll make a straightforward use of it and we&rsquo;ll clearly explain all the interactions between our GUI classes and our C++ code.</p>
 
@@ -354,7 +354,7 @@ by <strong>fredguile</strong>
 
 <p>Finally, We create a <strong>NSMenu </strong>widget in order to let users modify the Audio Unit parameters. It will pops up when you right-click anywhere in the SpectrumAnalyzerView.</p>
 
-<p><img class="centered" src="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-18-14-07.png?w=300"></p>
+<p><img class="centered" src="/images/blog/capture-d_c3a9cran-2011-11-29-c3a0-18-14-07.png?w=300"></p>
 
 <h3>Create GUI classes</h3>
 
@@ -431,7 +431,7 @@ by <strong>fredguile</strong>
 </ol>
 
 
-<p><img class="centered" src="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-20-54-13.png?w=179"></p>
+<p><img class="centered" src="/images/blog/capture-d_c3a9cran-2011-11-29-c3a0-20-54-13.png?w=179"></p>
 
 <p>So far, we have designed a basic Cocoa UI and we have bound the most important widgets to actions developed in Objective-C classes. We have had an overall sight of how our Spectrum Analyzer basically interacts with the Cocoa UI.</p>
 
@@ -618,7 +618,7 @@ by <strong>fredguile</strong>
 
 <p>First of all, the object <strong>NSBezierPath </strong>is my easy method for drawing the spectrum. All I have to do is moving to a certain <strong>NSPoint,</strong> then draw lines/curves using the methods <em>lineToPoint</em> and <em>curveToPoint</em> (or may I write &ldquo;messages&rdquo;? Since we are writing Objective-C&hellip;). There is a good tutorial on this <a href="http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CocoaDrawingGuide/Introduction/Introduction.html">in the Apple documentation</a>.</p>
 
-<p><img class="centered" src="http://guileboard.files.wordpress.com/2011/11/bezier_curvec1.png"></p>
+<p><img class="centered" src="/images/blog/bezier_curvec1.png"></p>
 
 <p>Secondly, I use the object <strong>NSAffineTransform</strong> each time I need to change my coordinate system. This is important to understand that we have to draw several different things:</p>
 

@@ -308,7 +308,7 @@ by <strong>fredguile</strong>
 </div>
 
 <div class="entry">
-	<p><img class="alignleft" src="http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-13-31-29.png"> It&rsquo;s time to build up our first audio unit.</p>
+	<p><img class="alignleft" src="/images/blog/capture-d_c3a9cran-2011-11-29-c3a0-13-31-29.png"> It&rsquo;s time to build up our first audio unit.</p>
 
 <p>For a start, I propose to create a spectrum analyzer which will help us to understand how we can realize basic sound analysis using the Fourier Transform. While this might sound scarily complex for non mathematician developers, you will smoothly read this tutorial if we first explain a few concepts about sound processing, without of course entering too deeply into the maths&hellip;</p>
 
@@ -327,7 +327,7 @@ by <strong>fredguile</strong>
 
 <p>Well, it is almost  time for me to close this book and go to bed, except perhaps if you tell me a &ldquo;concrete&rdquo; method for visualizing F(α). That&rsquo;s where we use our Wikipedia card to steal a graphical representation of the Euler formula :</p>
 
-<p><img class="centered" src="http://guileboard.files.wordpress.com/2011/11/220px-eulers_formula.png"></p>
+<p><img class="centered" src="/images/blog/220px-eulers_formula.png"></p>
 
 <p>Look at this unit circle drawn in the complex plane carefully, and I promise that an explanation will shade out in a couple of seconds.</p>
 
@@ -335,7 +335,7 @@ by <strong>fredguile</strong>
 
 <p>Since our concern for building our spectrum analyzer is to only get the magnitude, I&rsquo;ll ignore phase for this tutorial. To compute the magnitude, you just may remember the famous Pythagorean theorem which says&hellip; well, do you remember ?</p>
 
-<p><img class="centered" src="http://guileboard.files.wordpress.com/2011/11/162px-pythagorean_theorem_abc-svg2.png"></p>
+<p><img class="centered" src="/images/blog/162px-pythagorean_theorem_abc-svg2.png"></p>
 
 <p>That is, (magnitude(α))² = Real part² + Imaginary part² = (cos α)² + (sin α)², hence magnitude(α) = SQRT(Real part² + Imaginary part²) = SQRT((cos α)² + (sin α)²). We have almost everything we need, though some last details will be be discussed at a later stage of this tutorial.</p>
 
@@ -354,7 +354,7 @@ by <strong>fredguile</strong>
 
 <p>By the way, I think we cool look at the DTFT formula to learn a few things about the FFT :</p>
 
-<p><img class="centered" src="http://guileboard.files.wordpress.com/2011/11/dtft.png"></p>
+<p><img class="centered" src="/images/blog/dtft.png"></p>
 
 <p>What I can read here is that we&rsquo;ll pass N samples (N being a power of 2, as said above) to the FFT transform, in order to get at most N complex numbers describing frequencies on the complex plane (we&rsquo;ll choose the value for N later in the tutorial). So, as a developer, you will have to extract those N samples, store them in a buffer, and prepare an array of dimension to 2N to receive the resulting complex numbers.</p>
 

@@ -4,7 +4,7 @@
     <title><![CDATA[Tag: VST Plugin | Sample & Hold]]></title>
     <link href="http://sample-hold.com/tag/vst-plugin/atom.xml" rel="self"/>
     <link href="http://sample-hold.com/"/>
-    <updated>2013-10-25T13:13:12+02:00</updated>
+    <updated>2013-10-27T23:32:33+01:00</updated>
     <id>http://sample-hold.com/</id>
     <author>
         <name><![CDATA[Fred Ghilini]]></name>
@@ -18,7 +18,7 @@
         <link href="http://sample-hold.com/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/"/>
         <updated>2011-12-19T05:00:26+01:00</updated>
         <id>http://sample-hold.com/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin</id>
-        <content type="html"><![CDATA[<p><img class="alignleft <a" src="href="http://guileboard.files.wordpress.com/2011/12/launchplay-image.png">http://guileboard.files.wordpress.com/2011/12/launchplay-image.png</a>"> I bought a Launchpad controller from Novation a few years ago, and although it&rsquo;s a great midi interface offering a perfect native remote for Ableton Live sequencer, I couldn&rsquo;t help thinking that this amazing tool could certainly be used in other unexpected ways, thus controlling alternate gears or software. So on the same time, I was both enjoying my Launchpad and drooling to what would have offered at more experimental controller such as <a href="http://monome.org/devices">monome device</a>&hellip;</p>
+        <content type="html"><![CDATA[<p><img class="alignleft" src="/images/blog/launchplay-image.png"> I bought a Launchpad controller from Novation a few years ago, and although it&rsquo;s a great midi interface offering a perfect native remote for Ableton Live sequencer, I couldn&rsquo;t help thinking that this amazing tool could certainly be used in other unexpected ways, thus controlling alternate gears or software. So on the same time, I was both enjoying my Launchpad and drooling to what would have offered at more experimental controller such as <a href="http://monome.org/devices">monome device</a>&hellip;</p>
 
 <p>Luckily, Novation made a programming guide available for the Lauchpad, as well as Ableton proposed an extended version of Live integrating Max/MSP (that is called &ldquo;Max for Live&rdquo;) that would help me satisfy my nerd-est desires. So I started to draft a layout for simple jamming. But I wanted more : my tool would work on any sequencer, with both Mac and Windows platforms, all of this requiring no additional license.</p>
 
@@ -41,7 +41,7 @@
 
 <p>Here is the very simple layout available for use in LaunchPlay:</p>
 
-<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/12/launchplay-layout.png">http://guileboard.files.wordpress.com/2011/12/launchplay-layout.png</a>"></p>
+<p><img class="centered" src="/images/blog/launchplay-layout.png"></p>
 
 <p>You may notice that the rightmost buttons of the Launchpad have been turned into a MIDI channel selector : this will allow us to send generative music to up to eight gears (virtual instruments or real synthetizers), bringing a nice multi-timbral feature to our generative music experience!</p>
 
@@ -75,7 +75,7 @@
 </ul>
 
 
-<p><img class="centered <a" src="href="http://guileboard.files.wordpress.com/2011/12/routing.png">http://guileboard.files.wordpress.com/2011/12/routing.png</a>"></p>
+<p><img class="centered" src="/images/blog/routing.png"></p>
 
 <p>You can use:</p>
 
