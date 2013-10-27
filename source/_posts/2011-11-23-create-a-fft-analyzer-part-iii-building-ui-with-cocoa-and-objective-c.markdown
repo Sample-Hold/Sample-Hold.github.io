@@ -16,7 +16,7 @@ tags:
 - XCode
 ---
 
-{% img alignleft http://guileboard.files.wordpress.com/2011/11/images1.jpeg?w=150 %} In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we'll create widgets so as to configure the FFT analysis.
+{% img alignleft /images/blog/images1.jpeg?w=150 %} In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we'll create widgets so as to configure the FFT analysis.
 
 
 
@@ -103,7 +103,7 @@ Here are the components we need to add to this document:
 Finally, We create a **NSMenu **widget in order to let users modify the Audio Unit parameters. It will pops up when you right-click anywhere in the SpectrumAnalyzerView.
 
 
-{% img centered http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-18-14-07.png?w=300 %}
+{% img centered /images/blog/capture-d_c3a9cran-2011-11-29-c3a0-18-14-07.png?w=300 %}
 
 
 
@@ -215,7 +215,7 @@ This is the fun part of the Cocoa Framework. All you have to do is:
 
 
 
-{% img centered http://guileboard.files.wordpress.com/2011/11/capture-d_c3a9cran-2011-11-29-c3a0-20-54-13.png?w=179 %}
+{% img centered /images/blog/capture-d_c3a9cran-2011-11-29-c3a0-20-54-13.png?w=179 %}
 
 
 
@@ -464,7 +464,7 @@ There are three things I would like to write about in this class.
 First of all, the object **NSBezierPath **is my easy method for drawing the spectrum. All I have to do is moving to a certain **NSPoint,** then draw lines/curves using the methods _lineToPoint_ and _curveToPoint_ (or may I write "messages"? Since we are writing Objective-C...). There is a good tutorial on this [in the Apple documentation](http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CocoaDrawingGuide/Introduction/Introduction.html).
 
 
-{% img centered http://guileboard.files.wordpress.com/2011/11/bezier_curvec1.png %}
+{% img centered /images/blog/bezier_curvec1.png %}
 
 
 Secondly, I use the object **NSAffineTransform** each time I need to change my coordinate system. This is important to understand that we have to draw several different things:

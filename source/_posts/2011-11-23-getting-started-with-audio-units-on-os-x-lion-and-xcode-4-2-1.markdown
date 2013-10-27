@@ -15,7 +15,7 @@ tags:
 - XCode
 ---
 
-{% img alignleft http://guileboard.files.wordpress.com/2011/11/home-ios-sdk.png %} Apple usually takes care of their developers community.  Whereas they lately delivered an impressive update of their Xcode IDE with tons of new features (read a [cool  review here](http://pilky.me/view/28)), they surprisingly removed the project template for creating Audio Units. Nevertheless, let's see how to create a new unit from scratch...
+{% img alignleft /images/blog/home-ios-sdk.png %} Apple usually takes care of their developers community.  Whereas they lately delivered an impressive update of their Xcode IDE with tons of new features (read a [cool  review here](http://pilky.me/view/28)), they surprisingly removed the project template for creating Audio Units. Nevertheless, let's see how to create a new unit from scratch...
 
 <!-- more -->
 
@@ -53,7 +53,7 @@ Your project must contain at least :
 By the way, don't neglect the "Identity" pane displayed when you open the rightmost view. You'll find two fields, "Location" and "Full Path" that can help you cleaning the mess if you want to add / delete a lot of files, or create new groups that "map" to existing folders in your project directory.
 
 
-### {% img centered http://guileboard.files.wordpress.com/2011/11/identity.png %}
+### {% img centered /images/blog/identity.png %}
 
 
 ### Tune your deployment target
@@ -85,7 +85,7 @@ You can reuse the default target created by Xcode. The first tab "Info" shows th
   * **version**: an hexadecimal number defining the version number of the unit. The magic here wants you to enter OxMMMMmmHH, where MMMM is major version, mm is minor version and HH is hotfix number. But if, like me, you want to test your updated plugin every time you compile a new version, just enter "0xFFFFFFFF".
 
 
-{% img centered http://guileboard.files.wordpress.com/2011/11/info.png %}
+{% img centered /images/blog/info.png %}
 
 Next, move ahead to the tab "Build settings". Toggle the filter from "Basic" to "All" and proceed to a few changes on values :
 
