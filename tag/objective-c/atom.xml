@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
     <title><![CDATA[Tag: Objective-C | Sample & Hold]]></title>
-    <link href="http://sample-hold.com/tag/objective-c/atom.xml" rel="self"/>
-    <link href="http://sample-hold.com/"/>
-    <updated>2014-10-02T10:43:14+02:00</updated>
-    <id>http://sample-hold.com/</id>
+    <link href="http://www.sample-hold.com/tag/objective-c/atom.xml" rel="self"/>
+    <link href="http://www.sample-hold.com/"/>
+    <updated>2014-11-07T10:56:11+01:00</updated>
+    <id>http://www.sample-hold.com/</id>
     <author>
         <name><![CDATA[Fred Ghilini]]></name>
         
@@ -15,9 +15,9 @@
     
     <entry>
         <title type="html"><![CDATA[Create a FFT Analyzer part III: building UI with Cocoa and Objective-C]]></title>
-        <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/"/>
+        <link href="http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/"/>
         <updated>2011-11-23T16:32:10+01:00</updated>
-        <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c</id>
+        <id>http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c</id>
         <content type="html"><![CDATA[<p><img class="alignleft" src="/images/blog/images1.jpeg?w=150"> In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we&rsquo;ll create widgets so as to configure the FFT analysis.</p>
 
 <p>Why using Cocoa? Well, for two reasons: I didn&rsquo;t want to introduce a too complex API in this tutorial (such as OpenGL), and I would like to show you how to mix C++ and Objective-C in the same XCode project. Don&rsquo;t worry, it doesn&rsquo;t bother if you&rsquo;re not experienced with Objective-C: we&rsquo;ll make a straightforward use of it and we&rsquo;ll clearly explain all the interactions between our GUI classes and our C++ code.</p>

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
     <title><![CDATA[Tag: Mac OS X | Sample & Hold]]></title>
-    <link href="http://sample-hold.com/tag/mac-os-x/atom.xml" rel="self"/>
-    <link href="http://sample-hold.com/"/>
-    <updated>2014-10-02T10:43:14+02:00</updated>
-    <id>http://sample-hold.com/</id>
+    <link href="http://www.sample-hold.com/tag/mac-os-x/atom.xml" rel="self"/>
+    <link href="http://www.sample-hold.com/"/>
+    <updated>2014-11-07T10:56:11+01:00</updated>
+    <id>http://www.sample-hold.com/</id>
     <author>
         <name><![CDATA[Fred Ghilini]]></name>
         
@@ -15,9 +15,9 @@
     
     <entry>
         <title type="html"><![CDATA[Create a FFT Analyzer part V: final thoughts, sources for XCode 4.2 & feedback]]></title>
-        <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/"/>
+        <link href="http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/"/>
         <updated>2011-11-23T16:34:55+01:00</updated>
-        <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback</id>
+        <id>http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback</id>
         <content type="html"><![CDATA[<p><img class="alignleft" src="/images/blog/au.gif"> This part wraps up our tutorial on building an audio effect as Audio Unit for OS X Lion. Though it is not the craziest plug-in you&rsquo;ll ever built, it made us learn some basis about DSP programming, as well it introduced the XCode environment for developing Audio Units. Of course, there are numerous improvements we could do on this project. In this article, I&rsquo;ll make some remarks about my work and  also a few issues I met during development. Last but not least, we recall the GitHub repository URL for you to grab the code and make our own version.</p>
 
 <!-- more -->
@@ -56,9 +56,9 @@
     
     <entry>
         <title type="html"><![CDATA[Create a FFT Analyzer part IV: debugging our Audio Unit with AU Lab]]></title>
-        <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/"/>
+        <link href="http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/"/>
         <updated>2011-11-23T16:33:15+01:00</updated>
-        <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab</id>
+        <id>http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab</id>
         <content type="html"><![CDATA[<p><img class="alignleft" src="/images/blog/aulab2.png"> Debugging an Audio Unit is not as straightforward as debugging a Cocoa application, because your freshly coded component doesn&rsquo;t show up until you insert it in a bus of your favorite DAW.</p>
 
 <p>In this article, we review some methods for automating your debugging sessions using XCode 4. Concerning the DAW, our preference goes for a free host available in the CoreAudio SDK: AU Lab. In only a few steps, you will be able to setup some breakpoints and look into all potential devilish bugs as if you were debugging a simple Cocoa application.</p>
@@ -179,9 +179,9 @@
     
     <entry>
         <title type="html"><![CDATA[Create a FFT Analyzer part III: building UI with Cocoa and Objective-C]]></title>
-        <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/"/>
+        <link href="http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/"/>
         <updated>2011-11-23T16:32:10+01:00</updated>
-        <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c</id>
+        <id>http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c</id>
         <content type="html"><![CDATA[<p><img class="alignleft" src="/images/blog/images1.jpeg?w=150"> In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we&rsquo;ll create widgets so as to configure the FFT analysis.</p>
 
 <p>Why using Cocoa? Well, for two reasons: I didn&rsquo;t want to introduce a too complex API in this tutorial (such as OpenGL), and I would like to show you how to mix C++ and Objective-C in the same XCode project. Don&rsquo;t worry, it doesn&rsquo;t bother if you&rsquo;re not experienced with Objective-C: we&rsquo;ll make a straightforward use of it and we&rsquo;ll clearly explain all the interactions between our GUI classes and our C++ code.</p>
@@ -478,9 +478,9 @@ if(result == noErr &amp;&amp; graphInfo.mNumBins &gt; 0) {
     
     <entry>
         <title type="html"><![CDATA[Create a FFT Analyzer part II: designing our spectral processor]]></title>
-        <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/"/>
+        <link href="http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/"/>
         <updated>2011-11-23T16:26:47+01:00</updated>
-        <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor</id>
+        <id>http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor</id>
         <content type="html"><![CDATA[<p><img class="alignleft" src="/images/blog/libs.jpeg"> We briefly introduced the FFT part of the Accelerated Framework in Part I of this tutorial.</p>
 
 <p>We are now going to focus on the vDSP library and create the C++ class responsible for doing the spectral analysis work of our input samples. We want to keep it simple, with a few public methods, however we would like to perform FFT analysis on different frame sizes. So, one of our challenges is to design a circular buffer as member variable, which is a common pattern in audio programming.</p>
@@ -658,9 +658,9 @@ CAAutoFree&lt;Float32&gt; magnitudes = mProcessor.GetMagnitudes(currentWindow, c
     
     <entry>
         <title type="html"><![CDATA[Create a FFT Analyzer part I: prerequisites, concerns and setup]]></title>
-        <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/"/>
+        <link href="http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/"/>
         <updated>2011-11-23T16:17:44+01:00</updated>
-        <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup</id>
+        <id>http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup</id>
         <content type="html"><![CDATA[<p><img class="alignleft" src="/images/blog/capture-d_c3a9cran-2011-11-29-c3a0-13-31-29.png"> It&rsquo;s time to build up our first audio unit.</p>
 
 <p>For a start, I propose to create a spectrum analyzer which will help us to understand how we can realize basic sound analysis using the Fourier Transform. While this might sound scarily complex for non mathematician developers, you will smoothly read this tutorial if we first explain a few concepts about sound processing, without of course entering too deeply into the maths&hellip;</p>

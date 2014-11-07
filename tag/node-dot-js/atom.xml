@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
     <title><![CDATA[Tag: Node.js | Sample & Hold]]></title>
-    <link href="http://sample-hold.com/tag/node-dot-js/atom.xml" rel="self"/>
-    <link href="http://sample-hold.com/"/>
-    <updated>2014-10-02T10:43:14+02:00</updated>
-    <id>http://sample-hold.com/</id>
+    <link href="http://www.sample-hold.com/tag/node-dot-js/atom.xml" rel="self"/>
+    <link href="http://www.sample-hold.com/"/>
+    <updated>2014-11-07T10:56:11+01:00</updated>
+    <id>http://www.sample-hold.com/</id>
     <author>
         <name><![CDATA[Fred Ghilini]]></name>
         
@@ -15,9 +15,9 @@
     
     <entry>
         <title type="html"><![CDATA[Review: Full Stack Web Development With Backbone.js]]></title>
-        <link href="http://sample-hold.com/2014/10/01/review-full-stack-web-development-with-backbone-dot-js/"/>
+        <link href="http://www.sample-hold.com/2014/10/01/review-full-stack-web-development-with-backbone-dot-js/"/>
         <updated>2014-10-01T14:37:00+02:00</updated>
-        <id>http://sample-hold.com/2014/10/01/review-full-stack-web-development-with-backbone-dot-js</id>
+        <id>http://www.sample-hold.com/2014/10/01/review-full-stack-web-development-with-backbone-dot-js</id>
         <content type="html"><![CDATA[<p><img class="alignleft" src="/images/backbone_hardcover.png"> In my current employment, I&rsquo;m contributing to a Single-Page Application using Backbone.js, a very popular library used in many frontend projects. Many developers would argue that Backbone.js isn&rsquo;t the easiest way to start your application, since it requires to build up the proper stack of technologies and libraries to address each topic encountered during frontend development. Some would prefer choosing a more integrated framework like AngularJS or Ember. On the pros side, Backbone.js is agnostic with respect of your preferred libraries, and coupling it with the right recipes leads to a truly efficient solution that solves you initial concerns, whether it be optimizing your SPA for mobile devices, desktops, or tailoring your application for a specific server-side technology.</p>
 
 <p>During my researches I was led to read &ldquo;Full Stack Web Development With Backbone.js&rdquo; and share some practices with the author, Patrick Mulder, which is a Munich-based freelance software consultant. For anyone who is looking for any recent publications on Backbone.js, I&rsquo;ll try to summarize the outcome of this reading. <!-- more --></p>

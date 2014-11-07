@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
     <title><![CDATA[Tag: C++ | Sample & Hold]]></title>
-    <link href="http://sample-hold.com/tag/c-plus-plus/atom.xml" rel="self"/>
-    <link href="http://sample-hold.com/"/>
-    <updated>2014-10-02T10:43:14+02:00</updated>
-    <id>http://sample-hold.com/</id>
+    <link href="http://www.sample-hold.com/tag/c-plus-plus/atom.xml" rel="self"/>
+    <link href="http://www.sample-hold.com/"/>
+    <updated>2014-11-07T10:56:11+01:00</updated>
+    <id>http://www.sample-hold.com/</id>
     <author>
         <name><![CDATA[Fred Ghilini]]></name>
         
@@ -15,9 +15,9 @@
     
     <entry>
         <title type="html"><![CDATA[Create a FFT Analyzer part III: building UI with Cocoa and Objective-C]]></title>
-        <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/"/>
+        <link href="http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/"/>
         <updated>2011-11-23T16:32:10+01:00</updated>
-        <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c</id>
+        <id>http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c</id>
         <content type="html"><![CDATA[<p><img class="alignleft" src="/images/blog/images1.jpeg?w=150"> In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we&rsquo;ll create widgets so as to configure the FFT analysis.</p>
 
 <p>Why using Cocoa? Well, for two reasons: I didn&rsquo;t want to introduce a too complex API in this tutorial (such as OpenGL), and I would like to show you how to mix C++ and Objective-C in the same XCode project. Don&rsquo;t worry, it doesn&rsquo;t bother if you&rsquo;re not experienced with Objective-C: we&rsquo;ll make a straightforward use of it and we&rsquo;ll clearly explain all the interactions between our GUI classes and our C++ code.</p>
@@ -314,9 +314,9 @@ if(result == noErr &amp;&amp; graphInfo.mNumBins &gt; 0) {
     
     <entry>
         <title type="html"><![CDATA[Create a FFT Analyzer part II: designing our spectral processor]]></title>
-        <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/"/>
+        <link href="http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/"/>
         <updated>2011-11-23T16:26:47+01:00</updated>
-        <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor</id>
+        <id>http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor</id>
         <content type="html"><![CDATA[<p><img class="alignleft" src="/images/blog/libs.jpeg"> We briefly introduced the FFT part of the Accelerated Framework in Part I of this tutorial.</p>
 
 <p>We are now going to focus on the vDSP library and create the C++ class responsible for doing the spectral analysis work of our input samples. We want to keep it simple, with a few public methods, however we would like to perform FFT analysis on different frame sizes. So, one of our challenges is to design a circular buffer as member variable, which is a common pattern in audio programming.</p>
@@ -494,9 +494,9 @@ CAAutoFree&lt;Float32&gt; magnitudes = mProcessor.GetMagnitudes(currentWindow, c
     
     <entry>
         <title type="html"><![CDATA[Getting started with Audio Units on OS X Lion and XCode 4.2.1]]></title>
-        <link href="http://sample-hold.com/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1/"/>
+        <link href="http://www.sample-hold.com/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1/"/>
         <updated>2011-11-23T15:59:23+01:00</updated>
-        <id>http://sample-hold.com/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1</id>
+        <id>http://www.sample-hold.com/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1</id>
         <content type="html"><![CDATA[<p><img class="alignleft" src="/images/blog/home-ios-sdk.png"> Apple usually takes care of their developers community.  Whereas they lately delivered an impressive update of their Xcode IDE with tons of new features (read a <a href="http://pilky.me/view/28">cool  review here</a>), they surprisingly removed the project template for creating Audio Units. Nevertheless, let&rsquo;s see how to create a new unit from scratch&hellip;</p>
 
 <!-- more -->

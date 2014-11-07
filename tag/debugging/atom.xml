@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
     <title><![CDATA[Tag: Debugging | Sample & Hold]]></title>
-    <link href="http://sample-hold.com/tag/debugging/atom.xml" rel="self"/>
-    <link href="http://sample-hold.com/"/>
-    <updated>2014-10-02T10:43:14+02:00</updated>
-    <id>http://sample-hold.com/</id>
+    <link href="http://www.sample-hold.com/tag/debugging/atom.xml" rel="self"/>
+    <link href="http://www.sample-hold.com/"/>
+    <updated>2014-11-07T10:56:11+01:00</updated>
+    <id>http://www.sample-hold.com/</id>
     <author>
         <name><![CDATA[Fred Ghilini]]></name>
         
@@ -15,9 +15,9 @@
     
     <entry>
         <title type="html"><![CDATA[Create a FFT Analyzer part IV: debugging our Audio Unit with AU Lab]]></title>
-        <link href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/"/>
+        <link href="http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/"/>
         <updated>2011-11-23T16:33:15+01:00</updated>
-        <id>http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab</id>
+        <id>http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab</id>
         <content type="html"><![CDATA[<p><img class="alignleft" src="/images/blog/aulab2.png"> Debugging an Audio Unit is not as straightforward as debugging a Cocoa application, because your freshly coded component doesn&rsquo;t show up until you insert it in a bus of your favorite DAW.</p>
 
 <p>In this article, we review some methods for automating your debugging sessions using XCode 4. Concerning the DAW, our preference goes for a free host available in the CoreAudio SDK: AU Lab. In only a few steps, you will be able to setup some breakpoints and look into all potential devilish bugs as if you were debugging a simple Cocoa application.</p>

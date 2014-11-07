@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://sample-hold.com/sitemap.xml 
+Sitemap: http://www.sample-hold.com/sitemap.xml 

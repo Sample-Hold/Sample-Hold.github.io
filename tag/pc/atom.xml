@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
     <title><![CDATA[Tag: PC | Sample & Hold]]></title>
-    <link href="http://sample-hold.com/tag/pc/atom.xml" rel="self"/>
-    <link href="http://sample-hold.com/"/>
-    <updated>2014-10-02T10:43:14+02:00</updated>
-    <id>http://sample-hold.com/</id>
+    <link href="http://www.sample-hold.com/tag/pc/atom.xml" rel="self"/>
+    <link href="http://www.sample-hold.com/"/>
+    <updated>2014-11-07T10:56:11+01:00</updated>
+    <id>http://www.sample-hold.com/</id>
     <author>
         <name><![CDATA[Fred Ghilini]]></name>
         
@@ -15,9 +15,9 @@
     
     <entry>
         <title type="html"><![CDATA[Make fun of your Launchpad with LaunchPlay VST plugin]]></title>
-        <link href="http://sample-hold.com/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/"/>
+        <link href="http://www.sample-hold.com/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/"/>
         <updated>2011-12-19T05:00:26+01:00</updated>
-        <id>http://sample-hold.com/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin</id>
+        <id>http://www.sample-hold.com/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin</id>
         <content type="html"><![CDATA[<p><img class="alignleft" src="/images/blog/launchplay-image.png"> I bought a Launchpad controller from Novation a few years ago, and although it&rsquo;s a great midi interface offering a perfect native remote for Ableton Live sequencer, I couldn&rsquo;t help thinking that this amazing tool could certainly be used in other unexpected ways, thus controlling alternate gears or software. So on the same time, I was both enjoying my Launchpad and drooling to what would have offered at more experimental controller such as <a href="http://monome.org/devices">monome device</a>&hellip;</p>
 
 <p>Luckily, Novation made a programming guide available for the Lauchpad, as well as Ableton proposed an extended version of Live integrating Max/MSP (that is called &ldquo;Max for Live&rdquo;) that would help me satisfy my nerd-est desires. So I started to draft a layout for simple jamming. But I wanted more : my tool would work on any sequencer, with both Mac and Windows platforms, all of this requiring no additional license.</p>
