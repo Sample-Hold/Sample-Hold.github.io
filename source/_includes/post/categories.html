@@ -2,9 +2,9 @@
 {% unless category == '0' %}
 <span class="categories">
   {% if post %}
-    in {{ post.categories | category_links }}
+    {{ post.categories | category_links }}
   {% else %}
-    in {{ page.categories | category_links }}
+    {{ page.categories | category_links }}
   {% endif %}
 </span>
 {% endunless %}

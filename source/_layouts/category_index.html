@@ -1,17 +1,17 @@
 ---
-layout: default
+layout: page
 footer: false
 ---
 
-<div id="content-category" class="column">
-    <h2 class="archivetitle">Archived posts</h2>
-
-    {% for post in site.categories[page.category] %}
-    {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
-    {% unless year == this_year %}
-    {% assign year = this_year %}
-    <h2 class="year">{{ year }}</h2>
-    {% endunless %}
-    {% include archive_post.html %}
-    {% endfor %}
+<div id="blog-archives" class="category">
+{% for post in site.categories[page.category] %}
+{% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
+{% unless year == this_year %}
+  {% assign year = this_year %}
+  <h2>{{ year }}</h2>
+{% endunless %}
+<article>
+  {% include archive_post.html %}
+</article>
+{% endfor %}
 </div>

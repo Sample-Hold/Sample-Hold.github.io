@@ -1,51 +1,29 @@
 {% unless page.no_header %}
-<div class="posttitle">
-	<h2 class="pagetitle">
-		{% if index %}
-		<a href="{{ root_url }}{{ post.url }}" rel="bookmark" title="Permanent Link to {{ post.title }}">
-			{% if site.titlecase %}{{ post.title | titlecase }}{% else %}{{ post.title }}{% endif %}
-		</a>
-    	{% else %}
-      	{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %}
-    	{% endif %}
-	</h2>
-	{% unless page.meta == false %}
-	<small>
-		Posted: 
-		{% include post/date.html %}
-		{% include post/author.html %}
-		{% include post/categories.html %}
-	</small>
-	{% endunless %}
-</div>
+  <header>
+    {% if index %}
+      <h1 class="entry-title"><a href="{{ root_url }}{{ post.url }}">{% if site.titlecase %}{{ post.title | titlecase }}{% else %}{{ post.title }}{% endif %}</a></h1>
+    {% else %}
+      <h1 class="entry-title">{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %}</h1>
+    {% endif %}
+    {% unless page.meta == false %}
+      <p class="meta">
+        {% include post/date.html %}{{ time }}
+        {% if site.disqus_short_name and page.comments != false and post.comments != false and site.disqus_show_comment_count == true %}
+           | <a href="{% if index %}{{ root_url }}{{ post.url }}{% endif %}#disqus_thread"
+             data-disqus-identifier="{% if post.meta.disqus_id %}{{ post.meta.disqus_id }}{% else %}{{ site.url }}{{ post.url }}{% endif %}">Comments</a>
+        {% endif %}
+      </p>
+    {% endunless %}
+  </header>
 {% endunless %}
-
 {% if index %}
-{% if site.disqus_show_comment_count %}
-<div class="postcomments">
-    <a href="{{ site.url }}{{ post.url }}#disqus_thread" data-disqus-identifier="{{ site.url }}{{ post.url }}">0</a>
-</div>
-{% endif %}
-<div class="entry">
-	{{ content | excerpt }}	
-	{% capture excerpted %}{{ content | has_excerpt }}{% endcapture %}
-	{% if excerpted == 'true' %}
-	<a rel="full-article" href="{{ root_url }}{{ post.url }}" class="more-link">{{ site.excerpt_link }}</a>
-	{% endif %}
-</div>
+  <div class="entry-content">{{ content | excerpt }}</div>
+  {% capture excerpted %}{{ content | has_excerpt }}{% endcapture %}
+  {% if excerpted == 'true' %}
+    <footer>
+      <a rel="full-article" href="{{ root_url }}{{ post.url }}">{{ site.excerpt_link }}</a>
+    </footer>
+  {% endif %}
 {% else %}
-{% if page.comments and site.disqus_show_comment_count %}
-<div class="postcomments">
-    <a href="#disqus_thread" data-disqus-identifier="{{ site.url }}{{ page.url }}">0</a>
-</div>
-{% endif %}
-<div class="entry">
-	{{ content }}
-	{% unless page.sharing == false %}
-        {% include post/sharing.html %}
-      {% endunless %}
-</div>
-{% if page.comments %}
-{% include disqus_thread.html %}
-{% endif %}
+<div class="entry-content">{{ content }}</div>
 {% endif %}
