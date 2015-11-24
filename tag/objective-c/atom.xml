@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
     <title><![CDATA[Tag: Objective-C | Sample & Hold]]></title>
-    <link href="http://www.sample-hold.com/tag/objective-c/atom.xml" rel="self"/>
-    <link href="http://www.sample-hold.com/"/>
-    <updated>2014-12-23T15:43:08+01:00</updated>
-    <id>http://www.sample-hold.com/</id>
+    <link href="http://sample-hold.github.io/tag/objective-c/atom.xml" rel="self"/>
+    <link href="http://sample-hold.github.io/"/>
+    <updated>2015-11-25T00:47:11+01:00</updated>
+    <id>http://sample-hold.github.io/</id>
     <author>
         <name><![CDATA[Fred Ghilini]]></name>
         
@@ -15,9 +15,9 @@
     
     <entry>
         <title type="html"><![CDATA[Create a FFT Analyzer part III: building UI with Cocoa and Objective-C]]></title>
-        <link href="http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/"/>
+        <link href="http://sample-hold.github.io/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/"/>
         <updated>2011-11-23T16:32:10+01:00</updated>
-        <id>http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c</id>
+        <id>http://sample-hold.github.io/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c</id>
         <content type="html"><![CDATA[<p><img class="alignleft" src="/images/blog/images1.jpeg?w=150"> In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we&rsquo;ll create widgets so as to configure the FFT analysis.</p>
 
 <p>Why using Cocoa? Well, for two reasons: I didn&rsquo;t want to introduce a too complex API in this tutorial (such as OpenGL), and I would like to show you how to mix C++ and Objective-C in the same XCode project. Don&rsquo;t worry, it doesn&rsquo;t bother if you&rsquo;re not experienced with Objective-C: we&rsquo;ll make a straightforward use of it and we&rsquo;ll clearly explain all the interactions between our GUI classes and our C++ code.</p>
@@ -32,18 +32,18 @@
 <p>We need to add a new build target to our project:</p>
 
 <ol>
-<li><p> Choose the template &ldquo;Mac OS X > Framework &amp; Library > Bundle&rdquo; and call you target &ldquo;SpectrumCocoaView&rdquo;. Please note that we don&rsquo;t use the &ldquo;Automatic Reference Counting&rdquo; feature in this tutorial, so you may uncheck it. And yes, this time, you must link your target to the Cocoa framework.</p></li>
-<li><p> Edit your new target&rsquo;s build settings and add this to the &ldquo;Other Linker flags&rdquo;: <em>-framework Foundation -framework AppKit </em></p></li>
-<li><p> There&rsquo;s not much to say about build phases: we classically include the required headers, then our Objective-C sources, however we just must not forget to add a XIB file which describes our GUI. I&rsquo;ll explain this very soon.</p></li>
+<li><p>Choose the template &ldquo;Mac OS X > Framework &amp; Library > Bundle&rdquo; and call you target &ldquo;SpectrumCocoaView&rdquo;. Please note that we don&rsquo;t use the &ldquo;Automatic Reference Counting&rdquo; feature in this tutorial, so you may uncheck it. And yes, this time, you must link your target to the Cocoa framework.</p></li>
+<li><p>Edit your new target&rsquo;s build settings and add this to the &ldquo;Other Linker flags&rdquo;: <em>-framework Foundation -framework AppKit </em></p></li>
+<li><p>There&rsquo;s not much to say about build phases: we classically include the required headers, then our Objective-C sources, however we just must not forget to add a XIB file which describes our GUI. I&rsquo;ll explain this very soon.</p></li>
 </ol>
 
 
 <p>You have to make a &ldquo;build relationship&rdquo; between you two targets :</p>
 
 <ol>
-<li><p> Open the build phases for your C++ target called &ldquo;SimpleSpectrumAnalyzer&rdquo;.</p></li>
-<li><p> Add a build phase of type &ldquo;Target dependencies&rdquo; <strong>positioned as your first operation</strong>.</p></li>
-<li><p> Then add the product &ldquo;SpectrumCocoaView&rdquo; as a dependency.</p></li>
+<li><p>Open the build phases for your C++ target called &ldquo;SimpleSpectrumAnalyzer&rdquo;.</p></li>
+<li><p>Add a build phase of type &ldquo;Target dependencies&rdquo; <strong>positioned as your first operation</strong>.</p></li>
+<li><p>Then add the product &ldquo;SpectrumCocoaView&rdquo; as a dependency.</p></li>
 </ol>
 
 
@@ -87,47 +87,35 @@
 
 <p>What is it for? This latter class is responsible for binding your GUI with you Audio Unit, hence it must implement the <strong>AUCocoaUIBase</strong> protocol. What is a protocol? It&rsquo;s more or less like an interface in Java: by adding it to your class, you agree to implement all the methods defined inside. So in our case, it&rsquo;s necessary to implement this method:</p>
 
-<p>``` objective-c</p>
+<pre><code class="objective-c">    -(NSView *)uiViewForAudioUnit:(AudioUnit)inAudioUnit withSize:(NSSize)inPreferredSize {
+    if(![NSBundle loadNibNamed:@"SpectrumView" owner:self]) {
+    NSLog(@"Unable to load nib from view");
+    return nil;
+    }
 
-<pre><code>-(NSView *)uiViewForAudioUnit:(AudioUnit)inAudioUnit withSize:(NSSize)inPreferredSize {
-if(![NSBundle loadNibNamed:@"SpectrumView" owner:self]) {
-NSLog(@"Unable to load nib from view");
-return nil;
-}
+    [uiFreshlyLoadedView setAU:inAudioUnit];
+    NSView *returnView = uiFreshlyLoadedView;
+    uiFreshlyLoadedView = nil; // zero out pointer.  This is a view factory.  Once a view's been created
 
-[uiFreshlyLoadedView setAU:inAudioUnit];
-NSView *returnView = uiFreshlyLoadedView;
-uiFreshlyLoadedView = nil; // zero out pointer.  This is a view factory.  Once a view's been created
-
-// and handed off, the factory keeps no record of it.
-return [returnView autorelease];
-}
+    // and handed off, the factory keeps no record of it.
+    return [returnView autorelease];
+    }
 </code></pre>
-
-<p>```</p>
 
 <h3>Bind UI widgets to IBActions</h3>
 
 <p>This is the fun part of the Cocoa Framework. All you have to do is:</p>
 
 <ol>
-<li><p> in your Objective-C code:</p>
-
-<ol>
+<li><p>in your Objective-C code:</p></li>
 <li><p>declare all your subviews and widgets as member variables of you custom class, using pointers to their base class</p></li>
 <li><p>put the magic qualifier <strong>IBOutlet</strong> on each variable</p></li>
 <li><p>create &ldquo;action methods&rdquo; that return the <strong>IBAction</strong> type and take an unique parameter of type <strong>id</strong></p></li>
-</ol>
-</li>
-<li><p> in the XIB document:</p>
-
-<ol>
+<li><p>in the XIB document:</p></li>
 <li><p>select each view (or widget) for which you have developed a custom class</p></li>
 <li><p>define this custom class in the &ldquo;Class&rdquo; attribute (on the right pane of Xcode)</p></li>
 <li><p>bind <strong>Outlets </strong>together, that is to say, bind views with their subview and their widgets</p></li>
 <li><p>bind <strong>Received Actions </strong>with the methods you&rsquo;ve previously created</p></li>
-</ol>
-</li>
 </ol>
 
 
@@ -173,18 +161,14 @@ return [returnView autorelease];
 </ul>
 
 
-<p>``` c++</p>
-
-<pre><code>SimpleSpectrum::SimpleSpectrum(AudioUnit component) : AUEffectBase(component), mCAMutex("mutex"){
-...
-SetParameter(kSpectrumParam_BlockSize, kBlockSize_Default);
-SetParameter(kSpectrumParam_SelectChannel, kSelectChannel_Default);
-SetParameter(kSpectrumParam_Window, kWindow_Default);
-...
-}
+<pre><code class="c++">    SimpleSpectrum::SimpleSpectrum(AudioUnit component) : AUEffectBase(component), mCAMutex("mutex"){
+    ...
+    SetParameter(kSpectrumParam_BlockSize, kBlockSize_Default);
+    SetParameter(kSpectrumParam_SelectChannel, kSelectChannel_Default);
+    SetParameter(kSpectrumParam_Window, kWindow_Default);
+    ...
+    }
 </code></pre>
-
-<p>```</p>
 
 <ul>
 <li><p>It&rsquo;s best to declare all parameters and properties in a separate C++ header: <em>SimpleSpectrumSharedData.h</em> in our case. That way, we could use C++ for our Audio Unit and restrict our GUI code to pure Objective-C and C</p></li>
@@ -199,55 +183,47 @@ SetParameter(kSpectrumParam_Window, kWindow_Default);
 </ul>
 
 
-<p>``` c++</p>
-
-<pre><code>...
-case kAudioUnitProperty_SpectrumGraphData: {
-   Float32* mData = (Float32*) outData;
-   if(mInfos.mNumBins &gt; 0) {
-      mCAMutex.Lock();
-      memcpy(mData, mComputedMagnitudes(), mInfos.mNumBins * sizeof(Float32));
-      mCAMutex.Unlock();
-   }
-}
+<pre><code class="c++">    ...
+    case kAudioUnitProperty_SpectrumGraphData: {
+       Float32* mData = (Float32*) outData;
+       if(mInfos.mNumBins &gt; 0) {
+          mCAMutex.Lock();
+          memcpy(mData, mComputedMagnitudes(), mInfos.mNumBins * sizeof(Float32));
+          mCAMutex.Unlock();
+       }
+    }
 </code></pre>
-
-<p>```</p>
 
 <ul>
 <li>On the other side, in the class SimpleSpectrum_UIView class:</li>
 </ul>
 
 
-<p>``` c++</p>
+<pre><code class="c++">    ...
+    SpectrumGraphInfo graphInfo;
+    graphInfo.mNumBins = 0;
+    UInt32 sizeOfResult = sizeof(graphInfo);
+    ComponentResult result = AudioUnitGetProperty(mAU,
+                                                      kAudioUnitProperty_SpectrumGraphInfo,
+                                                      kAudioUnitScope_Global,
+                                                      0,
+                                                      &amp;graphInfo,
+                                                      &amp;sizeOfResult);
 
-<pre><code>...
-SpectrumGraphInfo graphInfo;
-graphInfo.mNumBins = 0;
-UInt32 sizeOfResult = sizeof(graphInfo);
-ComponentResult result = AudioUnitGetProperty(mAU,
-                                                  kAudioUnitProperty_SpectrumGraphInfo,
-                                                  kAudioUnitScope_Global,
-                                                  0,
-                                                  &amp;graphInfo,
-                                                  &amp;sizeOfResult);
+    if(result == noErr &amp;&amp; graphInfo.mNumBins &gt; 0) {
+            CAAutoFree graphData;
+            graphData.allocBytes(sizeOfResult = graphInfo.mNumBins * sizeof(Float32));
 
-if(result == noErr &amp;&amp; graphInfo.mNumBins &gt; 0) {
-        CAAutoFree graphData;
-        graphData.allocBytes(sizeOfResult = graphInfo.mNumBins * sizeof(Float32));
+            result = AudioUnitGetProperty(mAU,
+                                          kAudioUnitProperty_SpectrumGraphData,
+                                          kAudioUnitScope_Global,
+                                          0,
+                                          graphData(),
+                                          &amp;sizeOfResult);
 
-        result = AudioUnitGetProperty(mAU,
-                                      kAudioUnitProperty_SpectrumGraphData,
-                                      kAudioUnitScope_Global,
-                                      0,
-                                      graphData(),
-                                      &amp;sizeOfResult);
-
-        [graphView plotData: graphData givenInfos: graphInfo];
-}
+            [graphView plotData: graphData givenInfos: graphInfo];
+    }
 </code></pre>
-
-<p>```</p>
 
 <ul>
 <li><p>The most of you, readers, will have noticed that we protect access to the computed magnitudes array with a mutex, provided by the class <strong>CAMutex</strong> (found in the &ldquo;PublicUtility&rdquo; folder). This is because the GUI code and the Audio Unit code both run in separate threads. The former may ask for the magnitudes <strong>while </strong>they are being computed, so we must synchronize this.</p></li>

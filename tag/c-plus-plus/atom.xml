@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
     <title><![CDATA[Tag: C++ | Sample & Hold]]></title>
-    <link href="http://www.sample-hold.com/tag/c-plus-plus/atom.xml" rel="self"/>
-    <link href="http://www.sample-hold.com/"/>
-    <updated>2014-12-23T15:43:08+01:00</updated>
-    <id>http://www.sample-hold.com/</id>
+    <link href="http://sample-hold.github.io/tag/c-plus-plus/atom.xml" rel="self"/>
+    <link href="http://sample-hold.github.io/"/>
+    <updated>2015-11-25T00:47:11+01:00</updated>
+    <id>http://sample-hold.github.io/</id>
     <author>
         <name><![CDATA[Fred Ghilini]]></name>
         
@@ -15,9 +15,9 @@
     
     <entry>
         <title type="html"><![CDATA[Create a FFT Analyzer part III: building UI with Cocoa and Objective-C]]></title>
-        <link href="http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/"/>
+        <link href="http://sample-hold.github.io/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/"/>
         <updated>2011-11-23T16:32:10+01:00</updated>
-        <id>http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c</id>
+        <id>http://sample-hold.github.io/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c</id>
         <content type="html"><![CDATA[<p><img class="alignleft" src="/images/blog/images1.jpeg?w=150"> In this part of the tutorial, we are going to design a Cocoa UI in order to draw the spectrum graph computed by our unit, in which we&rsquo;ll create widgets so as to configure the FFT analysis.</p>
 
 <p>Why using Cocoa? Well, for two reasons: I didn&rsquo;t want to introduce a too complex API in this tutorial (such as OpenGL), and I would like to show you how to mix C++ and Objective-C in the same XCode project. Don&rsquo;t worry, it doesn&rsquo;t bother if you&rsquo;re not experienced with Objective-C: we&rsquo;ll make a straightforward use of it and we&rsquo;ll clearly explain all the interactions between our GUI classes and our C++ code.</p>
@@ -32,18 +32,18 @@
 <p>We need to add a new build target to our project:</p>
 
 <ol>
-<li><p> Choose the template &ldquo;Mac OS X > Framework &amp; Library > Bundle&rdquo; and call you target &ldquo;SpectrumCocoaView&rdquo;. Please note that we don&rsquo;t use the &ldquo;Automatic Reference Counting&rdquo; feature in this tutorial, so you may uncheck it. And yes, this time, you must link your target to the Cocoa framework.</p></li>
-<li><p> Edit your new target&rsquo;s build settings and add this to the &ldquo;Other Linker flags&rdquo;: <em>-framework Foundation -framework AppKit </em></p></li>
-<li><p> There&rsquo;s not much to say about build phases: we classically include the required headers, then our Objective-C sources, however we just must not forget to add a XIB file which describes our GUI. I&rsquo;ll explain this very soon.</p></li>
+<li><p>Choose the template &ldquo;Mac OS X > Framework &amp; Library > Bundle&rdquo; and call you target &ldquo;SpectrumCocoaView&rdquo;. Please note that we don&rsquo;t use the &ldquo;Automatic Reference Counting&rdquo; feature in this tutorial, so you may uncheck it. And yes, this time, you must link your target to the Cocoa framework.</p></li>
+<li><p>Edit your new target&rsquo;s build settings and add this to the &ldquo;Other Linker flags&rdquo;: <em>-framework Foundation -framework AppKit </em></p></li>
+<li><p>There&rsquo;s not much to say about build phases: we classically include the required headers, then our Objective-C sources, however we just must not forget to add a XIB file which describes our GUI. I&rsquo;ll explain this very soon.</p></li>
 </ol>
 
 
 <p>You have to make a &ldquo;build relationship&rdquo; between you two targets :</p>
 
 <ol>
-<li><p> Open the build phases for your C++ target called &ldquo;SimpleSpectrumAnalyzer&rdquo;.</p></li>
-<li><p> Add a build phase of type &ldquo;Target dependencies&rdquo; <strong>positioned as your first operation</strong>.</p></li>
-<li><p> Then add the product &ldquo;SpectrumCocoaView&rdquo; as a dependency.</p></li>
+<li><p>Open the build phases for your C++ target called &ldquo;SimpleSpectrumAnalyzer&rdquo;.</p></li>
+<li><p>Add a build phase of type &ldquo;Target dependencies&rdquo; <strong>positioned as your first operation</strong>.</p></li>
+<li><p>Then add the product &ldquo;SpectrumCocoaView&rdquo; as a dependency.</p></li>
 </ol>
 
 
@@ -87,47 +87,35 @@
 
 <p>What is it for? This latter class is responsible for binding your GUI with you Audio Unit, hence it must implement the <strong>AUCocoaUIBase</strong> protocol. What is a protocol? It&rsquo;s more or less like an interface in Java: by adding it to your class, you agree to implement all the methods defined inside. So in our case, it&rsquo;s necessary to implement this method:</p>
 
-<p>``` objective-c</p>
+<pre><code class="objective-c">    -(NSView *)uiViewForAudioUnit:(AudioUnit)inAudioUnit withSize:(NSSize)inPreferredSize {
+    if(![NSBundle loadNibNamed:@"SpectrumView" owner:self]) {
+    NSLog(@"Unable to load nib from view");
+    return nil;
+    }
 
-<pre><code>-(NSView *)uiViewForAudioUnit:(AudioUnit)inAudioUnit withSize:(NSSize)inPreferredSize {
-if(![NSBundle loadNibNamed:@"SpectrumView" owner:self]) {
-NSLog(@"Unable to load nib from view");
-return nil;
-}
+    [uiFreshlyLoadedView setAU:inAudioUnit];
+    NSView *returnView = uiFreshlyLoadedView;
+    uiFreshlyLoadedView = nil; // zero out pointer.  This is a view factory.  Once a view's been created
 
-[uiFreshlyLoadedView setAU:inAudioUnit];
-NSView *returnView = uiFreshlyLoadedView;
-uiFreshlyLoadedView = nil; // zero out pointer.  This is a view factory.  Once a view's been created
-
-// and handed off, the factory keeps no record of it.
-return [returnView autorelease];
-}
+    // and handed off, the factory keeps no record of it.
+    return [returnView autorelease];
+    }
 </code></pre>
-
-<p>```</p>
 
 <h3>Bind UI widgets to IBActions</h3>
 
 <p>This is the fun part of the Cocoa Framework. All you have to do is:</p>
 
 <ol>
-<li><p> in your Objective-C code:</p>
-
-<ol>
+<li><p>in your Objective-C code:</p></li>
 <li><p>declare all your subviews and widgets as member variables of you custom class, using pointers to their base class</p></li>
 <li><p>put the magic qualifier <strong>IBOutlet</strong> on each variable</p></li>
 <li><p>create &ldquo;action methods&rdquo; that return the <strong>IBAction</strong> type and take an unique parameter of type <strong>id</strong></p></li>
-</ol>
-</li>
-<li><p> in the XIB document:</p>
-
-<ol>
+<li><p>in the XIB document:</p></li>
 <li><p>select each view (or widget) for which you have developed a custom class</p></li>
 <li><p>define this custom class in the &ldquo;Class&rdquo; attribute (on the right pane of Xcode)</p></li>
 <li><p>bind <strong>Outlets </strong>together, that is to say, bind views with their subview and their widgets</p></li>
 <li><p>bind <strong>Received Actions </strong>with the methods you&rsquo;ve previously created</p></li>
-</ol>
-</li>
 </ol>
 
 
@@ -173,18 +161,14 @@ return [returnView autorelease];
 </ul>
 
 
-<p>``` c++</p>
-
-<pre><code>SimpleSpectrum::SimpleSpectrum(AudioUnit component) : AUEffectBase(component), mCAMutex("mutex"){
-...
-SetParameter(kSpectrumParam_BlockSize, kBlockSize_Default);
-SetParameter(kSpectrumParam_SelectChannel, kSelectChannel_Default);
-SetParameter(kSpectrumParam_Window, kWindow_Default);
-...
-}
+<pre><code class="c++">    SimpleSpectrum::SimpleSpectrum(AudioUnit component) : AUEffectBase(component), mCAMutex("mutex"){
+    ...
+    SetParameter(kSpectrumParam_BlockSize, kBlockSize_Default);
+    SetParameter(kSpectrumParam_SelectChannel, kSelectChannel_Default);
+    SetParameter(kSpectrumParam_Window, kWindow_Default);
+    ...
+    }
 </code></pre>
-
-<p>```</p>
 
 <ul>
 <li><p>It&rsquo;s best to declare all parameters and properties in a separate C++ header: <em>SimpleSpectrumSharedData.h</em> in our case. That way, we could use C++ for our Audio Unit and restrict our GUI code to pure Objective-C and C</p></li>
@@ -199,55 +183,47 @@ SetParameter(kSpectrumParam_Window, kWindow_Default);
 </ul>
 
 
-<p>``` c++</p>
-
-<pre><code>...
-case kAudioUnitProperty_SpectrumGraphData: {
-   Float32* mData = (Float32*) outData;
-   if(mInfos.mNumBins &gt; 0) {
-      mCAMutex.Lock();
-      memcpy(mData, mComputedMagnitudes(), mInfos.mNumBins * sizeof(Float32));
-      mCAMutex.Unlock();
-   }
-}
+<pre><code class="c++">    ...
+    case kAudioUnitProperty_SpectrumGraphData: {
+       Float32* mData = (Float32*) outData;
+       if(mInfos.mNumBins &gt; 0) {
+          mCAMutex.Lock();
+          memcpy(mData, mComputedMagnitudes(), mInfos.mNumBins * sizeof(Float32));
+          mCAMutex.Unlock();
+       }
+    }
 </code></pre>
-
-<p>```</p>
 
 <ul>
 <li>On the other side, in the class SimpleSpectrum_UIView class:</li>
 </ul>
 
 
-<p>``` c++</p>
+<pre><code class="c++">    ...
+    SpectrumGraphInfo graphInfo;
+    graphInfo.mNumBins = 0;
+    UInt32 sizeOfResult = sizeof(graphInfo);
+    ComponentResult result = AudioUnitGetProperty(mAU,
+                                                      kAudioUnitProperty_SpectrumGraphInfo,
+                                                      kAudioUnitScope_Global,
+                                                      0,
+                                                      &amp;graphInfo,
+                                                      &amp;sizeOfResult);
 
-<pre><code>...
-SpectrumGraphInfo graphInfo;
-graphInfo.mNumBins = 0;
-UInt32 sizeOfResult = sizeof(graphInfo);
-ComponentResult result = AudioUnitGetProperty(mAU,
-                                                  kAudioUnitProperty_SpectrumGraphInfo,
-                                                  kAudioUnitScope_Global,
-                                                  0,
-                                                  &amp;graphInfo,
-                                                  &amp;sizeOfResult);
+    if(result == noErr &amp;&amp; graphInfo.mNumBins &gt; 0) {
+            CAAutoFree graphData;
+            graphData.allocBytes(sizeOfResult = graphInfo.mNumBins * sizeof(Float32));
 
-if(result == noErr &amp;&amp; graphInfo.mNumBins &gt; 0) {
-        CAAutoFree graphData;
-        graphData.allocBytes(sizeOfResult = graphInfo.mNumBins * sizeof(Float32));
+            result = AudioUnitGetProperty(mAU,
+                                          kAudioUnitProperty_SpectrumGraphData,
+                                          kAudioUnitScope_Global,
+                                          0,
+                                          graphData(),
+                                          &amp;sizeOfResult);
 
-        result = AudioUnitGetProperty(mAU,
-                                      kAudioUnitProperty_SpectrumGraphData,
-                                      kAudioUnitScope_Global,
-                                      0,
-                                      graphData(),
-                                      &amp;sizeOfResult);
-
-        [graphView plotData: graphData givenInfos: graphInfo];
-}
+            [graphView plotData: graphData givenInfos: graphInfo];
+    }
 </code></pre>
-
-<p>```</p>
 
 <ul>
 <li><p>The most of you, readers, will have noticed that we protect access to the computed magnitudes array with a mutex, provided by the class <strong>CAMutex</strong> (found in the &ldquo;PublicUtility&rdquo; folder). This is because the GUI code and the Audio Unit code both run in separate threads. The former may ask for the magnitudes <strong>while </strong>they are being computed, so we must synchronize this.</p></li>
@@ -314,9 +290,9 @@ if(result == noErr &amp;&amp; graphInfo.mNumBins &gt; 0) {
     
     <entry>
         <title type="html"><![CDATA[Create a FFT Analyzer part II: designing our spectral processor]]></title>
-        <link href="http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/"/>
+        <link href="http://sample-hold.github.io/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/"/>
         <updated>2011-11-23T16:26:47+01:00</updated>
-        <id>http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor</id>
+        <id>http://sample-hold.github.io/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor</id>
         <content type="html"><![CDATA[<p><img class="alignleft" src="/images/blog/libs.jpeg"> We briefly introduced the FFT part of the Accelerated Framework in Part I of this tutorial.</p>
 
 <p>We are now going to focus on the vDSP library and create the C++ class responsible for doing the spectral analysis work of our input samples. We want to keep it simple, with a few public methods, however we would like to perform FFT analysis on different frame sizes. So, one of our challenges is to design a circular buffer as member variable, which is a common pattern in audio programming.</p>
@@ -332,53 +308,49 @@ if(result == noErr &amp;&amp; graphInfo.mNumBins &gt; 0) {
 
 <p>So you need to include the header &ldquo;PublicUtility/CAAutoDisposer.h&rdquo;, either in our class header, either in the project&rsquo;s precompiled headers section. You also need &lt;Accelerate/Accelerate.h> for the vDSP library and the &ldquo;vecLib.framework&rdquo; binary added to your build settings.</p>
 
-<p>``` c++ SimpleSpectrumProcessor.h</p>
+<pre><code class="c++ SimpleSpectrumProcessor.h">    class SimpleSpectrumProcessor {
+    public:
+    enum Window { Rectangular = 1, Hann = 2, Hamming = 3, Blackman = 4 };
+    private:
+    UInt32 mNumChannels;
+    UInt32 mRingBufferCapacity;
+    UInt32 mRingBufferPosRead;
+    UInt32 mRingBufferPosWrite;
+    UInt32 mRingBufferCount;
+    UInt32 mFFTSize;
+    FFTSetup mFFTSetup;
+    bool mFFTSetupCreated;
+    struct ChannelBuffers {
+    CAAutoFree&lt;Float32&gt; mRingBufferData;
+    CAAutoFree&lt;Float32&gt; mInputData;
+    CAAutoFree&lt;Float32&gt; mSplitData;
+    CAAutoFree&lt;Float32&gt; mOutputData;
+    CAAutoFree&lt;DSPSplitComplex&gt; mDSPSplitComplex;
+    };
 
-<pre><code>class SimpleSpectrumProcessor {
-public:
-enum Window { Rectangular = 1, Hann = 2, Hamming = 3, Blackman = 4 };
-private:
-UInt32 mNumChannels;
-UInt32 mRingBufferCapacity;
-UInt32 mRingBufferPosRead;
-UInt32 mRingBufferPosWrite;
-UInt32 mRingBufferCount;
-UInt32 mFFTSize;
-FFTSetup mFFTSetup;
-bool mFFTSetupCreated;
-struct ChannelBuffers {
-CAAutoFree&lt;Float32&gt; mRingBufferData;
-CAAutoFree&lt;Float32&gt; mInputData;
-CAAutoFree&lt;Float32&gt; mSplitData;
-CAAutoFree&lt;Float32&gt; mOutputData;
-CAAutoFree&lt;DSPSplitComplex&gt; mDSPSplitComplex;
-};
+    CAAutoArrayDelete&lt;ChannelBuffers&gt; mChannels;
+    CAAutoFree&lt;Float32&gt; mWindowData;
 
-CAAutoArrayDelete&lt;ChannelBuffers&gt; mChannels;
-CAAutoFree&lt;Float32&gt; mWindowData;
+    protected:
+    void InitFFT(UInt32 FFTSize, UInt32 log2FFTSize, UInt32 bins);
+    void ExtractRingBufferToFFTInput(UInt32 inNumFrames);
+    void ApplyWindow(Window w);
 
-protected:
-void InitFFT(UInt32 FFTSize, UInt32 log2FFTSize, UInt32 bins);
-void ExtractRingBufferToFFTInput(UInt32 inNumFrames);
-void ApplyWindow(Window w);
-
-public:
-SimpleSpectrumProcessor();
-virtual ~SimpleSpectrumProcessor();
-void Allocate(UInt32 inNumChannels, UInt32 ringBufferCapacity);
-bool CopyInputToRingBuffer(UInt32 inNumFrames, AudioBufferList* inInput);
-bool TryFFT(UInt32 inFFTSize, Window w = Rectangular);
-CAAutoFree&lt;Float32&gt; GetMagnitudes(Window w, UInt32 channelSelect = 3);
-};
+    public:
+    SimpleSpectrumProcessor();
+    virtual ~SimpleSpectrumProcessor();
+    void Allocate(UInt32 inNumChannels, UInt32 ringBufferCapacity);
+    bool CopyInputToRingBuffer(UInt32 inNumFrames, AudioBufferList* inInput);
+    bool TryFFT(UInt32 inFFTSize, Window w = Rectangular);
+    CAAutoFree&lt;Float32&gt; GetMagnitudes(Window w, UInt32 channelSelect = 3);
+    };
 </code></pre>
-
-<p>```</p>
 
 <p>The first member variables are storing our circular buffer&rsquo;s capacity, fill count and two locations for reading/writing. Next, FFTSetup is holding the FFT weights array required by vDSP to perform the FFT transform. Concerning the buffers:</p>
 
 <ul>
 <li><p><em>mChannels</em> is an array containing various auto-pointers for each buffer we need : input/output data, split buffer to hold complex numbers that we&rsquo;ll access using our specific pointer <em>mDSPSplitComplex </em>(we&rsquo;ll explain that in a few seconds),</p></li>
-<li><p><em>mWindowData </em>holds floating-pont numbers of the window function we&rsquo;ll choose to limit frequency leakage on our frequency spectrum (see <a href="http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/">part I</a>),</p></li>
+<li><p><em>mWindowData </em>holds floating-pont numbers of the window function we&rsquo;ll choose to limit frequency leakage on our frequency spectrum (see <a href="http://sample-hold.github.io/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/">part I</a>),</p></li>
 <li><p><em>mFFTSize </em>holds the FFT size, and we propose 5 values : 1024, 2048, 4096, 8192 or 16384 samples.</p></li>
 </ul>
 
@@ -417,9 +389,9 @@ CAAutoFree&lt;Float32&gt; GetMagnitudes(Window w, UInt32 channelSelect = 3);
 <p>The library vDSP.h provides two structures for packing the N samples you pass to the FFT: <em>DSPComplex </em>and <em>DSPSplitComplex</em>. You should first read the <a href="http://developer.apple.com/library/ios/#documentation/Performance/Conceptual/vDSP_Programming_Guide/UsingFourierTransforms/UsingFourierTransforms.html">neat article made by Apple on data packing</a>. Here is a summary:</p>
 
 <ol>
-<li><p> Your N samples are first stored into a 16-bits aligned float-point array, called our <em>input buffer</em>,</p></li>
-<li><p> Whereas a real FFT would produce 2N complex numbers, the vDSP FFT truncates the result to store N/2 complex numbers in our <em>output buffer:</em> hence the input/output buffers have the same N size,</p></li>
-<li><p> Prior to the FFT function, you need to reorganize your <em>input buffer</em> by copying your N samples into a <em>split buffer</em>.</p></li>
+<li><p>Your N samples are first stored into a 16-bits aligned float-point array, called our <em>input buffer</em>,</p></li>
+<li><p>Whereas a real FFT would produce 2N complex numbers, the vDSP FFT truncates the result to store N/2 complex numbers in our <em>output buffer:</em> hence the input/output buffers have the same N size,</p></li>
+<li><p>Prior to the FFT function, you need to reorganize your <em>input buffer</em> by copying your N samples into a <em>split buffer</em>.</p></li>
 </ol>
 
 
@@ -440,15 +412,15 @@ CAAutoFree&lt;Float32&gt; GetMagnitudes(Window w, UInt32 channelSelect = 3);
 <p>Here is what our SimpleSpectrumAnalyzer will do:</p>
 
 <ol>
-<li><p> First, we determine our current windowing function by simply calling one of the ready-to-use functions: <strong>vDSP_hann_window </strong>(Hann), <strong>vDSP_hamm_window</strong> (Hamming) or <strong>vDSP_blkman_window</strong> (Blackman)</p></li>
-<li><p> We multiply our N samples with the window function using <strong>vDSP_vmul</strong></p></li>
-<li><p> As seen above, our DSPComplexSplit structure is organized by <strong>vDSP_ctoz</strong></p></li>
-<li><p> We compute FFT with <strong>vDSP_fft_zip </strong>(as a naming convention, &ldquo;z&rdquo; stands for complex numbers),</p></li>
-<li><p> Magnitude of a complex number can be obtained with <strong>vDSP_zvabs </strong>(we could have possibly used <strong>vDSP_zvmags</strong>, see below)</p></li>
-<li><p> We next normalize our magnitudes, by dividing then by two, using <strong>vDSP_vsdiv </strong>(since we got N/2 complex numbers which is half of the N input samples)</p></li>
-<li><p> We convert magnitudes to a decibel value using <strong>vDSP_vdbconv</strong></p></li>
-<li><p> We correct each decibel values by applying a Db correction with <strong>vDSP_vadd</strong></p></li>
-<li><p> We could possible obtain an average value for left and right channels using <strong>vDSP_vadd</strong> and <strong>vDSP_vsdiv</strong>.</p></li>
+<li><p>First, we determine our current windowing function by simply calling one of the ready-to-use functions: <strong>vDSP_hann_window </strong>(Hann), <strong>vDSP_hamm_window</strong> (Hamming) or <strong>vDSP_blkman_window</strong> (Blackman)</p></li>
+<li><p>We multiply our N samples with the window function using <strong>vDSP_vmul</strong></p></li>
+<li><p>As seen above, our DSPComplexSplit structure is organized by <strong>vDSP_ctoz</strong></p></li>
+<li><p>We compute FFT with <strong>vDSP_fft_zip </strong>(as a naming convention, &ldquo;z&rdquo; stands for complex numbers),</p></li>
+<li><p>Magnitude of a complex number can be obtained with <strong>vDSP_zvabs </strong>(we could have possibly used <strong>vDSP_zvmags</strong>, see below)</p></li>
+<li><p>We next normalize our magnitudes, by dividing then by two, using <strong>vDSP_vsdiv </strong>(since we got N/2 complex numbers which is half of the N input samples)</p></li>
+<li><p>We convert magnitudes to a decibel value using <strong>vDSP_vdbconv</strong></p></li>
+<li><p>We correct each decibel values by applying a Db correction with <strong>vDSP_vadd</strong></p></li>
+<li><p>We could possible obtain an average value for left and right channels using <strong>vDSP_vadd</strong> and <strong>vDSP_vsdiv</strong>.</p></li>
 </ol>
 
 
@@ -471,20 +443,16 @@ CAAutoFree&lt;Float32&gt; GetMagnitudes(Window w, UInt32 channelSelect = 3);
 
 <p>Here the snippet of the main work:</p>
 
-<p>``` c++</p>
-
-<pre><code>...
-AudioBufferList&amp; inputBufList = GetInput(0)-&gt;GetBufferList();
-mProcessor.CopyInputToRingBuffer(inFramesToProcess, &amp;inputBufList);
-...
-if(mProcessor.TryFFT(currentBlockSize, currentWindow)) {
-...
-CAAutoFree&lt;Float32&gt; magnitudes = mProcessor.GetMagnitudes(currentWindow, channelSelect);
-...
-}
+<pre><code class="c++">    ...
+    AudioBufferList&amp; inputBufList = GetInput(0)-&gt;GetBufferList();
+    mProcessor.CopyInputToRingBuffer(inFramesToProcess, &amp;inputBufList);
+    ...
+    if(mProcessor.TryFFT(currentBlockSize, currentWindow)) {
+    ...
+    CAAutoFree&lt;Float32&gt; magnitudes = mProcessor.GetMagnitudes(currentWindow, channelSelect);
+    ...
+    }
 </code></pre>
-
-<p>```</p>
 
 <h3>Conclusion</h3>
 
@@ -494,9 +462,9 @@ CAAutoFree&lt;Float32&gt; magnitudes = mProcessor.GetMagnitudes(currentWindow, c
     
     <entry>
         <title type="html"><![CDATA[Getting started with Audio Units on OS X Lion and XCode 4.2.1]]></title>
-        <link href="http://www.sample-hold.com/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1/"/>
+        <link href="http://sample-hold.github.io/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1/"/>
         <updated>2011-11-23T15:59:23+01:00</updated>
-        <id>http://www.sample-hold.com/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1</id>
+        <id>http://sample-hold.github.io/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1</id>
         <content type="html"><![CDATA[<p><img class="alignleft" src="/images/blog/home-ios-sdk.png"> Apple usually takes care of their developers community.  Whereas they lately delivered an impressive update of their Xcode IDE with tons of new features (read a <a href="http://pilky.me/view/28">cool  review here</a>), they surprisingly removed the project template for creating Audio Units. Nevertheless, let&rsquo;s see how to create a new unit from scratch&hellip;</p>
 
 <!-- more -->
@@ -525,7 +493,7 @@ CAAutoFree&lt;Float32&gt; magnitudes = mProcessor.GetMagnitudes(currentWindow, c
 <ul>
 <li><p>one group for storing all C++ sources files, including your created classes and some sources coming from the CoreAudio SDK you will necessarily use,</p></li>
 <li><p>one group for storing your resources, including a &ldquo;property list&rdquo; manifest  that describes your audio unit,</p></li>
-<li><p>possibly one additional folder for C++ &ndash; or Objective-C sources &ndash; to create a GUI for your unit. However, for sake of simplicity, we&rsquo;ll discuss this in another tutorial. Leave it for now.</p></li>
+<li><p>possibly one additional folder for C++ - or Objective-C sources - to create a GUI for your unit. However, for sake of simplicity, we&rsquo;ll discuss this in another tutorial. Leave it for now.</p></li>
 </ul>
 
 
@@ -580,11 +548,11 @@ CAAutoFree&lt;Float32&gt; magnitudes = mProcessor.GetMagnitudes(currentWindow, c
 <p>Here are the build phases to add for our Audio Unit:</p>
 
 <ol>
-<li><p> Copy Bundle Resources: this may already exist. You will necessarily include in this phase the Info.PList we tweaked earlier.</p></li>
-<li><p> Copy Headers: necessary to compile you C++ header files. We&rsquo;ll add files to this phase later.</p></li>
-<li><p> Compile Sources: necessary to compile you C++ source code. Again, we&rsquo;ll add files to this phase later.</p></li>
-<li><p> Link Binary with libraries: do your shopping but add at least three libraries : &ldquo;CoreServices.framework&rdquo;, &ldquo;AudioToolbox.framework&rdquo; and &ldquo;AudioUnit.framework&rdquo;. Remove everything else (even &ldquo;Cocoa&rdquo;).</p></li>
-<li><p> Build Carbon Resources: it looks like you won&rsquo;t see this build phase until you create a file named &ldquo;MyTestedPlugin.r&rdquo; in your project (preferably in your &ldquo;Sources&rdquo;  group). Create it, then go back to your build phases, then you will be able to add this phase and include the file above.</p></li>
+<li><p>Copy Bundle Resources: this may already exist. You will necessarily include in this phase the Info.PList we tweaked earlier.</p></li>
+<li><p>Copy Headers: necessary to compile you C++ header files. We&rsquo;ll add files to this phase later.</p></li>
+<li><p>Compile Sources: necessary to compile you C++ source code. Again, we&rsquo;ll add files to this phase later.</p></li>
+<li><p>Link Binary with libraries: do your shopping but add at least three libraries : &ldquo;CoreServices.framework&rdquo;, &ldquo;AudioToolbox.framework&rdquo; and &ldquo;AudioUnit.framework&rdquo;. Remove everything else (even &ldquo;Cocoa&rdquo;).</p></li>
+<li><p>Build Carbon Resources: it looks like you won&rsquo;t see this build phase until you create a file named &ldquo;MyTestedPlugin.r&rdquo; in your project (preferably in your &ldquo;Sources&rdquo;  group). Create it, then go back to your build phases, then you will be able to add this phase and include the file above.</p></li>
 </ol>
 
 
@@ -601,21 +569,17 @@ CAAutoFree&lt;Float32&gt; magnitudes = mProcessor.GetMagnitudes(currentWindow, c
 
 <p>Here is the minimal precompiled header you would write for your Audio Unit :</p>
 
-<p>``` c++</p>
+<pre><code class="c++">    #if !defined(__COREAUDIO_USE_FLAT_INCLUDES__)
+    #include &lt;CoreAudio/CoreAudioTypes.h&gt;
+    #include &lt;CoreFoundation/CoreFoundation.h&gt;
+    #else
+    #include &lt;CoreAudioTypes.h&gt;
+    #include &lt;CoreFoundation.h&gt;
+    #endif
 
-<pre><code>#if !defined(__COREAUDIO_USE_FLAT_INCLUDES__)
-#include &lt;CoreAudio/CoreAudioTypes.h&gt;
-#include &lt;CoreFoundation/CoreFoundation.h&gt;
-#else
-#include &lt;CoreAudioTypes.h&gt;
-#include &lt;CoreFoundation.h&gt;
-#endif
-
-#include "AUEffectBase.h"
-#include &lt;AudioToolbox/AudioUnitUtilities.h&gt;
+    #include "AUEffectBase.h"
+    #include &lt;AudioToolbox/AudioUnitUtilities.h&gt;
 </code></pre>
-
-<p>```</p>
 
 <h3>Add CoreAudio files to your project</h3>
 
@@ -650,47 +614,43 @@ CAAutoFree&lt;Float32&gt; magnitudes = mProcessor.GetMagnitudes(currentWindow, c
 
 <p>You may create at least one header file and one cpp file for your custom classes. For the purpose of our tutorial, here are the minimalistic classes you need to copy'n'paste:</p>
 
-<p>``` c++</p>
+<pre><code class="c++">    class MyTestedPluginKernel : public AUKernelBase {
+    public:
+        MyTestedPluginKernel(AUEffectBase * inAudioUnit);
+        virtual void Process(Float32 const* inSourceP,
+                             Float32 * inDestP,
+                             UInt32 inFramesToProcess,
+                             UInt32 inNumChannels,
+                             bool &amp; ioSilence);
+    };
 
-<pre><code>class MyTestedPluginKernel : public AUKernelBase {
-public:
-    MyTestedPluginKernel(AUEffectBase * inAudioUnit);
-    virtual void Process(Float32 const* inSourceP,
-                         Float32 * inDestP,
-                         UInt32 inFramesToProcess,
-                         UInt32 inNumChannels,
-                         bool &amp; ioSilence);
-};
+    class MyTestedPlugin : public AUEffectBase {
+    public:
+        MyTestedPlugin(AudioUnit component);
+        virtual OSStatus Version() { return 0xFFFFFF; }
+        virtual OSStatus Initialize();
+        virtual AUKernelBase * NewKernel() { return new MyTestedPluginKernel(this); }
+    };
 
-class MyTestedPlugin : public AUEffectBase {
-public:
-    MyTestedPlugin(AudioUnit component);
-    virtual OSStatus Version() { return 0xFFFFFF; }
-    virtual OSStatus Initialize();
-    virtual AUKernelBase * NewKernel() { return new MyTestedPluginKernel(this); }
-};
+    AUDIOCOMPONENT_ENTRY(AUBaseFactory, MyTestedPlugin)
 
-AUDIOCOMPONENT_ENTRY(AUBaseFactory, MyTestedPlugin)
+    MyTestedPluginKernel::MyTestedPluginKernel(AUEffectBase * inAudioUnit ) : AUKernelBase(inAudioUnit) {}
 
-MyTestedPluginKernel::MyTestedPluginKernel(AUEffectBase * inAudioUnit ) : AUKernelBase(inAudioUnit) {}
+    void MyTestedPluginKernel::Process(Float32 const* inSourceP, Float32 * inDestP, UInt32 inFramesToProcess, UInt32 inNumChannels, bool &amp; ioSilence) {
+    //This code will pass-thru the audio data.
+    //This is usually where you want to process data to produce an effect.
+    }
 
-void MyTestedPluginKernel::Process(Float32 const* inSourceP, Float32 * inDestP, UInt32 inFramesToProcess, UInt32 inNumChannels, bool &amp; ioSilence) {
-//This code will pass-thru the audio data.
-//This is usually where you want to process data to produce an effect.
-}
+    MyTestedPlugin::MyTestedPlugin(AudioUnit component) : AUEffectBase(component) {}
 
-MyTestedPlugin::MyTestedPlugin(AudioUnit component) : AUEffectBase(component) {}
-
-OSStatus MyTestedPlugin::Initialize() {
-OSStatus result = AUEffectBase::Initialize();
-if(result == noErr ) {
-   // do something
-}
-return result;
-}
+    OSStatus MyTestedPlugin::Initialize() {
+    OSStatus result = AUEffectBase::Initialize();
+    if(result == noErr ) {
+       // do something
+    }
+    return result;
+    }
 </code></pre>
-
-<p>```</p>
 
 <p>You ought to not omit the macro AUDIOCOMPONENT_ENTRY, since it&rsquo;s responsible for creating the stub classes MyTestedPluginEntry and MytestedPluginFactory as entry points for your Audio Unit.</p>
 
@@ -698,23 +658,19 @@ return result;
 
 <p>Remember the file &ldquo;MyTestedPlugin.r&rdquo; you created earlier ? It&rsquo;s time to fill it with standard content :</p>
 
-<p>``` c++</p>
+<pre><code class="c++">    #include &lt;AudioUnit/AudioUnit.r&gt;
 
-<pre><code>#include &lt;AudioUnit/AudioUnit.r&gt;
+    #define RES_ID    1000
+    #define COMP_TYPE 'aufx'
+    #define COMP_SUBTYPE 'TEST'
+    #define COMP_MANUF 'FRED'
+    #define VERSION 0xFFFFFFFF
+    #define NAME "Test Plugin"
+    #define DESCRIPTION "description"
+    #define ENTRY_POINT "MyTestedPluginEntry"
 
-#define RES_ID    1000
-#define COMP_TYPE 'aufx'
-#define COMP_SUBTYPE 'TEST'
-#define COMP_MANUF 'FRED'
-#define VERSION 0xFFFFFFFF
-#define NAME "Test Plugin"
-#define DESCRIPTION "description"
-#define ENTRY_POINT "MyTestedPluginEntry"
-
-#include "AUResources.r"
+    #include "AUResources.r"
 </code></pre>
-
-<p>```</p>
 
 <p>This step remains to keep backward compatibility with previous versions of CoreAudio SDK. You may  copy and past the information you wrote in the Info.PList.</p>
 
@@ -737,8 +693,8 @@ _MyTestedPluginEntry
 <p>You should be able to compile you Audio Unit  now, but before we go we have to test using <em>auval </em>:</p>
 
 <ol>
-<li><p> First, copy your compiled component into ~/Library/Audio/Plug-Ins/Components</p></li>
-<li><p> Secondly, open Terminal and type :</p>
+<li><p>First, copy your compiled component into ~/Library/Audio/Plug-Ins/Components</p></li>
+<li><p>Secondly, open Terminal and type :</p>
 
 <p>auval -v aufx TEST FRED</p></li>
 </ol>

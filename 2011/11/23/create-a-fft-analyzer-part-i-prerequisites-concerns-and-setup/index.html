@@ -1,13 +1,15 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-<head profile="http://gmpg.org/xfn/11">
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
   <meta charset="utf-8">
-  <title>Create a FFT Analyzer part I: prerequisites, concerns and setup | Sample & Hold </title>
+  <title>Create a FFT Analyzer Part I: Prerequisites, Concerns and Setup - Sample & Hold</title>
   <meta name="author" content="Fred Ghilini">
 
   
-  <meta name="description" content="Create a FFT Analyzer Part I: Prerequisites, Concerns and Setup Posted: Nov 23rd, 2011 by fredguile in VST Plugins / Audio Units 0 It&rsquo;s time &hellip;">
+  <meta name="description" content="It&rsquo;s time to build up our first audio unit. For a start, I propose to create a spectrum analyzer which will help us to understand how we can &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -16,57 +18,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup">
+  <link rel="canonical" href="http://sample-hold.github.io/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Sample & Hold" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <script src="/javascripts/twitter.js"></script>
   
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-44962545-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
 </head>
-<body>
-	<div id="page">
-		<div id="nav"><ul>
-    
-    
-    
-    
-    <li class="page_item">
-        <a href="/">Home</a>
-    </li>
 
-    
-    
-    
-    <li class="page_item">
-        <a href="/about">About the&nbsp;author</a>
-    </li>
-
-    
-    
-    
-    <li class="page_item">
-        <a href="/tutorials-index">Tutorials&nbsp;index</a>
-    </li>
-
-    
-    
-    
-    <li class="page_item">
-        <a href="/projects">Projects</a>
-    </li>
-
-    
-    
-    
-    <li class="page_item">
-        <a href="/useful-resources">Useful&nbsp;resources</a>
-    </li>
-</ul></div>
-		<div id="header" role="banner"><h1>
+<body   >
+  <header role="banner"><h1>
 	<a href="/">Sample & Hold</a>
 </h1>
 
@@ -74,241 +52,64 @@
 
 <div class="rss">
 	<a href="/atom.xml" title="RSS">stay updated via rss feed</a>
-</div></div>
-		<hr/>
-		<div id="container">
-			<div id="sidebar" role="complementary">
-<div class="search-box">
-    <form action="http://google.com/search" method="get">
-        <input type="hidden" name="q" value="site:www.sample-hold.com"/>
-        <input class="search-field" size="15" type="text" name="q" results="0" placeholder="Search"
-               value="search this site" onfocus="if(this.value == 'search this site') {this.value = '';}"
-               onblur="if (this.value == '') {this.value = 'search this site';}"/>
-        <input type="submit" value="" class="search-go"/>
-    </form>
 </div>
-
-
-<ul>
-
-<li><h2>Follow me</h2>
-    <ul id="follow_me">
-        <li>
-            <a href="http://www.linkedin.com/in/fredericghilini" target="_blank">LinkedIn</a>
-        </li>
-        <li>
-            <a href="http://www.xing.com/profile/Frederic_Ghilini" target="_blank">Xing</a>
-        </li>
-        <li>
-            <a href="https://github.com/fredguile" target="_blank">GitHub</a>
-        </li>
-    </ul>
-</li><li><h2>Recent Posts</h2>
-    <ul id="recent_posts">
-        
-        <li class="post">
-            <a href="/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/">
-                
-                Make Fun of Your Launchpad With LaunchPlay VST Plugin
-                
-            </a>
-        </li>
-        
-        <li class="post">
-            <a href="/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/">
-                
-                Create a FFT Analyzer Part v: Final Thoughts, Sources for XCode 4.2 & Feedback
-                
-            </a>
-        </li>
-        
-        <li class="post">
-            <a href="/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/">
-                
-                Create a FFT Analyzer Part IV: Debugging Our Audio Unit With AU Lab
-                
-            </a>
-        </li>
-        
-        <li class="post">
-            <a href="/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/">
-                
-                Create a FFT Analyzer Part III: Building UI With Cocoa and Objective-C
-                
-            </a>
-        </li>
-        
-        <li class="post">
-            <a href="/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/">
-                
-                Create a FFT Analyzer Part II: Designing Our Spectral Processor
-                
-            </a>
-        </li>
-        
-    </ul>
-</li><li><h2>Categories</h2>
-    <ul id="category_list">
-        <li><a href='/category/general'>General (1)</a></li><li><a href='/category/vst-plugins-slash-audio-units'>VST Plugins / Audio Units (7)</a></li>
-    </ul>
-</li><li><h2>Popular tags</h2>
-    <div id="tag_cloud">
-        <a style="font-size: 28px" href="/tag/audio/">Audio</a>
-<a style="font-size: 21px" href="/tag/c-plus-plus/">C++</a>
-<a style="font-size: 12px" href="/tag/debugging/">Debugging</a>
-<a style="font-size: 12px" href="/tag/launchpad/">Launchpad</a>
-<a style="font-size: 27px" href="/tag/mac-os-x/">Mac OS X</a>
-<a style="font-size: 12px" href="/tag/objective-c/">Objective-C</a>
-<a style="font-size: 27px" href="/tag/xcode/">XCode</a>
-
-    </div>
-</li><li><h2>Archives</h2>
-    <ul id="archives">
-        
-        
-        
-        
-        
-        
-        
-        
-        <li>
-            <a href="/2011/12">December 2011</a>
-        </li>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <li>
-            <a href="/2011/11">November 2011</a>
-        </li>
-        
-        
-    </ul>
-</li><li><h2>License</h2>
-    <div class="textwidget">
-        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
-            <img
-                    alt="Creative Commons License"
-                    style="border-width:0;padding:1em;"
-                    src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png">
-        </a>
-        <br>
-        <span>Sample &amp; Hold source code and articles</span>
-        by
-        <a href="http://www.sample-hold.com/" rel="cc:attributionURL">Fred Ghilini</a> is licensed under a
-        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons
-            Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
-    </div>
-</li>
-
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
 </ul>
-</div>
-			<div id="content" role="main"><div id="content-inner" class="column">
-	
-<div class="posttitle">
-	<h2 class="pagetitle">
-		
-      	Create a FFT Analyzer Part I: Prerequisites, Concerns and Setup
-    	
-	</h2>
-	
-	<small>
-		Posted: 
-		
-
-
-
-
-
-
-
-
-<time datetime="2011-11-23T16:17:44+01:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2011</time>
-		
   
-
-
-by <strong>fredguile</strong>
-		
-
-<span class="categories">
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="sample-hold.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
   
-    in <a class='category' href='/category/vst-plugins-slash-audio-units/'>VST Plugins / Audio Units</a>
+<ul>
+    <li>
+        <h2>Follow me</h2>
+        <ul id="follow_me">
+            <li>
+                <a href="http://www.linkedin.com/in/fredericghilini" target="_blank">LinkedIn</a>
+            </li>
+            <li>
+                <a href="http://www.xing.com/profile/Frederic_Ghilini" target="_blank">Xing</a>
+            </li>
+            <li>
+                <a href="https://github.com/fredguile" target="_blank">GitHub</a>
+            </li>
+        </ul>
+    </li>
+</ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
   
-</span>
+  <header>
+    
+      <h1 class="entry-title">Create a FFT Analyzer Part I: Prerequisites, Concerns and Setup</h1>
+    
+    
+      <p class="meta">
+        
 
 
-	</small>
-	
-</div>
 
 
+<time class='entry-date' datetime='2011-11-23T16:17:44+01:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2011</span></span> <span class='time'>4:17 pm</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://sample-hold.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
 
 
-<div class="postcomments">
-    <a href="#disqus_thread" data-disqus-identifier="http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/">0</a>
-</div>
-
-<div class="entry">
-	<p><img class="alignleft" src="/images/blog/capture-d_c3a9cran-2011-11-29-c3a0-13-31-29.png"> It&rsquo;s time to build up our first audio unit.</p>
+<div class="entry-content"><p><img class="alignleft" src="/images/blog/capture-d_c3a9cran-2011-11-29-c3a0-13-31-29.png"> It&rsquo;s time to build up our first audio unit.</p>
 
 <p>For a start, I propose to create a spectrum analyzer which will help us to understand how we can realize basic sound analysis using the Fourier Transform. While this might sound scarily complex for non mathematician developers, you will smoothly read this tutorial if we first explain a few concepts about sound processing, without of course entering too deeply into the maths&hellip;</p>
 
@@ -348,7 +149,7 @@ by <strong>fredguile</strong>
 </ul>
 
 
-<p>Fortunately, we do not have to compute the Fourier Transform by hand (that&rsquo;s why I&rsquo;m not giving you the formula). A lot of optimized algorithms are available,  and among those, there is the &#8221;<strong>Fast Fourier Transform</strong>&ldquo; (FFT), which is able to compute the Fourier transform very quickly, given a windowed audio signal of N samples, N being a power of two.</p>
+<p>Fortunately, we do not have to compute the Fourier Transform by hand (that&rsquo;s why I&rsquo;m not giving you the formula). A lot of optimized algorithms are available,  and among those, there is the "<strong>Fast Fourier Transform</strong>&ldquo; (FFT), which is able to compute the Fourier transform very quickly, given a windowed audio signal of N samples, N being a power of two.</p>
 
 <p>The last statement isn&rsquo;t exactly true : in fact, the FFT is an algorithm for the &ldquo;Discrete-Time Fourier Transform&rdquo; (DTFT), which is a specific FT applied to a discrete time function x(n) representing our<strong> sampled audio signal</strong> received by our Audio Unit. There aren&rsquo;t many differences, apart the fact that since we provide to the FFT a window of N samples, the DTFT is an approximation of the FT that necessarily introduce precision loss in our spectrum analysis. This is called the &ldquo;uncertainty principle&rdquo;.</p>
 
@@ -406,101 +207,185 @@ by <strong>fredguile</strong>
 <p>There are a few last steps you may require before you can move to the next part of the tutorial. I leave them as an exercise for the reader :</p>
 
 <ol>
-<li><p> Create a new XCode projet called &ldquo;SimpleSpectrumAnalyzer&rdquo; that can build an Audio Effect for OS X Lion</p></li>
-<li><p> Add the &ldquo;vecLib.framework&rdquo; and the &ldquo;Cocoa.framework&rdquo; to your project</p></li>
-<li><p>  Create two deployment targets:</p>
-
-<ol>
+<li><p>Create a new XCode projet called &ldquo;SimpleSpectrumAnalyzer&rdquo; that can build an Audio Effect for OS X Lion</p></li>
+<li><p>Add the &ldquo;vecLib.framework&rdquo; and the &ldquo;Cocoa.framework&rdquo; to your project</p></li>
+<li><p> Create two deployment targets:</p></li>
 <li><p> one to build the Audio Unit file &ldquo;SimpleSpectrumAnalyzer.component&rdquo;,</p></li>
 <li><p>another one to build  the second bundle called &ldquo;SpectrumCocaView.bundle&rdquo;, which will contain the CocoaUI</p></li>
-</ol>
-</li>
-<li><p> Find a way, by tweaking the build phases, to include the second bundle as a resource into the first bundle</p></li>
+<li><p>Find a way, by tweaking the build phases, to include the second bundle as a resource into the first bundle</p></li>
 </ol>
 
 
 <p>Once done, we are ready to gather all the concepts seen in this article in a simple C++ class, <em>SimpleSpectrumProcessor</em>.</p>
+</div>
 
-	
-        <div class="sharing">
+
+  <footer>
+    <p class="meta">
+      
   
-  <div class="fb-like" data-send="true" data-width="400" data-height="61" data-show-faces="true" data-send="true"></div>
+
+<span class="byline author vcard">Posted by <span class="fn">fredguile</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2011-11-23T16:17:44+01:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2011</span></span> <span class='time'>4:17 pm</span></time>
+      
+
+<span class="categories">
   
+    <a class='category' href='/category/vst-plugins-slash-audio-units/'>vst plugins / audio units</a>
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/" data-via="fredguile" data-counturl="http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/" >Tweet</a>
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://sample-hold.github.io/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/" data-via="fredguile" data-counturl="http://sample-hold.github.io/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
   
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
 </div>
 
+    
+    <p class="meta">
       
+        <a class="basic-alignment left" href="/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1/" title="Previous Post: Getting started with Audio Units on OS X Lion and XCode 4.2.1">&laquo; Getting started with Audio Units on OS X Lion and XCode 4.2.1</a>
+      
+      
+        <a class="basic-alignment right" href="/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/" title="Next Post: Create a FFT Analyzer part II: designing our spectral processor">Create a FFT Analyzer part II: designing our spectral processor &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
 </div>
 
-<div id="disqus_thread"></div>
+<aside class="sidebar">
+  
+    <li><h2>Follow me</h2>
+    <ul id="follow_me">
+        <li>
+            <a href="http://www.linkedin.com/in/fredericghilini" target="_blank">LinkedIn</a>
+        </li>
+        <li>
+            <a href="http://www.xing.com/profile/Frederic_Ghilini" target="_blank">Xing</a>
+        </li>
+        <li>
+            <a href="https://github.com/fredguile" target="_blank">GitHub</a>
+        </li>
+    </ul>
+</li><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/12/19/make-fun-of-your-launchpad-with-launchplay-vst-plugin/">Make Fun of Your Launchpad With LaunchPlay VST Plugin</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/11/23/create-a-fft-analyzer-part-v-final-thoughts-sources-for-xcode-4-2-feedback/">Create a FFT Analyzer Part v: Final Thoughts, Sources for XCode 4.2 & Feedback</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/">Create a FFT Analyzer Part IV: Debugging Our Audio Unit With AU Lab</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/11/23/create-a-fft-analyzer-part-iii-building-ui-with-cocoa-and-objective-c/">Create a FFT Analyzer Part III: Building UI With Cocoa and Objective-C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/">Create a FFT Analyzer Part II: Designing Our Spectral Processor</a>
+      </li>
+    
+  </ul>
+</section>
+<li><h2>Categories</h2>
+    <ul id="category_list">
+        <li><a href='/category/general'>general (1)</a></li><li><a href='/category/vst-plugins-slash-audio-units'>vst plugins / audio units (7)</a></li>
+    </ul>
+</li><li><h2>Popular tags</h2>
+    <div id="tag_cloud">
+        <a style="font-size: 28px" href="/tag/audio/">Audio</a>
+<a style="font-size: 21px" href="/tag/c-plus-plus/">C++</a>
+<a style="font-size: 12px" href="/tag/debugging/">Debugging</a>
+<a style="font-size: 12px" href="/tag/launchpad/">Launchpad</a>
+<a style="font-size: 27px" href="/tag/mac-os-x/">Mac OS X</a>
+<a style="font-size: 12px" href="/tag/objective-c/">Objective-C</a>
+<a style="font-size: 27px" href="/tag/xcode/">XCode</a>
+
+    </div>
+</li><li><h2>License</h2>
+    <div class="textwidget">
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+            <img
+                    alt="Creative Commons License"
+                    style="border-width:0;padding:1em;"
+                    src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png">
+        </a>
+        <br>
+        <span>Sample &amp; Hold source code and articles</span>
+        by
+        <a href="http://wsample-hold.github.io" rel="cc:attributionURL">Fred Ghilini</a> is licensed under a
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons
+            Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
+    </div>
+</li>
+  
+</aside>
 
 
-</div>
-<div id="nav-post">
-	<div class="navigation-bott">
-		
-		<div class="leftnav">
-			<a rel="prev" href="/2011/11/23/getting-started-with-audio-units-on-os-x-lion-and-xcode-4-2-1/" title="Previous Post: Getting started with Audio Units on OS X Lion and XCode 4.2.1">Getting started with Audio Units on OS X Lion and XCode 4.2.1</a>
-		</div>
-		
-		
-		<div class="rightnav">
-			<a rel="next" href="/2011/11/23/create-a-fft-analyzer-part-ii-designing-our-spectral-processor/" title="Next Post: Create a FFT Analyzer part II: designing our spectral processor">Create a FFT Analyzer part II: designing our spectral processor</a>
-		</div>
-		
-	</div>
-</div></div>
-			<hr/>
-			<div id="footer" role="contentinfo"></div>
-		</div>
-	</div>
-	<div id="footer-bott">Copyright &copy; 2014 - Fred Ghilini |
+    </div>
+  </div>
+  <footer role="contentinfo">Copyright &copy; 2015 - Fred Ghilini |
 Powered by <a rel="generator" href="http://octopress.org">Octopress</a>
 
-</div>
-    
+</footer>
+  
 
 <script type="text/javascript">
-    var dsq_scripts = [], dsq = null;
-    var disqus_shortname = 'sample-hold';
-
-
-
-    // var disqus_developer = 1;
-    var disqus_identifier = 'http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/';
-    var disqus_url = 'http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/';
-
-    dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    dsq_scripts.push(dsq);
-
-
-    dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
-    dsq_scripts.push(dsq);
-
-    $(function () {
-        $(dsq_scripts).each(function() {
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(this);
-        });
-    });
+      var disqus_shortname = 'sample-hold';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://sample-hold.github.io/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/';
+        var disqus_url = 'http://sample-hold.github.io/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
 </script>
 
 
 
 <div id="fb-root"></div>
-<script>(function (d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id; js.async = true;
-    js.src = "//connect.facebook.net/en_US/all.js#appId=687955091216855&xfbml=1";
-    fjs.parentNode.insertBefore(js, fjs);
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+
 
 
   <script type="text/javascript">
@@ -510,6 +395,7 @@ Powered by <a rel="generator" href="http://octopress.org">Octopress</a>
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
     })();
   </script>
+
 
 
   <script type="text/javascript">
@@ -522,18 +408,6 @@ Powered by <a rel="generator" href="http://octopress.org">Octopress</a>
     })();
   </script>
 
-
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-44962545-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
 
 
 

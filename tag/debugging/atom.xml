@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
     <title><![CDATA[Tag: Debugging | Sample & Hold]]></title>
-    <link href="http://www.sample-hold.com/tag/debugging/atom.xml" rel="self"/>
-    <link href="http://www.sample-hold.com/"/>
-    <updated>2014-12-23T15:43:08+01:00</updated>
-    <id>http://www.sample-hold.com/</id>
+    <link href="http://sample-hold.github.io/tag/debugging/atom.xml" rel="self"/>
+    <link href="http://sample-hold.github.io/"/>
+    <updated>2015-11-25T00:47:11+01:00</updated>
+    <id>http://sample-hold.github.io/</id>
     <author>
         <name><![CDATA[Fred Ghilini]]></name>
         
@@ -15,9 +15,9 @@
     
     <entry>
         <title type="html"><![CDATA[Create a FFT Analyzer part IV: debugging our Audio Unit with AU Lab]]></title>
-        <link href="http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/"/>
+        <link href="http://sample-hold.github.io/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab/"/>
         <updated>2011-11-23T16:33:15+01:00</updated>
-        <id>http://www.sample-hold.com/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab</id>
+        <id>http://sample-hold.github.io/2011/11/23/create-a-fft-analyzer-part-iv-debugging-our-audio-unit-with-au-lab</id>
         <content type="html"><![CDATA[<p><img class="alignleft" src="/images/blog/aulab2.png"> Debugging an Audio Unit is not as straightforward as debugging a Cocoa application, because your freshly coded component doesn&rsquo;t show up until you insert it in a bus of your favorite DAW.</p>
 
 <p>In this article, we review some methods for automating your debugging sessions using XCode 4. Concerning the DAW, our preference goes for a free host available in the CoreAudio SDK: AU Lab. In only a few steps, you will be able to setup some breakpoints and look into all potential devilish bugs as if you were debugging a simple Cocoa application.</p>
@@ -34,12 +34,12 @@
 <p>Xcode 4 provides a classic workflow for testing and packaging your component:</p>
 
 <ol>
-<li><p> Build your component</p></li>
-<li><p> Run it using debug configuration</p></li>
-<li><p> Test it using debug configuration</p></li>
-<li><p> Profile it using release configuration</p></li>
-<li><p> Analyze your code for possible tweaks</p></li>
-<li><p> Archive a delivery for distributing</p></li>
+<li><p>Build your component</p></li>
+<li><p>Run it using debug configuration</p></li>
+<li><p>Test it using debug configuration</p></li>
+<li><p>Profile it using release configuration</p></li>
+<li><p>Analyze your code for possible tweaks</p></li>
+<li><p>Archive a delivery for distributing</p></li>
 </ol>
 
 
@@ -48,7 +48,7 @@
 <ul>
 <li><p>Click on your target &ldquo;SpectrumAU&rdquo; in the top left area of XCode</p></li>
 <li><p>Choose &ldquo;Edit scheme&hellip;&rdquo;</p></li>
-<li><p>Select step &ldquo;Run &ndash; Debug&rdquo;</p></li>
+<li><p>Select step &ldquo;Run - Debug&rdquo;</p></li>
 <li><p>In the &ldquo;Executable&rdquo; field, choose &ldquo;Other&hellip;&rdquo; and browse you Mac in order to find &ldquo;/Developer/Applications/Audio/AU Lab&rdquo;</p></li>
 <li><p>Save scheme</p></li>
 </ul>
