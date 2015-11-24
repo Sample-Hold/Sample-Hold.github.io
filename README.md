@@ -1,4 +1,4 @@
 Sample-Hold.github.io
 =====================
 
-Sample-Hold.com blog
+Sample-Hold blog

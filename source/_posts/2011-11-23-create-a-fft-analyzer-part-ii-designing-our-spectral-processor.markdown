@@ -95,7 +95,7 @@ The first member variables are storing our circular buffer's capacity, fill coun
   * _mChannels_ is an array containing various auto-pointers for each buffer we need : input/output data, split buffer to hold complex numbers that we'll access using our specific pointer _mDSPSplitComplex _(we'll explain that in a few seconds),
 
 	
-  * _mWindowData _holds floating-pont numbers of the window function we'll choose to limit frequency leakage on our frequency spectrum (see [part I](http://sample-hold.com/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/)),
+  * _mWindowData _holds floating-pont numbers of the window function we'll choose to limit frequency leakage on our frequency spectrum (see [part I](http://sample-hold.github.io/2011/11/23/create-a-fft-analyzer-part-i-prerequisites-concerns-and-setup/)),
 
 	
   * _mFFTSize _holds the FFT size, and we propose 5 values : 1024, 2048, 4096, 8192 or 16384 samples.

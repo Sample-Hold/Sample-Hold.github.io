@@ -21,7 +21,7 @@ So I decided to run this blog to draft out some work into articles and tutorials
 
 I intent to write on various topics related to programming and web development, but for a start we'll focus on computer music and audio programming, hoping that it helps anybody looking for this kind of tutorials on the Web. Please consider every article as a "permanent draft" that may or may not provide the best advice for an issue, and may possibly contain mistakes. That's where you come into account : you must never hesitate to give your personal feedback by commenting my articles or even contacting me by email. By sharing our knowledge we'll improve everything : you can link to my articles as I will possibly link to yours so as not to rewrite on things already debated.
 
-You may contact me using [hello at sample-hold.com]. I'll be happy to hear anything you have in your mind about me or the stuffs presented in this blog.
+You may contact me at [fredguile at gmail dot com]. I'll be happy to hear anything you have in your mind about me or the stuffs presented in this blog.
 
 
 **Fred Ghilini.**
